@@ -1,0 +1,4016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>wedoall</title>
+  <meta name="theme-color" content="#8b3bb2">
+  <style>
+    :root {
+      --bg-1: #0b0b14;
+      --bg-2: #17172a;
+      --glow-1: rgba(163, 54, 162, 0.32);
+      --glow-2: rgba(125, 58, 193, 0.32);
+      --panel: rgba(20, 20, 34, 0.78);
+      --panel-border: rgba(255, 255, 255, 0.1);
+      --text: #f6f4ff;
+      --muted: #b8b3cb;
+      --accent: #a336a2;
+      --accent-2: #7d3ac1;
+      --danger: #e14e66;
+      --success: #49c98b;
+      --busy: #f0a43b;
+      --offline: #7f7b91;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    body[data-theme="sunset"] {
+      --bg-1: #140b11;
+      --bg-2: #2a1717;
+      --glow-1: rgba(212, 90, 90, 0.34);
+      --glow-2: rgba(240, 154, 75, 0.3);
+      --panel: rgba(36, 22, 28, 0.8);
+      --panel-border: rgba(255, 215, 190, 0.12);
+      --text: #fff3ea;
+      --muted: #d6b6a5;
+      --accent: #d45a5a;
+      --accent-2: #f09a4b;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+    }
+
+    body[data-theme="ocean"] {
+      --bg-1: #07131b;
+      --bg-2: #0e2733;
+      --glow-1: rgba(24, 139, 184, 0.34);
+      --glow-2: rgba(66, 200, 193, 0.3);
+      --panel: rgba(13, 29, 39, 0.82);
+      --panel-border: rgba(173, 228, 255, 0.12);
+      --text: #edfaff;
+      --muted: #9dc3d3;
+      --accent: #188bb8;
+      --accent-2: #42c8c1;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+    }
+
+    body[data-theme="forest"] {
+      --bg-1: #09140d;
+      --bg-2: #15261b;
+      --glow-1: rgba(61, 157, 85, 0.32);
+      --glow-2: rgba(167, 201, 87, 0.28);
+      --panel: rgba(20, 35, 25, 0.82);
+      --panel-border: rgba(197, 242, 189, 0.11);
+      --text: #f4fff1;
+      --muted: #aac6a5;
+      --accent: #3d9d55;
+      --accent-2: #a7c957;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, var(--glow-1), transparent 30%),
+        radial-gradient(circle at bottom right, var(--glow-2), transparent 28%),
+        linear-gradient(140deg, var(--bg-1), var(--bg-2));
+    }
+
+    body[data-cursor="precision"],
+    body[data-cursor="precision"] * {
+      cursor: crosshair !important;
+    }
+
+    body[data-cursor="dot"],
+    body[data-cursor="dot"] * {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='8' cy='8' r='4' fill='%23ffffff' stroke='%230b0b14' stroke-width='2'/%3E%3C/svg%3E") 8 8, auto !important;
+    }
+
+    body[data-cursor="ring"],
+    body[data-cursor="ring"] * {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='10' cy='10' r='6' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3Ccircle cx='10' cy='10' r='2' fill='%23ffffff'/%3E%3C/svg%3E") 10 10, auto !important;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(circle at center, black, transparent 85%);
+    }
+
+    .app {
+      width: min(1100px, calc(100% - 32px));
+      margin: 24px auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 24px 28px;
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .logo {
+      width: 72px;
+      height: 72px;
+      flex: 0 0 auto;
+      filter: drop-shadow(0 10px 30px rgba(163, 54, 162, 0.45));
+    }
+
+    .hero h1,
+    .hero p {
+      margin: 0;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+    }
+
+    .hero p {
+      margin-top: 6px;
+      color: var(--muted);
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--panel-border);
+    }
+
+    .status-pill::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--danger);
+      box-shadow: 0 0 14px rgba(225, 78, 102, 0.6);
+    }
+
+    .status-pill.online::before {
+      background: var(--success);
+      box-shadow: 0 0 14px rgba(73, 201, 139, 0.6);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    body[data-view-mode="computer"] .app {
+      width: min(1300px, calc(100% - 40px));
+    }
+
+    body[data-view-mode="computer"] .layout {
+      grid-template-columns: 360px 1fr;
+    }
+
+    body[data-view-mode="phone"] .app {
+      width: min(430px, calc(100% - 12px));
+      margin: 10px auto;
+    }
+
+    body[data-view-mode="phone"] .hero {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 18px;
+      border-radius: 20px;
+    }
+
+    body[data-view-mode="phone"] .layout {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    body[data-view-mode="phone"] .chat-panel {
+      min-height: 60vh;
+    }
+
+    body[data-view-mode="phone"] .msg {
+      max-width: 100%;
+    }
+
+    body[data-view-mode="phone"] .settings-panel,
+    body[data-view-mode="phone"] .room-settings-grid {
+      grid-template-columns: 1fr;
+    }
+
+    body[data-view-mode="phone"] .brand {
+      gap: 12px;
+    }
+
+    body[data-view-mode="phone"] .logo {
+      width: 54px;
+      height: 54px;
+    }
+
+    body[data-view-mode="phone"] .hero h1 {
+      font-size: 2rem;
+    }
+
+    body[data-view-mode="phone"] .panel {
+      border-radius: 20px;
+    }
+
+    body[data-view-mode="phone"] .auth-panel,
+    body[data-view-mode="phone"] .chat-panel {
+      padding: 16px;
+    }
+
+    body[data-view-mode="phone"] .chat-topbar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    body[data-view-mode="phone"] .chat-actions {
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    body[data-view-mode="phone"] .rooms-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      overflow: visible;
+      padding-bottom: 0;
+    }
+
+    body[data-view-mode="phone"] .room-chip {
+      width: 100%;
+      text-align: center;
+      border-radius: 16px;
+      padding: 12px 10px;
+    }
+
+    body[data-view-mode="phone"] .room-tools {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    body[data-view-mode="phone"] .room-tools button,
+    body[data-view-mode="phone"] .room-tools a {
+      width: 100%;
+    }
+
+    body[data-view-mode="phone"] .top-tools {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    body[data-view-mode="phone"] .top-tools input {
+      min-width: 0;
+      width: 100%;
+    }
+
+    body[data-view-mode="phone"] .member-panel,
+    body[data-view-mode="phone"] .room-settings,
+    body[data-view-mode="phone"] .pinned-panel {
+      padding: 12px;
+      border-radius: 16px;
+    }
+
+    body[data-view-mode="phone"] .member-row,
+    body[data-view-mode="phone"] .friend-row,
+    body[data-view-mode="phone"] .kick-row {
+      padding: 10px;
+    }
+
+    body[data-view-mode="phone"] .member-meta {
+      font-size: 0.75rem;
+    }
+
+    body[data-view-mode="phone"] .composer {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    body[data-view-mode="phone"] .composer button {
+      width: 100%;
+    }
+
+    body[data-view-mode="phone"] .composer-tools {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    body[data-view-mode="phone"] .composer-tools .field {
+      width: 100%;
+    }
+
+    body[data-view-mode="phone"] #messages {
+      padding: 12px;
+      min-height: 42vh;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .auth-panel,
+    .chat-panel {
+      padding: 22px;
+    }
+
+    .panel h2,
+    .panel p {
+      margin-top: 0;
+    }
+
+    .panel p {
+      color: var(--muted);
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .field input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.24);
+      color: var(--text);
+      outline: none;
+      transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
+    }
+
+    .field input:focus {
+      border-color: rgba(163, 54, 162, 0.9);
+      background: rgba(0, 0, 0, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .field select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.24);
+      color: var(--text);
+      outline: none;
+      appearance: none;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 16px;
+      padding: 13px 16px;
+      font: inherit;
+      color: white;
+      cursor: pointer;
+      transition: transform 160ms ease, opacity 160ms ease, box-shadow 160ms ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 12px 30px rgba(125, 58, 193, 0.35);
+    }
+
+    .secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .danger {
+      background: rgba(225, 78, 102, 0.18);
+      border: 1px solid rgba(225, 78, 102, 0.34);
+    }
+
+    .hint,
+    .small-status {
+      margin-top: 14px;
+      font-size: 0.92rem;
+      color: var(--muted);
+      min-height: 1.25em;
+    }
+
+    .error-box {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(225, 78, 102, 0.12);
+      border: 1px solid rgba(225, 78, 102, 0.28);
+      color: #ffd5dc;
+      white-space: pre-wrap;
+      display: none;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .stack h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .admin-panel {
+      display: none;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .admin-panel.visible {
+      display: block;
+    }
+
+    .admin-list {
+      max-height: 220px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .admin-user {
+      width: 100%;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .admin-user.active {
+      background: linear-gradient(135deg, rgba(163, 54, 162, 0.35), rgba(125, 58, 193, 0.35));
+      border-color: rgba(163, 54, 162, 0.75);
+    }
+
+    .admin-user small {
+      display: block;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .admin-settings {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .admin-settings p {
+      margin-bottom: 8px;
+    }
+
+    .admin-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .admin-actions button {
+      min-width: 0;
+      padding: 10px 12px;
+      border-radius: 12px;
+    }
+
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: white;
+      margin-left: 6px;
+    }
+
+    .presence-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-left: 8px;
+      background: var(--danger);
+      box-shadow: 0 0 10px rgba(225, 78, 102, 0.45);
+      vertical-align: middle;
+    }
+
+    .presence-dot.online {
+      background: var(--success);
+      box-shadow: 0 0 10px rgba(73, 201, 139, 0.45);
+    }
+
+    .presence-dot.busy {
+      background: var(--busy);
+      box-shadow: 0 0 10px rgba(240, 164, 59, 0.45);
+    }
+
+    .presence-dot.offline {
+      background: var(--offline);
+      box-shadow: 0 0 10px rgba(127, 123, 145, 0.3);
+    }
+
+    .picker-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .mini-btn {
+      min-width: 0;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .composer-tools {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .token-picker {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .settings-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .settings-card {
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .settings-card h4 {
+      margin: 0 0 10px;
+      font-size: 0.95rem;
+    }
+
+    .member-panel {
+      margin: 14px 0;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .member-panel h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+
+    .member-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+
+    .friend-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    .friend-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .friend-row button {
+      min-width: 0;
+      padding: 8px 10px;
+      border-radius: 12px;
+    }
+
+    .friend-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.07);
+      flex: 0 0 auto;
+    }
+
+    .avatar.large {
+      width: 44px;
+      height: 44px;
+    }
+
+    .member-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .member-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .member-meta {
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-align: right;
+    }
+
+    .room-settings {
+      display: none;
+      margin-bottom: 14px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .room-settings.visible {
+      display: block;
+    }
+
+    .room-settings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .room-settings-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .kick-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 180px;
+      overflow-y: auto;
+      margin-top: 10px;
+    }
+
+    .kick-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .top-tools {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .top-tools input {
+      flex: 1;
+      min-width: 220px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+      color: var(--text);
+      outline: none;
+    }
+
+    .monitor-banner {
+      margin-bottom: 14px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(68, 132, 255, 0.14);
+      border: 1px solid rgba(68, 132, 255, 0.28);
+      color: #d9e8ff;
+      font-size: 0.92rem;
+    }
+
+    .pinned-panel {
+      display: none;
+      margin-bottom: 14px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .pinned-panel.visible {
+      display: block;
+    }
+
+    .pinned-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .pinned-item {
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .code-box {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      letter-spacing: 0.08em;
+    }
+
+    .chat-panel {
+      display: flex;
+      flex-direction: column;
+      min-height: 70vh;
+    }
+
+    .chat-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .chat-topbar h2 {
+      margin: 0;
+    }
+
+    .chat-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .room-tools {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .room-tools button,
+    .room-tools a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      text-decoration: none;
+      color: white;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .room-label {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .rooms-bar {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 16px;
+    }
+
+    .room-chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .room-chip.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 10px 24px rgba(125, 58, 193, 0.3);
+    }
+
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)),
+        rgba(0, 0, 0, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .empty-state {
+      margin: auto;
+      text-align: center;
+      color: var(--muted);
+      max-width: 340px;
+    }
+
+    .msg {
+      max-width: min(78%, 620px);
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      animation: rise 180ms ease-out;
+      overflow-wrap: anywhere;
+    }
+
+    .msg.me {
+      margin-left: auto;
+      background: linear-gradient(135deg, rgba(163, 54, 162, 0.88), rgba(125, 58, 193, 0.92));
+    }
+
+    .msg-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 7px;
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .msg-text {
+      white-space: pre-wrap;
+      line-height: 1.45;
+    }
+
+    .msg-image {
+      margin-top: 10px;
+      max-width: min(100%, 320px);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: block;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .reply-snippet {
+      margin-bottom: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 3px solid rgba(68, 132, 255, 0.55);
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .status-line {
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .mention {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: rgba(68, 132, 255, 0.24);
+      border: 1px solid rgba(68, 132, 255, 0.48);
+      color: #d9e8ff;
+      font-weight: 700;
+    }
+
+    .delete-btn {
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .mod-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .mod-actions button {
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      min-width: 0;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .reaction-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .reaction-chip {
+      min-width: 0;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.82rem;
+    }
+
+    .composer {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .reply-bar,
+    .typing-indicator {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .typing-indicator.active {
+      color: var(--text);
+      background: rgba(163, 54, 162, 0.12);
+      border-color: rgba(163, 54, 162, 0.28);
+    }
+
+    .reply-bar {
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .reply-bar.visible {
+      display: flex;
+    }
+
+    .composer input {
+      flex: 1;
+      padding: 15px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.22);
+      color: var(--text);
+      outline: none;
+    }
+
+    .composer input:disabled {
+      opacity: 0.7;
+    }
+
+    .composer button {
+      min-width: 110px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .chat-panel {
+        min-height: 60vh;
+      }
+
+      .msg {
+        max-width: 90%;
+      }
+
+      .settings-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <section class="hero">
+      <div class="brand">
+        <svg class="logo" viewBox="0 0 220 220" aria-hidden="true">
+          <defs>
+            <linearGradient id="logoGradient" x1="0%" x2="100%" y1="100%" y2="0%">
+              <stop offset="0%" stop-color="#b03ca3"></stop>
+              <stop offset="100%" stop-color="#7a35c4"></stop>
+            </linearGradient>
+          </defs>
+          <path
+            d="M34 175 91 77l15 26-42 72h78L96 97l17-29 78 135h-30L113 120l-8 15-18-31-22 39H34Z"
+            fill="none"
+            stroke="url(#logoGradient)"
+            stroke-linecap="square"
+            stroke-linejoin="miter"
+            stroke-width="16"
+          ></path>
+        </svg>
+        <div>
+          <h1>wedoall</h1>
+          <p>One place for everyone to talk, message, and jump into calls.</p>
+        </div>
+      </div>
+      <div id="session-pill" class="status-pill">Signed out</div>
+    </section>
+
+    <section class="layout">
+      <aside class="panel auth-panel">
+        <h2>Account</h2>
+        <p>Use the same Firebase project from your original files. Sign up once, then log in here whenever you want.</p>
+
+        <div class="field">
+          <label for="username">Username</label>
+          <input id="username" type="text" placeholder="Pick a username" autocomplete="nickname" maxlength="24">
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+        </div>
+
+        <div class="actions">
+          <button id="signup-btn" class="primary" type="button">Sign Up</button>
+          <button id="login-btn" class="secondary" type="button">Log In</button>
+        </div>
+
+        <div class="actions">
+          <button id="logout-btn" class="danger" type="button">Log Out</button>
+          <button id="clear-btn" class="secondary" type="button">Clear Fields</button>
+        </div>
+
+        <p id="auth-status" class="small-status"></p>
+        <div id="auth-error" class="error-box"></div>
+        <p class="hint">
+          Admin delete is enabled only when the signed-in email matches the value inside the script.
+        </p>
+
+        <div class="stack">
+          <div>
+            <h3>Your Friend Code</h3>
+            <div id="friend-code" class="code-box">Sign up or log in first</div>
+          </div>
+
+          <div>
+            <h3>Start Private Chat</h3>
+            <div class="field">
+              <label for="friend-code-input">Friend code</label>
+              <input id="friend-code-input" type="text" placeholder="Enter a friend's code" maxlength="12">
+            </div>
+            <div class="actions">
+              <button id="add-friend-btn" class="primary" type="button">Create / Open Chat</button>
+              <button id="save-friend-btn" class="secondary" type="button">Add Friend</button>
+            </div>
+          </div>
+
+          <div>
+            <h3>Friends</h3>
+            <div id="friends-list" class="friend-list">
+              <div class="empty-state">Add a friend once, then open chats from here.</div>
+            </div>
+          </div>
+
+          <div>
+            <h3>Start Private Group</h3>
+            <div class="field">
+              <label for="group-name-input">Group name</label>
+              <input id="group-name-input" type="text" placeholder="Squad, Family, Mods" maxlength="32">
+            </div>
+            <div class="field">
+              <label for="group-codes-input">Friend codes</label>
+              <input id="group-codes-input" type="text" placeholder="Paste codes separated by commas">
+            </div>
+            <p class="hint">Invite multiple people with their friend codes. Private groups are still monitored by owners.</p>
+            <button id="create-group-btn" class="primary" type="button">Create Private Group</button>
+          </div>
+
+          <div>
+            <h3>Owner Panel</h3>
+            <p class="hint">Owner powers activate for the usernames <code>ahmad</code> and <code>muhammad</code> after they sign in. Passwords are managed in Firebase Auth, not in this page.</p>
+            <div id="admin-panel" class="admin-panel">
+              <div class="field">
+                <label for="admin-search">Find person</label>
+                <input id="admin-search" type="text" placeholder="Search username or email">
+              </div>
+              <div id="admin-users" class="admin-list">
+                <div class="empty-state">Owner tools show up after owner login.</div>
+              </div>
+              <div class="admin-settings">
+                <p><strong>Owner Audit Log</strong></p>
+                <div id="audit-log-list" class="admin-list">
+                  <div class="empty-state">Owner actions will appear here.</div>
+                </div>
+              </div>
+              <div id="admin-settings" class="admin-settings">
+                <p id="admin-selected-name">No person selected</p>
+                <p id="admin-selected-status" class="hint">Pick someone from the list to manage them.</p>
+                <div class="field">
+                  <label for="admin-username">Change username</label>
+                  <input id="admin-username" type="text" placeholder="New username">
+                </div>
+                <div class="field">
+                  <label for="admin-rank">Custom rank</label>
+                  <input id="admin-rank" type="text" placeholder="Owner, Mod, VIP">
+                </div>
+                <div class="field">
+                  <label for="admin-rank-color">Rank color</label>
+                  <input id="admin-rank-color" type="color" value="#7d3ac1">
+                </div>
+                <div class="admin-actions">
+                  <button id="admin-save-user" class="primary" type="button">Save Username</button>
+                  <button id="admin-save-rank" class="secondary" type="button">Save Rank</button>
+                  <button id="admin-timeout-10" class="secondary" type="button">Timeout 10m</button>
+                  <button id="admin-timeout-custom" class="secondary" type="button">Custom Timeout</button>
+                  <button id="admin-ban-user" class="danger" type="button">Ban</button>
+                  <button id="admin-clear-timeout" class="secondary" type="button">Untimeout</button>
+                  <button id="admin-unban-user" class="secondary" type="button">Unban</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3>Settings</h3>
+            <div class="settings-panel">
+              <div class="settings-card">
+                <h4>Status</h4>
+                <div class="field">
+                  <label for="availability-select">Availability</label>
+                  <select id="availability-select">
+                    <option value="active">Active</option>
+                    <option value="busy">Busy</option>
+                    <option value="offline">Offline</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="custom-status">Custom status</label>
+                  <input id="custom-status" type="text" placeholder="Grinding, in class, chilling">
+                </div>
+                <div class="field">
+                  <label for="avatar-url">Profile photo URL</label>
+                  <input id="avatar-url" type="url" placeholder="https://example.com/photo.png">
+                </div>
+              </div>
+              <div class="settings-card">
+                <h4>Cursor</h4>
+                <div class="field">
+                  <label for="theme-select">Theme</label>
+                  <select id="theme-select">
+                    <option value="default">Default</option>
+                    <option value="sunset">Sunset</option>
+                    <option value="ocean">Ocean</option>
+                    <option value="forest">Forest</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="view-mode">View mode</label>
+                  <select id="view-mode">
+                    <option value="auto">Auto</option>
+                    <option value="computer">Computer</option>
+                    <option value="phone">Phone</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="cursor-style">Cursor style</label>
+                  <select id="cursor-style">
+                    <option value="default">Default</option>
+                    <option value="precision">Precision</option>
+                    <option value="dot">Dot</option>
+                    <option value="ring">Ring</option>
+                  </select>
+                </div>
+              </div>
+              <div class="settings-card">
+                <h4>Mentions</h4>
+                <div class="field">
+                  <label for="sound-level">Mention sound</label>
+                  <select id="sound-level">
+                    <option value="off">Off</option>
+                    <option value="soft">Soft</option>
+                    <option value="loud">Loud</option>
+                  </select>
+                </div>
+              </div>
+              <div class="settings-card">
+                <h4>Notifications</h4>
+                <button id="notifications-btn" class="secondary" type="button">Enable Notifications</button>
+              </div>
+            </div>
+            <button id="save-settings-btn" class="secondary" type="button">Save Settings</button>
+          </div>
+        </div>
+      </aside>
+
+      <main class="panel chat-panel">
+        <div class="chat-topbar">
+          <div>
+            <h2>Live Chat</h2>
+            <p id="chat-status">Log in to open your chats.</p>
+          </div>
+          <div class="chat-actions">
+            <span id="user-label" class="status-pill">No account</span>
+          </div>
+        </div>
+
+        <div id="rooms" class="rooms-bar">
+          <div class="empty-state">Your chats will appear here.</div>
+        </div>
+
+        <div class="room-tools">
+          <span id="room-label" class="room-label">No room selected</span>
+          <a id="voice-call-link" href="#" target="_blank" rel="noopener noreferrer">Join Voice Call</a>
+          <a id="video-call-link" href="#" target="_blank" rel="noopener noreferrer">Join Video Call</a>
+          <button id="leave-room-btn" class="danger" type="button">Leave Chat</button>
+        </div>
+
+        <div id="monitor-banner" class="monitor-banner">All chats are monitored by owners for safety.</div>
+
+        <div id="pinned-panel" class="pinned-panel">
+          <strong>Pinned Messages</strong>
+          <div id="pinned-list" class="pinned-list"></div>
+        </div>
+
+        <div class="top-tools">
+          <input id="message-search" type="text" placeholder="Search this room">
+        </div>
+
+        <div id="room-settings" class="room-settings">
+          <strong>Group Settings</strong>
+          <div class="room-settings-grid">
+            <div class="field">
+              <label for="group-rename-input">Group name</label>
+              <input id="group-rename-input" type="text" placeholder="Rename group">
+            </div>
+            <div class="field">
+              <label for="group-icon-input">Group icon URL</label>
+              <input id="group-icon-input" type="url" placeholder="https://example.com/icon.png">
+            </div>
+            <div class="field">
+              <label for="group-add-code-input">Add friend code</label>
+              <input id="group-add-code-input" type="text" placeholder="Invite by friend code">
+            </div>
+          </div>
+          <div class="room-settings-actions">
+            <button id="save-group-settings-btn" class="secondary" type="button">Save Group</button>
+            <button id="add-group-member-btn" class="secondary" type="button">Add Member</button>
+          </div>
+          <div id="kick-list" class="kick-list">
+            <div class="empty-state">Group member actions will appear here.</div>
+          </div>
+        </div>
+
+        <div class="member-panel">
+          <h3>People Here</h3>
+          <div id="member-list" class="member-list">
+            <div class="empty-state">Open a room to see who is around.</div>
+          </div>
+        </div>
+
+        <div id="messages" aria-live="polite">
+          <div class="empty-state">Pick a chat to start messaging.</div>
+        </div>
+
+        <div id="typing-indicator" class="typing-indicator">Nobody is typing.</div>
+
+        <div id="reply-bar" class="reply-bar">
+          <span id="reply-label">Replying to nobody.</span>
+          <button id="cancel-reply" class="secondary" type="button">Cancel Reply</button>
+        </div>
+
+        <div class="composer">
+          <input id="msg" type="text" placeholder="Type a message..." disabled>
+          <button id="send-btn" class="primary" type="button" disabled>Send</button>
+        </div>
+        <div class="composer-tools">
+          <div class="field" style="flex: 1 1 260px; margin: 0;">
+            <label for="image-url-input">Image URL</label>
+            <input id="image-url-input" type="url" placeholder="Paste an image link and send it" style="width: 100%;">
+          </div>
+          <button id="send-image-btn" class="secondary" type="button">Send Image</button>
+          <div class="token-picker" id="emoji-picker">
+            <button class="mini-btn" type="button" data-token="😀">😀</button>
+            <button class="mini-btn" type="button" data-token="🔥">🔥</button>
+            <button class="mini-btn" type="button" data-token="❤️">❤️</button>
+            <button class="mini-btn" type="button" data-token="😭">😭</button>
+            <button class="mini-btn" type="button" data-token="😂">😂</button>
+            <button class="mini-btn" type="button" data-token="😎">😎</button>
+          </div>
+          <div class="token-picker" id="sticker-picker">
+            <button class="mini-btn" type="button" data-token="[sticker: star]">⭐ Sticker</button>
+            <button class="mini-btn" type="button" data-token="[sticker: fire]">🔥 Sticker</button>
+            <button class="mini-btn" type="button" data-token="[sticker: heart]">💖 Sticker</button>
+            <button class="mini-btn" type="button" data-token="[sticker: party]">🎉 Sticker</button>
+          </div>
+        </div>
+      </main>
+    </section>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged,
+      updateProfile
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      onSnapshot,
+      query,
+      orderBy,
+      deleteDoc,
+      doc,
+      where,
+      getDocs,
+      getDoc,
+      setDoc,
+      updateDoc,
+      serverTimestamp,
+      arrayUnion,
+      arrayRemove
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCvBXdP5IfVTY1QDyALVTFH0WZgRtmiVDA",
+      authDomain: "gamehack-ee705.firebaseapp.com",
+      projectId: "gamehack-ee705",
+      storageBucket: "gamehack-ee705.firebasestorage.app",
+      messagingSenderId: "335014591760",
+      appId: "1:335014591760:web:cc169b187ea59767f77995",
+      measurementId: "G-EJGL05JHNP"
+    };
+
+    const OWNER_USERNAMES = ["ahmad", "muhammad"];
+    const OWNER_RANK = "Owner";
+    const OWNER_RANK_COLOR = "#f0c63c";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const usernameInput = document.getElementById("username");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const authStatus = document.getElementById("auth-status");
+    const authError = document.getElementById("auth-error");
+    const chatStatus = document.getElementById("chat-status");
+    const sessionPill = document.getElementById("session-pill");
+    const userLabel = document.getElementById("user-label");
+    const friendCodeBox = document.getElementById("friend-code");
+    const friendCodeInput = document.getElementById("friend-code-input");
+    const addFriendBtn = document.getElementById("add-friend-btn");
+    const saveFriendBtn = document.getElementById("save-friend-btn");
+    const friendsList = document.getElementById("friends-list");
+    const groupNameInput = document.getElementById("group-name-input");
+    const groupCodesInput = document.getElementById("group-codes-input");
+    const createGroupBtn = document.getElementById("create-group-btn");
+    const adminPanel = document.getElementById("admin-panel");
+    const adminSearch = document.getElementById("admin-search");
+    const adminUsers = document.getElementById("admin-users");
+    const auditLogList = document.getElementById("audit-log-list");
+    const adminSelectedName = document.getElementById("admin-selected-name");
+    const adminSelectedStatus = document.getElementById("admin-selected-status");
+    const adminUsername = document.getElementById("admin-username");
+    const adminRank = document.getElementById("admin-rank");
+    const adminRankColor = document.getElementById("admin-rank-color");
+    const adminSaveUser = document.getElementById("admin-save-user");
+    const adminSaveRank = document.getElementById("admin-save-rank");
+    const adminTimeout10 = document.getElementById("admin-timeout-10");
+    const adminTimeoutCustom = document.getElementById("admin-timeout-custom");
+    const adminBanUser = document.getElementById("admin-ban-user");
+    const adminClearTimeout = document.getElementById("admin-clear-timeout");
+    const adminUnbanUser = document.getElementById("admin-unban-user");
+    const availabilitySelect = document.getElementById("availability-select");
+    const customStatusInput = document.getElementById("custom-status");
+    const avatarUrlInput = document.getElementById("avatar-url");
+    const themeSelect = document.getElementById("theme-select");
+    const viewModeSelect = document.getElementById("view-mode");
+    const cursorStyle = document.getElementById("cursor-style");
+    const soundLevel = document.getElementById("sound-level");
+    const saveSettingsBtn = document.getElementById("save-settings-btn");
+    const roomsDiv = document.getElementById("rooms");
+    const roomLabel = document.getElementById("room-label");
+    const monitorBanner = document.getElementById("monitor-banner");
+    const notificationsBtn = document.getElementById("notifications-btn");
+    const voiceCallLink = document.getElementById("voice-call-link");
+    const videoCallLink = document.getElementById("video-call-link");
+    const leaveRoomBtn = document.getElementById("leave-room-btn");
+    const messageSearch = document.getElementById("message-search");
+    const pinnedPanel = document.getElementById("pinned-panel");
+    const pinnedList = document.getElementById("pinned-list");
+    const roomSettings = document.getElementById("room-settings");
+    const groupRenameInput = document.getElementById("group-rename-input");
+    const groupIconInput = document.getElementById("group-icon-input");
+    const groupAddCodeInput = document.getElementById("group-add-code-input");
+    const saveGroupSettingsBtn = document.getElementById("save-group-settings-btn");
+    const addGroupMemberBtn = document.getElementById("add-group-member-btn");
+    const kickList = document.getElementById("kick-list");
+    const memberList = document.getElementById("member-list");
+    const messagesDiv = document.getElementById("messages");
+    const typingIndicator = document.getElementById("typing-indicator");
+    const replyBar = document.getElementById("reply-bar");
+    const replyLabel = document.getElementById("reply-label");
+    const cancelReply = document.getElementById("cancel-reply");
+    const messageInput = document.getElementById("msg");
+    const imageUrlInput = document.getElementById("image-url-input");
+    const sendImageBtn = document.getElementById("send-image-btn");
+    const sendBtn = document.getElementById("send-btn");
+    const emojiPicker = document.getElementById("emoji-picker");
+    const stickerPicker = document.getElementById("sticker-picker");
+    const signupBtn = document.getElementById("signup-btn");
+    const loginBtn = document.getElementById("login-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+    const clearBtn = document.getElementById("clear-btn");
+
+    let currentUser = null;
+    let currentProfile = null;
+    let activeRoomId = null;
+    let activeRoomName = "";
+    let activeRoomData = null;
+    let unsubscribeRooms = null;
+    let unsubscribeMessages = null;
+    let unsubscribeProfile = null;
+    let unsubscribeAdminUsers = null;
+    let unsubscribeAuditLogs = null;
+    let unsubscribeProfilesDirectory = null;
+    let unsubscribeTyping = null;
+    let isInitialMessageLoad = true;
+    const seenMessageIds = new Set();
+    const defaultTitle = "wedoall";
+    let adminProfiles = [];
+    let selectedAdminProfile = null;
+    const profilesByUid = new Map();
+    const roomsById = new Map();
+    const roomMembers = new Set();
+    let activeReply = null;
+    let lastRoomMessages = [];
+    let typingTimer = null;
+
+    function getAvatarUrl(profile) {
+      return String(profile?.avatarUrl || "").trim();
+    }
+
+    function createAvatar(profile, size = "") {
+      const fallbackAvatar = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Crect width='44' height='44' rx='22' fill='%23232338'/%3E%3Ctext x='22' y='27' text-anchor='middle' font-family='Trebuchet MS, sans-serif' font-size='18' fill='%23f6f4ff'%3E%F0%9F%91%A4%3C/text%3E%3C/svg%3E";
+      const img = document.createElement("img");
+      img.className = `avatar${size ? ` ${size}` : ""}`;
+      img.alt = profile?.username || profile?.email || "Avatar";
+      img.src = getAvatarUrl(profile) || fallbackAvatar;
+      img.addEventListener("error", () => {
+        img.src = fallbackAvatar;
+      }, { once: true });
+      return img;
+    }
+
+    function getDisplayName(user) {
+      return user?.displayName?.trim() || user?.email || "Unknown";
+    }
+
+    function normalizeName(value) {
+      return String(value || "").trim().toLowerCase();
+    }
+
+    function isOwnerName(value) {
+      return OWNER_USERNAMES.includes(normalizeName(value));
+    }
+
+    function isAdminUser(user = currentUser) {
+      return Boolean(
+        isOwnerName(currentProfile?.username) ||
+        isOwnerName(user?.displayName) ||
+        isOwnerName(user?.email?.split("@")[0])
+      );
+    }
+
+    function getOwnerProfilePatch(source = currentProfile || {}) {
+      const username = source.username || source.displayName || "";
+      if (!isOwnerName(username)) {
+        return {};
+      }
+
+      return {
+        owner: true,
+        rank: OWNER_RANK,
+        rankColor: OWNER_RANK_COLOR,
+        banned: false,
+        timeoutUntil: null
+      };
+    }
+
+    function getRestrictionMessage(profile = currentProfile) {
+      if (!profile || isAdminUser()) {
+        return "";
+      }
+
+      if (profile.banned) {
+        return "You are banned and cannot send messages.";
+      }
+
+      if (profile.timeoutUntil && Date.now() < profile.timeoutUntil) {
+        return `You are timed out until ${formatTime(profile.timeoutUntil)}.`;
+      }
+
+      return "";
+    }
+
+    function describeProfileStatus(profile) {
+      if (!profile) {
+        return "Pick someone from the list to manage them.";
+      }
+
+      if (profile.owner || isOwnerName(profile.username) || isOwnerName(profile.email?.split("@")[0])) {
+        return "Owner account";
+      }
+
+      if (profile.banned) {
+        return "Banned";
+      }
+
+      if (profile.timeoutUntil && Date.now() < profile.timeoutUntil) {
+        return `Timed out until ${formatTime(profile.timeoutUntil)}`;
+      }
+
+      return "Active";
+    }
+
+    function getRankColor(profile) {
+      if (profile?.owner || isOwnerName(profile?.username) || isOwnerName(profile?.email?.split("@")[0])) {
+        return OWNER_RANK_COLOR;
+      }
+      return profile?.rankColor || "#7d3ac1";
+    }
+
+    function getAvailability(profile) {
+      return profile?.availability || (profile?.isOnline ? "active" : "offline");
+    }
+
+    function isProfileOnline(profile) {
+      return getAvailability(profile) !== "offline" && Boolean(profile?.isOnline);
+    }
+
+    function getPresenceText(profile) {
+      if (!profile) {
+        return "Offline";
+      }
+
+      const availability = getAvailability(profile);
+
+      if (availability === "busy") {
+        return "Busy";
+      }
+
+      if (availability === "active" && isProfileOnline(profile)) {
+        return "Online";
+      }
+
+      if (profile.lastSeenAt) {
+        return `Last seen ${formatTime(profile.lastSeenAt)}`;
+      }
+
+      return "Offline";
+    }
+
+    function getPresenceClass(profile) {
+      const availability = getAvailability(profile);
+      if (!profile?.isOnline || availability === "offline") {
+        return "offline";
+      }
+      if (availability === "busy") {
+        return "busy";
+      }
+      return "online";
+    }
+
+    function applyCursorStyle(style) {
+      const normalized = style || "default";
+      if (normalized === "default") {
+        document.body.removeAttribute("data-cursor");
+      } else {
+        document.body.setAttribute("data-cursor", normalized);
+      }
+      try {
+        localStorage.setItem("wedoall-cursor-style", normalized);
+      } catch {}
+    }
+
+    function applyViewMode(mode) {
+      const normalized = mode || "auto";
+      if (normalized === "auto") {
+        document.body.removeAttribute("data-view-mode");
+      } else {
+        document.body.setAttribute("data-view-mode", normalized);
+      }
+      try {
+        localStorage.setItem("wedoall-view-mode", normalized);
+      } catch {}
+    }
+
+    function applyTheme(theme) {
+      const normalized = theme || "default";
+      if (normalized === "default") {
+        document.body.removeAttribute("data-theme");
+      } else {
+        document.body.setAttribute("data-theme", normalized);
+      }
+      try {
+        localStorage.setItem("wedoall-theme", normalized);
+      } catch {}
+    }
+
+    async function setPresence(isOnline) {
+      if (!currentUser) {
+        return;
+      }
+
+      const desiredAvailability = availabilitySelect.value || currentProfile?.availability || "active";
+      const availability = isOnline ? desiredAvailability : "offline";
+
+      try {
+        await setDoc(
+          doc(db, "profiles", currentUser.uid),
+          {
+            isOnline,
+            availability,
+            lastSeenAt: Date.now()
+          },
+          { merge: true }
+        );
+      } catch (error) {
+        console.error("Presence update failed:", error);
+      }
+    }
+
+    function normalizeCode(value) {
+      return value.trim().toUpperCase();
+    }
+
+    function slugifyRoomName(value) {
+      return String(value || "room")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 40) || "room";
+    }
+
+    function getCallUrl(roomId, roomName, mode = "voice") {
+      const roomSlug = `wedoall-${slugifyRoomName(roomName)}-${slugifyRoomName(roomId)}`;
+      const config = mode === "voice"
+        ? "#config.startWithVideoMuted=true&config.startAudioOnly=true&config.prejoinPageEnabled=false"
+        : "#config.startWithVideoMuted=false&config.prejoinPageEnabled=false";
+      return `https://meet.jit.si/${roomSlug}${config}`;
+    }
+
+    function updateNotificationsButton() {
+      if (!("Notification" in window)) {
+        notificationsBtn.textContent = "Notifications Unavailable";
+        notificationsBtn.disabled = true;
+        return;
+      }
+
+      if (Notification.permission === "granted") {
+        notificationsBtn.textContent = "Notifications On";
+      } else if (Notification.permission === "denied") {
+        notificationsBtn.textContent = "Notifications Blocked";
+      } else {
+        notificationsBtn.textContent = "Enable Notifications";
+      }
+    }
+
+    function notifyNewMessage(message) {
+      if (!("Notification" in window) || Notification.permission !== "granted") {
+        return;
+      }
+
+      if (!document.hidden) {
+        document.title = `${message.user} sent a message | ${defaultTitle}`;
+        window.setTimeout(() => {
+          document.title = defaultTitle;
+        }, 4000);
+        return;
+      }
+
+      const mentionHit = messageMentionsCurrentUser(message);
+      const notification = new Notification(mentionHit ? `You were mentioned in ${activeRoomName || "wedoall"}` : `New message in ${activeRoomName || "wedoall"}`, {
+        body: `${message.user}: ${message.text}`,
+        tag: `room-${activeRoomId}`
+      });
+
+      notification.onclick = () => {
+        window.focus();
+        notification.close();
+      };
+    }
+
+    function playMentionSound() {
+      if (!currentUser) {
+        return;
+      }
+
+      const level = soundLevel.value || currentProfile?.soundLevel || "soft";
+      if (level === "off") {
+        return;
+      }
+
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) {
+        return;
+      }
+
+      const ctx = new AudioContextClass();
+      const gain = ctx.createGain();
+      const oscA = ctx.createOscillator();
+      const oscB = ctx.createOscillator();
+      const volume = level === "loud" ? 0.08 : 0.04;
+
+      gain.gain.setValueAtTime(volume, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+
+      oscA.type = "sine";
+      oscA.frequency.setValueAtTime(880, ctx.currentTime);
+      oscB.type = "triangle";
+      oscB.frequency.setValueAtTime(1174, ctx.currentTime + 0.08);
+
+      oscA.connect(gain);
+      oscB.connect(gain);
+      gain.connect(ctx.destination);
+
+      oscA.start();
+      oscB.start(ctx.currentTime + 0.08);
+      oscA.stop(ctx.currentTime + 0.22);
+      oscB.stop(ctx.currentTime + 0.35);
+      oscB.onended = () => ctx.close();
+    }
+
+    async function ensurePublicRoom() {
+      const roomRef = doc(db, "chatRooms", "everyone");
+      const roomSnap = await getDoc(roomRef);
+
+      if (!roomSnap.exists()) {
+        await setDoc(roomRef, {
+          type: "public",
+          name: "Everyone",
+          memberIds: [],
+          memberNames: [],
+          public: true,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+      }
+    }
+
+    function makeCode() {
+      return Math.random().toString(36).slice(2, 8).toUpperCase();
+    }
+
+    async function generateUniqueFriendCode() {
+      let code = makeCode();
+      let exists = true;
+
+      while (exists) {
+        const existing = await getDocs(query(collection(db, "profiles"), where("friendCode", "==", code)));
+        if (existing.empty) {
+          exists = false;
+        } else {
+          code = makeCode();
+        }
+      }
+
+      return code;
+    }
+
+    async function ensureProfile(user, preferredUsername = "") {
+      const profileRef = doc(db, "profiles", user.uid);
+      const profileSnap = await getDoc(profileRef);
+
+      if (profileSnap.exists()) {
+        const existingProfile = profileSnap.data();
+        const updates = {};
+
+        if (!existingProfile.friendCode) {
+          updates.friendCode = await generateUniqueFriendCode();
+        }
+
+        if (!existingProfile.username) {
+          updates.username = preferredUsername.trim() || getDisplayName(user);
+        }
+
+        if (!existingProfile.email && user.email) {
+          updates.email = user.email;
+        }
+
+        if (!Array.isArray(existingProfile.friendUids)) {
+          updates.friendUids = [];
+        }
+
+        Object.assign(updates, getOwnerProfilePatch({
+          ...existingProfile,
+          ...updates,
+          username: existingProfile.username || preferredUsername.trim() || getDisplayName(user),
+          email: existingProfile.email || user.email
+        }));
+
+        if (Object.keys(updates).length > 0) {
+          await setDoc(profileRef, updates, { merge: true });
+        }
+
+        const profile = {
+          ...existingProfile,
+          ...updates
+        };
+
+        if (!user.displayName && profile.username) {
+          await updateProfile(user, { displayName: profile.username });
+        }
+
+        currentProfile = profile;
+        friendCodeBox.textContent = profile.friendCode || "Unavailable";
+        return profile;
+      }
+
+      const friendCode = await generateUniqueFriendCode();
+      const username = preferredUsername.trim() || getDisplayName(user);
+      const profile = {
+        uid: user.uid,
+        email: user.email,
+        username,
+        friendCode,
+        friendUids: [],
+        ...getOwnerProfilePatch({ username, email: user.email }),
+        createdAt: Date.now()
+      };
+
+      await setDoc(profileRef, profile);
+      if (user.displayName !== username) {
+        await updateProfile(user, { displayName: username });
+      }
+      currentProfile = profile;
+      friendCodeBox.textContent = friendCode;
+      return profile;
+    }
+
+    function watchCurrentProfile(user) {
+      if (unsubscribeProfile) {
+        unsubscribeProfile();
+      }
+
+      unsubscribeProfile = onSnapshot(
+        doc(db, "profiles", user.uid),
+        async (snapshot) => {
+          if (!snapshot.exists()) {
+            return;
+          }
+
+          const liveProfile = snapshot.data();
+          const ownerPatch = getOwnerProfilePatch(liveProfile);
+          const needsOwnerPatch = Object.entries(ownerPatch).some(([key, value]) => liveProfile[key] !== value);
+
+          if (needsOwnerPatch) {
+            await setDoc(doc(db, "profiles", user.uid), ownerPatch, { merge: true });
+          }
+
+          currentProfile = {
+            ...liveProfile,
+            ...ownerPatch
+          };
+          friendCodeBox.textContent = currentProfile.friendCode || "Unavailable";
+          setSignedInState(currentUser);
+        },
+        (error) => {
+          setStatus(authStatus, error.message, true);
+        }
+      );
+    }
+
+    function clearRoomState() {
+      activeRoomId = null;
+      activeRoomName = "";
+      activeRoomData = null;
+      isInitialMessageLoad = true;
+      seenMessageIds.clear();
+      roomMembers.clear();
+      if (unsubscribeMessages) {
+        unsubscribeMessages();
+        unsubscribeMessages = null;
+      }
+      roomsDiv.innerHTML = '<div class="empty-state">Your chats will appear here.</div>';
+      messagesDiv.innerHTML = '<div class="empty-state">Pick a chat to start messaging.</div>';
+      roomLabel.textContent = "No room selected";
+      monitorBanner.textContent = "All chats are monitored by owners for safety.";
+      voiceCallLink.href = "#";
+      videoCallLink.href = "#";
+      leaveRoomBtn.classList.add("hidden");
+      pinnedPanel.classList.remove("visible");
+      pinnedList.innerHTML = "";
+      roomSettings.classList.remove("visible");
+      kickList.innerHTML = '<div class="empty-state">Group member actions will appear here.</div>';
+      messageInput.disabled = true;
+      sendBtn.disabled = true;
+      memberList.innerHTML = '<div class="empty-state">Open a room to see who is around.</div>';
+    }
+
+    function getFriendProfiles() {
+      const friendUids = Array.isArray(currentProfile?.friendUids) ? currentProfile.friendUids : [];
+      return friendUids
+        .map((uid) => profilesByUid.get(uid))
+        .filter(Boolean)
+        .sort((a, b) => (a.username || a.email || "").localeCompare(b.username || b.email || ""));
+    }
+
+    function renderFriendsList() {
+      if (!currentUser || !currentProfile) {
+        friendsList.innerHTML = '<div class="empty-state">Log in to keep a saved friends list.</div>';
+        return;
+      }
+
+      const friends = getFriendProfiles();
+      friendsList.innerHTML = "";
+
+      if (!friends.length) {
+        friendsList.innerHTML = '<div class="empty-state">Add a friend once, then open chats from here.</div>';
+        return;
+      }
+
+      friends.forEach((profile) => {
+        const row = document.createElement("div");
+        row.className = "friend-row";
+
+        const nameWrap = document.createElement("div");
+        nameWrap.className = "member-name";
+
+        nameWrap.append(createAvatar(profile));
+
+        const dot = document.createElement("span");
+        dot.className = `presence-dot ${getPresenceClass(profile)}`.trim();
+        dot.title = getPresenceText(profile);
+
+        const label = document.createElement("span");
+        label.textContent = profile.username || profile.email || "Unknown";
+
+        nameWrap.append(dot, label);
+
+        const actions = document.createElement("div");
+        actions.className = "friend-actions";
+
+        const openBtn = document.createElement("button");
+        openBtn.type = "button";
+        openBtn.className = "secondary";
+        openBtn.textContent = "Chat";
+        openBtn.addEventListener("click", () => {
+          openDirectChatWithProfile(profile);
+        });
+
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.className = "danger";
+        removeBtn.textContent = "Remove";
+        removeBtn.addEventListener("click", () => {
+          removeFriend(profile);
+        });
+
+        actions.append(openBtn, removeBtn);
+        row.append(nameWrap, actions);
+        friendsList.append(row);
+      });
+    }
+
+    function canManageActiveGroup() {
+      if (!currentUser || !activeRoomData || activeRoomData.type !== "private-group") {
+        return false;
+      }
+      return isAdminUser() || activeRoomData.createdByUid === currentUser.uid;
+    }
+
+    function renderPinnedMessages() {
+      const pins = Array.isArray(activeRoomData?.pinnedMessages) ? activeRoomData.pinnedMessages : [];
+      pinnedList.innerHTML = "";
+      pinnedPanel.classList.toggle("visible", Boolean(pins.length));
+
+      if (!pins.length) {
+        return;
+      }
+
+      pins.forEach((pin) => {
+        const item = document.createElement("div");
+        item.className = "pinned-item";
+        item.innerHTML = `<strong>${escapeHtml(pin.user || "Unknown")}</strong><div>${formatMessageText(pin.text || "")}</div>`;
+        pinnedList.append(item);
+      });
+    }
+
+    function renderGroupSettings() {
+      const visible = canManageActiveGroup();
+      roomSettings.classList.toggle("visible", visible);
+
+      if (!visible) {
+        kickList.innerHTML = '<div class="empty-state">Group member actions will appear here.</div>';
+        return;
+      }
+
+      groupRenameInput.value = activeRoomData?.name || "";
+      groupIconInput.value = activeRoomData?.iconUrl || "";
+      groupAddCodeInput.value = "";
+      kickList.innerHTML = "";
+
+      const memberIds = Array.isArray(activeRoomData?.memberIds) ? activeRoomData.memberIds : [];
+      const removableMembers = memberIds
+        .filter((uid) => uid !== currentUser.uid)
+        .map((uid) => profilesByUid.get(uid))
+        .filter(Boolean);
+
+      if (!removableMembers.length) {
+        kickList.innerHTML = '<div class="empty-state">No removable members in this group.</div>';
+        return;
+      }
+
+      removableMembers.forEach((profile) => {
+        const row = document.createElement("div");
+        row.className = "kick-row";
+
+        const info = document.createElement("div");
+        info.className = "member-name";
+        info.append(createAvatar(profile), document.createTextNode(profile.username || profile.email || "Unknown"));
+
+        const kickBtn = document.createElement("button");
+        kickBtn.type = "button";
+        kickBtn.className = "danger";
+        kickBtn.textContent = "Kick";
+        kickBtn.addEventListener("click", () => {
+          kickGroupMember(profile);
+        });
+
+        row.append(info, kickBtn);
+        kickList.append(row);
+      });
+    }
+
+    function getRoomTypeLabel(roomData = activeRoomData) {
+      if (!roomData) {
+        return "Chat";
+      }
+
+      if (roomData.public || roomData.type === "public") {
+        return "Public room";
+      }
+
+      if (roomData.type === "private-group") {
+        return "Private group";
+      }
+
+      return "Private chat";
+    }
+
+    function updateRoomMeta(roomId = activeRoomId, roomName = activeRoomName) {
+      activeRoomData = roomId ? (roomsById.get(roomId) || activeRoomData) : null;
+      roomMembers.clear();
+      const memberIds = Array.isArray(activeRoomData?.memberIds) ? activeRoomData.memberIds : [];
+      memberIds.forEach((uid) => roomMembers.add(uid));
+
+      if (!roomId) {
+        roomLabel.textContent = "No room selected";
+        monitorBanner.textContent = "All chats are monitored by owners for safety.";
+        voiceCallLink.href = "#";
+        videoCallLink.href = "#";
+        pinnedPanel.classList.remove("visible");
+        roomSettings.classList.remove("visible");
+        renderMemberList();
+        return;
+      }
+
+      roomLabel.textContent = `Current room: ${roomName} • ${getRoomTypeLabel(activeRoomData)}`;
+      monitorBanner.textContent = activeRoomData?.type === "private-group"
+        ? "This private group is invite-only, and owners can access it from the moment it is created."
+        : "All chats are monitored by owners for safety.";
+      voiceCallLink.href = getCallUrl(roomId, roomName, "voice");
+      videoCallLink.href = getCallUrl(roomId, roomName, "video");
+      leaveRoomBtn.classList.toggle(
+        "hidden",
+        !currentUser || !activeRoomData || activeRoomData.public || activeRoomData.type === "public"
+      );
+      renderPinnedMessages();
+      renderGroupSettings();
+      renderMemberList();
+    }
+
+    function resetAdminSelection() {
+      selectedAdminProfile = null;
+      adminSelectedName.textContent = "No person selected";
+      adminSelectedStatus.textContent = "Pick someone from the list to manage them.";
+      adminUsername.value = "";
+      adminRank.value = "";
+      adminRankColor.value = "#7d3ac1";
+    }
+
+    function renderAdminUsers() {
+      if (!isAdminUser()) {
+        adminUsers.innerHTML = '<div class="empty-state">Owner tools show up after owner login.</div>';
+        auditLogList.innerHTML = '<div class="empty-state">Owner actions will appear here.</div>';
+        resetAdminSelection();
+        return;
+      }
+
+      const term = adminSearch.value.trim().toLowerCase();
+      const filtered = adminProfiles.filter((profile) => {
+        const haystack = `${profile.username || ""} ${profile.email || ""}`.toLowerCase();
+        return haystack.includes(term);
+      });
+
+      adminUsers.innerHTML = "";
+
+      if (!filtered.length) {
+        adminUsers.innerHTML = '<div class="empty-state">No matching people found.</div>';
+        return;
+      }
+
+      filtered.forEach((profile) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `admin-user${selectedAdminProfile?.uid === profile.uid ? " active" : ""}`;
+        const rankText = profile.rank ? ` • ${profile.rank}` : "";
+        const presenceText = getPresenceText(profile);
+        button.innerHTML = `${profile.username || "Unknown"}<small>${profile.email || "No email"}${rankText} • ${describeProfileStatus(profile)} • ${presenceText}</small>`;
+        button.addEventListener("click", () => {
+          selectedAdminProfile = profile;
+          adminSelectedName.textContent = profile.username || profile.email || "Unknown";
+          adminSelectedStatus.textContent = `${describeProfileStatus(profile)} • ${presenceText}`;
+          adminUsername.value = profile.username || "";
+          adminRank.value = profile.rank || "";
+          adminRankColor.value = getRankColor(profile);
+          renderAdminUsers();
+        });
+        adminUsers.append(button);
+      });
+    }
+
+    function setAdminPanelState() {
+      const visible = isAdminUser();
+      adminPanel.classList.toggle("visible", visible);
+
+      if (!visible) {
+        if (unsubscribeAdminUsers) {
+          unsubscribeAdminUsers();
+          unsubscribeAdminUsers = null;
+        }
+        if (unsubscribeAuditLogs) {
+          unsubscribeAuditLogs();
+          unsubscribeAuditLogs = null;
+        }
+        adminProfiles = [];
+        renderAdminUsers();
+      }
+    }
+
+    async function logOwnerAction(action, details = {}) {
+      if (!isAdminUser()) {
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "ownerAuditLogs"), {
+          action,
+          actorUid: currentUser?.uid || "",
+          actorName: currentProfile?.username || getDisplayName(currentUser),
+          roomId: activeRoomId || "",
+          roomName: activeRoomName || "",
+          details,
+          time: Date.now(),
+          createdAt: serverTimestamp()
+        });
+      } catch (error) {
+        console.error("Audit log failed:", error);
+      }
+    }
+
+    function watchAuditLogs() {
+      if (!isAdminUser()) {
+        return;
+      }
+
+      if (unsubscribeAuditLogs) {
+        unsubscribeAuditLogs();
+      }
+
+      const auditQuery = query(collection(db, "ownerAuditLogs"), orderBy("time", "desc"));
+      unsubscribeAuditLogs = onSnapshot(
+        auditQuery,
+        (snapshot) => {
+          const entries = snapshot.docs.slice(0, 12).map((docSnap) => docSnap.data());
+          auditLogList.innerHTML = "";
+
+          if (!entries.length) {
+            auditLogList.innerHTML = '<div class="empty-state">Owner actions will appear here.</div>';
+            return;
+          }
+
+          entries.forEach((entry) => {
+            const item = document.createElement("div");
+            item.className = "pinned-item";
+            const roomText = entry.roomName ? ` in ${entry.roomName}` : "";
+            item.innerHTML = `<strong>${escapeHtml(entry.actorName || "Owner")}</strong><div>${escapeHtml(entry.action || "updated something")}${roomText}</div><small>${escapeHtml(formatTime(entry.time || Date.now()))}</small>`;
+            auditLogList.append(item);
+          });
+        },
+        (error) => {
+          setStatus(authStatus, error.message, true);
+        }
+      );
+    }
+
+    function watchAdminUsers() {
+      if (!isAdminUser()) {
+        return;
+      }
+
+      if (unsubscribeAdminUsers) {
+        unsubscribeAdminUsers();
+      }
+
+      unsubscribeAdminUsers = onSnapshot(
+        collection(db, "profiles"),
+        (snapshot) => {
+          adminProfiles = snapshot.docs
+            .map((profileDoc) => ({ id: profileDoc.id, ...profileDoc.data() }))
+            .sort((a, b) => (a.username || a.email || "").localeCompare(b.username || b.email || ""));
+
+          if (selectedAdminProfile) {
+            selectedAdminProfile = adminProfiles.find((profile) => profile.uid === selectedAdminProfile.uid) || null;
+            if (selectedAdminProfile) {
+              adminSelectedName.textContent = selectedAdminProfile.username || selectedAdminProfile.email || "Unknown";
+              adminSelectedStatus.textContent = `${describeProfileStatus(selectedAdminProfile)} • ${getPresenceText(selectedAdminProfile)}`;
+              adminUsername.value = selectedAdminProfile.username || "";
+              adminRank.value = selectedAdminProfile.rank || "";
+              adminRankColor.value = getRankColor(selectedAdminProfile);
+            } else {
+              resetAdminSelection();
+            }
+          }
+
+          renderAdminUsers();
+        },
+        (error) => {
+          setStatus(authStatus, error.message, true);
+        }
+      );
+    }
+
+    function watchProfilesDirectory() {
+      if (unsubscribeProfilesDirectory) {
+        unsubscribeProfilesDirectory();
+      }
+
+      unsubscribeProfilesDirectory = onSnapshot(
+        collection(db, "profiles"),
+        (snapshot) => {
+          profilesByUid.clear();
+          snapshot.forEach((profileDoc) => {
+            const profile = profileDoc.data();
+            if (profile.uid) {
+              profilesByUid.set(profile.uid, profile);
+            }
+          });
+          renderMemberList();
+          renderFriendsList();
+        },
+        (error) => {
+          setStatus(authStatus, error.message, true);
+        }
+      );
+    }
+
+    async function updateManagedUser(update) {
+      if (!isAdminUser()) {
+        setStatus(authStatus, "Owner login required.", true);
+        return;
+      }
+
+      if (!selectedAdminProfile) {
+        setStatus(authStatus, "Choose a person in the admin panel first.", true);
+        return;
+      }
+
+      if (selectedAdminProfile.owner || isOwnerName(selectedAdminProfile.username) || isOwnerName(selectedAdminProfile.email?.split("@")[0])) {
+        setStatus(authStatus, "Owner accounts cannot be edited here.", true);
+        return;
+      }
+
+      try {
+        await setDoc(doc(db, "profiles", selectedAdminProfile.uid), update, { merge: true });
+        await logOwnerAction("updated a user profile", {
+          targetUid: selectedAdminProfile.uid,
+          updateKeys: Object.keys(update)
+        });
+        setStatus(authStatus, "Admin settings saved.");
+      } catch (error) {
+        setStatus(authStatus, error.message, true);
+      }
+    }
+
+    function setStatus(target, message, isError = false) {
+      target.textContent = message;
+      target.style.color = isError ? "#ff9db0" : "";
+    }
+
+    function setAuthError(error) {
+      if (!error) {
+        authError.style.display = "none";
+        authError.textContent = "";
+        return;
+      }
+
+      const code = error.code || "unknown";
+      const message = error.message || String(error);
+      authError.textContent = `Signup/Login error\n${code}\n${message}`;
+      authError.style.display = "block";
+    }
+
+    function getFormValues() {
+      return {
+        username: usernameInput.value.trim(),
+        email: emailInput.value.trim().toLowerCase(),
+        password: passwordInput.value
+      };
+    }
+
+    function setSignedInState(user) {
+      const loggedIn = Boolean(user);
+      const blockedMessage = getRestrictionMessage();
+      const canSend = loggedIn && Boolean(activeRoomId) && !blockedMessage;
+      messageInput.disabled = !canSend;
+      sendBtn.disabled = !canSend;
+
+      sessionPill.textContent = loggedIn ? "Signed in" : "Signed out";
+      sessionPill.classList.toggle("online", loggedIn);
+
+      userLabel.textContent = loggedIn ? getDisplayName(user) : "No account";
+      userLabel.classList.toggle("online", loggedIn && isProfileOnline(currentProfile));
+      availabilitySelect.value = loggedIn && currentProfile ? getAvailability(currentProfile) : "active";
+      customStatusInput.value = loggedIn && currentProfile?.customStatus ? currentProfile.customStatus : "";
+      avatarUrlInput.value = loggedIn && currentProfile?.avatarUrl ? currentProfile.avatarUrl : "";
+      themeSelect.value = loggedIn && currentProfile?.theme ? currentProfile.theme : (localStorage.getItem("wedoall-theme") || "default");
+      viewModeSelect.value = loggedIn && currentProfile?.viewMode ? currentProfile.viewMode : (localStorage.getItem("wedoall-view-mode") || "auto");
+      cursorStyle.value = loggedIn && currentProfile?.cursorStyle ? currentProfile.cursorStyle : (localStorage.getItem("wedoall-cursor-style") || "default");
+      soundLevel.value = loggedIn && currentProfile?.soundLevel ? currentProfile.soundLevel : "soft";
+
+      chatStatus.textContent = !loggedIn
+        ? "Log in to open your chats."
+        : blockedMessage || (activeRoomName ? `Chatting in ${activeRoomName}.` : "Join Everyone, open a private chat, or make a private group.");
+
+      friendCodeBox.textContent = loggedIn && currentProfile ? currentProfile.friendCode : "Sign up or log in first";
+      renderFriendsList();
+      setAdminPanelState();
+    }
+
+    function formatTime(value) {
+      return new Date(value).toLocaleString([], {
+        dateStyle: "short",
+        timeStyle: "short"
+      });
+    }
+
+    function showEmptyState() {
+      messagesDiv.innerHTML = '<div class="empty-state">No messages yet. Send the first one.</div>';
+    }
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    function normalizeMentionValue(value) {
+      return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "");
+    }
+
+    function getMentionTokensForCurrentUser() {
+      const tokens = ["everyone"];
+
+      if (currentProfile?.username) {
+        tokens.push(normalizeMentionValue(currentProfile.username));
+      }
+
+      if (currentProfile?.rank) {
+        tokens.push(normalizeMentionValue(currentProfile.rank));
+      }
+
+      return tokens.filter(Boolean);
+    }
+
+    function messageMentionsCurrentUser(message) {
+      const text = String(message?.text || "");
+      if (!text) {
+        return false;
+      }
+
+      const normalizedMentions = Array.from(
+        new Set(
+          (text.match(/@([a-zA-Z0-9_\-]+)/g) || []).map((token) =>
+            normalizeMentionValue(token.slice(1))
+          )
+        )
+      );
+
+      if (!normalizedMentions.length) {
+        return false;
+      }
+
+      const myTokens = getMentionTokensForCurrentUser();
+      return normalizedMentions.some((token) => myTokens.includes(token));
+    }
+
+    function formatMessageText(text) {
+      const escaped = escapeHtml(text);
+      return escaped.replace(/(^|\s)(@([a-zA-Z0-9_\-]+))/g, (full, prefix, token) => {
+        return `${prefix}<span class="mention">${token}</span>`;
+      });
+    }
+
+    function renderMemberList() {
+      memberList.innerHTML = "";
+
+      if (!activeRoomId) {
+        memberList.innerHTML = '<div class="empty-state">Open a room to see who is around.</div>';
+        return;
+      }
+
+      const members = Array.from(roomMembers)
+        .map((uid) => profilesByUid.get(uid))
+        .filter(Boolean)
+        .sort((a, b) => {
+          const onlineScore = Number(isProfileOnline(b)) - Number(isProfileOnline(a));
+          if (onlineScore !== 0) {
+            return onlineScore;
+          }
+          return (a.username || a.email || "").localeCompare(b.username || b.email || "");
+        });
+
+      if (!members.length) {
+        memberList.innerHTML = '<div class="empty-state">Nobody has spoken here yet.</div>';
+        return;
+      }
+
+      members.forEach((profile) => {
+        const row = document.createElement("div");
+        row.className = "member-row";
+
+        const name = document.createElement("div");
+        name.className = "member-name";
+        name.append(createAvatar(profile));
+
+        const dot = document.createElement("span");
+        dot.className = `presence-dot ${getPresenceClass(profile)}`.trim();
+        dot.title = getPresenceText(profile);
+
+        const text = document.createElement("span");
+        text.textContent = profile.username || profile.email || "Unknown";
+
+        name.append(dot, text);
+
+        if (profile.rank) {
+          const rank = document.createElement("span");
+          rank.className = "rank-badge";
+          rank.textContent = profile.rank;
+          rank.style.background = getRankColor(profile);
+          name.append(rank);
+        }
+
+        const meta = document.createElement("div");
+        meta.className = "member-meta";
+        meta.textContent = getPresenceText(profile);
+
+        row.append(name, meta);
+        memberList.append(row);
+      });
+    }
+
+    function setReply(messageId, message) {
+      activeReply = {
+        id: messageId,
+        user: message.user || message.userEmail || "Unknown",
+        text: String(message.text || "").slice(0, 120)
+      };
+      replyLabel.textContent = `Replying to ${activeReply.user}: ${activeReply.text}`;
+      replyBar.classList.add("visible");
+    }
+
+    function clearReply() {
+      activeReply = null;
+      replyLabel.textContent = "Replying to nobody.";
+      replyBar.classList.remove("visible");
+    }
+
+    function renderTypingIndicator(entries) {
+      if (!entries.length) {
+        typingIndicator.textContent = "Nobody is typing.";
+        typingIndicator.classList.remove("active");
+        return;
+      }
+
+      const names = entries.map((entry) => entry.username || "Someone");
+      const label = names.length === 1
+        ? `${names[0]} is typing...`
+        : names.length === 2
+          ? `${names[0]} and ${names[1]} are typing...`
+          : `${names[0]}, ${names[1]}, and ${names.length - 2} more are typing...`;
+      typingIndicator.textContent = `Live now: ${label}`;
+      typingIndicator.classList.add("active");
+    }
+
+    async function setTypingState(isTyping) {
+      if (!currentUser || !activeRoomId) {
+        return;
+      }
+
+      try {
+        await updateDoc(
+          doc(db, "chatRooms", activeRoomId),
+          {
+            [`typingState.${currentUser.uid}`]: {
+              username: getDisplayName(currentUser),
+              updatedAt: Date.now(),
+              isTyping
+            }
+          }
+        );
+      } catch (error) {
+        console.error("Typing state failed:", error);
+      }
+    }
+
+    function queueTypingPulse() {
+      if (!currentUser || !activeRoomId) {
+        return;
+      }
+
+      setTypingState(true);
+      if (typingTimer) {
+        clearTimeout(typingTimer);
+      }
+      typingTimer = setTimeout(() => {
+        setTypingState(false);
+      }, 2200);
+    }
+
+    async function toggleReaction(messageId, message, emoji) {
+      const reactions = { ...(message.reactions || {}) };
+      const current = Array.isArray(reactions[emoji]) ? [...reactions[emoji]] : [];
+      const index = current.indexOf(currentUser.uid);
+
+      if (index >= 0) {
+        current.splice(index, 1);
+      } else {
+        current.push(currentUser.uid);
+      }
+
+      if (current.length) {
+        reactions[emoji] = current;
+      } else {
+        delete reactions[emoji];
+      }
+
+      try {
+        await setDoc(
+          doc(db, "chatRooms", activeRoomId, "messages", messageId),
+          { reactions },
+          { merge: true }
+        );
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    function renderMessagesFromEntries(entries) {
+      messagesDiv.innerHTML = "";
+
+      if (!entries.length) {
+        messagesDiv.innerHTML = '<div class="empty-state">No messages matched this search.</div>';
+        return;
+      }
+
+      entries.forEach(({ id, data }) => {
+        const isMe = currentUser && (data.userEmail === currentUser.email || data.user === currentUser.email);
+        const isAdmin = isAdminUser();
+        const senderProfile = data.senderUid ? profilesByUid.get(data.senderUid) : null;
+        const pinnedIds = new Set((activeRoomData?.pinnedMessages || []).map((pin) => pin.id));
+        const isPinned = pinnedIds.has(id);
+
+        const msg = document.createElement("article");
+        msg.className = `msg${isMe ? " me" : ""}`;
+
+        const head = document.createElement("div");
+        head.className = "msg-head";
+
+        const headLeft = document.createElement("div");
+        headLeft.className = "member-name";
+        headLeft.append(createAvatar(senderProfile));
+
+        const author = document.createElement("strong");
+        author.textContent = data.user || data.userEmail || "Unknown";
+        const visibleRank = data.rank || senderProfile?.rank || "";
+        const visibleRankColor = data.rankColor || senderProfile?.rankColor || "#7d3ac1";
+
+        if (visibleRank) {
+          const rank = document.createElement("span");
+          rank.className = "rank-badge";
+          rank.textContent = visibleRank;
+          rank.style.background = visibleRankColor;
+          author.append(rank);
+        }
+
+        if (senderProfile?.customStatus) {
+          const status = document.createElement("div");
+          status.className = "status-line";
+          status.textContent = senderProfile.customStatus;
+          msg.append(status);
+        }
+
+        const presenceDot = document.createElement("span");
+        presenceDot.className = `presence-dot ${getPresenceClass(senderProfile)}`.trim();
+        presenceDot.title = getPresenceText(senderProfile);
+        author.append(presenceDot);
+        headLeft.append(author);
+
+        const time = document.createElement("span");
+        time.textContent = formatTime(data.time || Date.now());
+
+        head.append(headLeft, time);
+
+        if (data.replyTo) {
+          const reply = document.createElement("div");
+          reply.className = "reply-snippet";
+          reply.textContent = `Replying to ${data.replyTo.user}: ${data.replyTo.text}`;
+          msg.append(reply);
+        }
+
+        const text = document.createElement("div");
+        text.className = "msg-text";
+        text.innerHTML = formatMessageText(data.text || "");
+
+        msg.append(head, text);
+
+        if (data.imageUrl) {
+          const image = document.createElement("img");
+          image.className = "msg-image";
+          image.src = data.imageUrl;
+          image.alt = "Shared image";
+          image.loading = "lazy";
+          msg.append(image);
+        }
+
+        if (data.senderUid) {
+          roomMembers.add(data.senderUid);
+        }
+
+        if (data.editedAt) {
+          const edited = document.createElement("div");
+          edited.className = "msg-head";
+          edited.textContent = `Edited ${formatTime(data.editedAt)}`;
+          msg.append(edited);
+        }
+
+        const reactions = document.createElement("div");
+        reactions.className = "reaction-row";
+        ["👍", "🔥", "😂", "❤️"].forEach((emoji) => {
+          const users = Array.isArray(data.reactions?.[emoji]) ? data.reactions[emoji] : [];
+          const chip = document.createElement("button");
+          chip.type = "button";
+          chip.className = "reaction-chip";
+          chip.textContent = `${emoji} ${users.length || ""}`.trim();
+          chip.addEventListener("click", () => toggleReaction(id, data, emoji));
+          reactions.append(chip);
+        });
+
+        const replyBtn = document.createElement("button");
+        replyBtn.type = "button";
+        replyBtn.className = "reaction-chip";
+        replyBtn.textContent = "Reply";
+        replyBtn.addEventListener("click", () => setReply(id, data));
+        reactions.append(replyBtn);
+
+        if (isAdmin) {
+          const pinBtn = document.createElement("button");
+          pinBtn.type = "button";
+          pinBtn.className = "reaction-chip";
+          pinBtn.textContent = isPinned ? "Unpin" : "Pin";
+          pinBtn.addEventListener("click", () => togglePinMessage(id, data));
+          reactions.append(pinBtn);
+        }
+        msg.append(reactions);
+
+        if (isAdmin) {
+          const controls = document.createElement("div");
+          controls.className = "mod-actions";
+
+          const editBtn = document.createElement("button");
+          editBtn.type = "button";
+          editBtn.textContent = "Edit";
+          editBtn.addEventListener("click", () => editMessage(id, data.text || ""));
+
+          const deleteBtn = document.createElement("button");
+          deleteBtn.type = "button";
+          deleteBtn.textContent = "Delete";
+          deleteBtn.addEventListener("click", () => deleteMessage(id));
+
+          controls.append(editBtn, deleteBtn);
+          msg.append(controls);
+        }
+
+        messagesDiv.append(msg);
+      });
+
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      renderMemberList();
+    }
+
+    async function resolveTargetProfile(message) {
+      if (message.senderUid) {
+        const profileSnap = await getDoc(doc(db, "profiles", message.senderUid));
+        if (profileSnap.exists()) {
+          return { id: profileSnap.id, ...profileSnap.data() };
+        }
+      }
+
+      if (message.userEmail) {
+        const profileQuery = await getDocs(query(collection(db, "profiles"), where("email", "==", message.userEmail)));
+        if (!profileQuery.empty) {
+          const profileDoc = profileQuery.docs[0];
+          return { id: profileDoc.id, ...profileDoc.data() };
+        }
+      }
+
+      return null;
+    }
+
+    async function editMessage(messageId, existingText) {
+      const nextText = window.prompt("Edit this message:", existingText || "");
+      if (nextText === null) {
+        return;
+      }
+
+      const trimmed = nextText.trim();
+      if (!trimmed) {
+        setStatus(chatStatus, "Edited message cannot be empty.", true);
+        return;
+      }
+
+      try {
+        await setDoc(
+          doc(db, "chatRooms", activeRoomId, "messages", messageId),
+          {
+            text: trimmed,
+            editedAt: Date.now(),
+            editedBy: currentUser.email
+          },
+          { merge: true }
+        );
+        await logOwnerAction("edited a message", { messageId });
+        setStatus(chatStatus, "Message updated.");
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    async function deleteMessage(messageId) {
+      try {
+        await deleteDoc(doc(db, "chatRooms", activeRoomId, "messages", messageId));
+        await logOwnerAction("deleted a message", { messageId });
+        setStatus(chatStatus, "Message deleted.");
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    async function moderateFromMessage(message, action) {
+      const targetProfile = await resolveTargetProfile(message);
+      if (!targetProfile) {
+        setStatus(chatStatus, "Could not find that user's profile.", true);
+        return;
+      }
+
+      if (targetProfile.owner || isOwnerName(targetProfile.username) || isOwnerName(targetProfile.email?.split("@")[0])) {
+        setStatus(chatStatus, "Owner accounts cannot be moderated here.", true);
+        return;
+      }
+
+      try {
+        if (action === "timeout") {
+          const minutesText = window.prompt("Timeout for how many minutes?", "10");
+          if (minutesText === null) {
+            return;
+          }
+
+          const minutes = Number(minutesText);
+          if (!Number.isFinite(minutes) || minutes <= 0) {
+            setStatus(chatStatus, "Enter a valid timeout length in minutes.", true);
+            return;
+          }
+
+          await setDoc(
+            doc(db, "profiles", targetProfile.uid),
+            {
+              timeoutUntil: Date.now() + minutes * 60 * 1000,
+              banned: false
+            },
+            { merge: true }
+          );
+          setStatus(chatStatus, `${targetProfile.username || targetProfile.email} timed out for ${minutes} minute(s).`);
+          return;
+        }
+
+        if (action === "ban") {
+          const confirmed = window.confirm(`Ban ${targetProfile.username || targetProfile.email}?`);
+          if (!confirmed) {
+            return;
+          }
+
+          await setDoc(
+            doc(db, "profiles", targetProfile.uid),
+            {
+              banned: true,
+              timeoutUntil: null
+            },
+            { merge: true }
+          );
+          setStatus(chatStatus, `${targetProfile.username || targetProfile.email} has been banned.`);
+          return;
+        }
+
+        if (action === "clear") {
+          await setDoc(
+            doc(db, "profiles", targetProfile.uid),
+            {
+              banned: false,
+              timeoutUntil: null
+            },
+            { merge: true }
+          );
+          setStatus(chatStatus, `${targetProfile.username || targetProfile.email} can talk again.`);
+        }
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    function renderMessages(snapshot) {
+      lastRoomMessages = snapshot.docs.map((docSnap) => ({ id: docSnap.id, data: docSnap.data() }));
+
+      lastRoomMessages.forEach(({ id, data }) => {
+        const hasSeenMessage = seenMessageIds.has(id);
+        const isMe = currentUser && (data.userEmail === currentUser.email || data.user === currentUser.email);
+        const mentionHit = messageMentionsCurrentUser(data);
+
+        if (!hasSeenMessage && !isInitialMessageLoad && !isMe && data.text) {
+          notifyNewMessage(data);
+          if (mentionHit) {
+            playMentionSound();
+            document.title = `Mention from ${data.user} | ${defaultTitle}`;
+            window.setTimeout(() => {
+              document.title = defaultTitle;
+            }, 5000);
+          }
+        }
+        seenMessageIds.add(id);
+      });
+
+      const term = messageSearch.value.trim().toLowerCase();
+      const filtered = term
+        ? lastRoomMessages.filter(({ data }) =>
+            String(data.text || "").toLowerCase().includes(term) ||
+            String(data.user || "").toLowerCase().includes(term)
+          )
+        : lastRoomMessages;
+
+      if (!filtered.length && !lastRoomMessages.length) {
+        showEmptyState();
+        isInitialMessageLoad = false;
+        renderMemberList();
+        return;
+      }
+
+      renderMessagesFromEntries(filtered);
+      isInitialMessageLoad = false;
+    }
+
+    function renderRooms(rooms) {
+      roomsDiv.innerHTML = "";
+
+      if (!rooms.length) {
+        roomsDiv.innerHTML = '<div class="empty-state">No chats yet. Use a friend code or create a private group.</div>';
+        return;
+      }
+
+      rooms.forEach((room) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `room-chip${room.id === activeRoomId ? " active" : ""}`;
+        if (room.type === "public") {
+          button.textContent = `# ${room.name}`;
+        } else if (room.type === "private-group") {
+          button.textContent = `Group: ${room.name}`;
+        } else {
+          button.textContent = room.name;
+        }
+        button.addEventListener("click", () => {
+          openRoom(room.id, room.name);
+        });
+        roomsDiv.append(button);
+      });
+    }
+
+    function openRoom(roomId, roomName) {
+      activeRoomId = roomId;
+      activeRoomName = roomName;
+      activeRoomData = roomsById.get(roomId) || null;
+      isInitialMessageLoad = true;
+      seenMessageIds.clear();
+      clearReply();
+      updateRoomMeta(roomId, roomName);
+      setSignedInState(currentUser);
+
+      if (unsubscribeMessages) {
+        unsubscribeMessages();
+      }
+
+      const messagesQuery = query(
+        collection(db, "chatRooms", roomId, "messages"),
+        orderBy("time")
+      );
+
+      unsubscribeMessages = onSnapshot(
+        messagesQuery,
+        (snapshot) => {
+          renderMessages(snapshot);
+        },
+        (error) => {
+          setStatus(chatStatus, error.message, true);
+        }
+      );
+
+      if (unsubscribeTyping) {
+        unsubscribeTyping();
+      }
+
+      unsubscribeTyping = onSnapshot(
+        doc(db, "chatRooms", roomId),
+        (snapshot) => {
+          if (!snapshot.exists()) {
+            renderTypingIndicator([]);
+            return;
+          }
+
+          const roomData = snapshot.data();
+          activeRoomData = {
+            ...(roomsById.get(roomId) || {}),
+            ...roomData,
+            id: roomId
+          };
+
+          const now = Date.now();
+          const entries = Object.values(roomData.typingState || {})
+            .filter((entry) => entry && entry.isTyping && entry.username !== getDisplayName(currentUser) && now - (entry.updatedAt || 0) < 4000);
+
+          renderTypingIndicator(entries);
+          renderPinnedMessages();
+          renderGroupSettings();
+        },
+        () => {
+          renderTypingIndicator([]);
+        }
+      );
+    }
+
+    function watchRooms(user) {
+      if (unsubscribeRooms) {
+        unsubscribeRooms();
+      }
+
+      const roomsQuery = query(collection(db, "chatRooms"));
+
+      unsubscribeRooms = onSnapshot(
+        roomsQuery,
+        (snapshot) => {
+          roomsById.clear();
+          const rooms = snapshot.docs
+            .map((roomDoc) => {
+              const data = roomDoc.data();
+              roomsById.set(roomDoc.id, { id: roomDoc.id, ...data });
+              const fallbackName = data.memberNames?.join(", ") || data.name || "Direct Chat";
+              const isPublic = Boolean(data.public) || data.type === "public";
+              const isMember = Array.isArray(data.memberIds) && data.memberIds.includes(user.uid);
+              if (!isAdminUser(user) && !isPublic && !isMember) {
+                return null;
+              }
+              return {
+                id: roomDoc.id,
+                type: data.type || (isPublic ? "public" : "direct"),
+                name: isAdminUser(user)
+                  ? fallbackName
+                  : data.memberNames?.filter((name) => name !== getDisplayName(user)).join(", ") || data.name || fallbackName,
+                updatedAt: typeof data.updatedAt === "number"
+                  ? data.updatedAt
+                  : data.updatedAt?.toMillis?.() || data.updatedAt?.seconds || 0
+              };
+            })
+            .filter(Boolean)
+            .sort((a, b) => b.updatedAt - a.updatedAt);
+
+          const selectedStillExists = rooms.some((room) => room.id === activeRoomId);
+          if (!selectedStillExists) {
+            activeRoomId = null;
+            activeRoomName = "";
+            activeRoomData = null;
+            if (unsubscribeMessages) {
+              unsubscribeMessages();
+              unsubscribeMessages = null;
+            }
+          }
+
+          renderRooms(rooms);
+
+          if (!activeRoomId && rooms.length) {
+            openRoom(rooms[0].id, rooms[0].name);
+          } else {
+            updateRoomMeta(activeRoomId, activeRoomName);
+            setSignedInState(currentUser);
+          }
+        },
+        (error) => {
+          setStatus(chatStatus, error.message, true);
+        }
+      );
+    }
+
+    async function createOrOpenFriendChat() {
+      if (!currentUser || !currentProfile) {
+        setStatus(chatStatus, "Log in first to create private chats.", true);
+        return;
+      }
+
+      const friendCode = normalizeCode(friendCodeInput.value);
+      if (!friendCode) {
+        setStatus(chatStatus, "Enter a friend code first.", true);
+        return;
+      }
+
+      if (friendCode === currentProfile.friendCode) {
+        setStatus(chatStatus, "Use someone else's code, not your own.", true);
+        return;
+      }
+
+      try {
+        const friendSnap = await getDocs(query(collection(db, "profiles"), where("friendCode", "==", friendCode)));
+        if (friendSnap.empty) {
+          setStatus(chatStatus, "No user found with that friend code.", true);
+          return;
+        }
+
+        const friend = friendSnap.docs[0].data();
+        await ensureDirectRoom(friend);
+
+        friendCodeInput.value = "";
+        openDirectChatWithProfile(friend);
+        setStatus(chatStatus, `Private chat ready with ${friend.username}.`);
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    async function ensureDirectRoom(friend) {
+      const sortedIds = [currentUser.uid, friend.uid].sort();
+      const roomId = `direct_${sortedIds.join("_")}`;
+      const roomRef = doc(db, "chatRooms", roomId);
+      const roomSnap = await getDoc(roomRef);
+
+      if (!roomSnap.exists()) {
+        await setDoc(roomRef, {
+          type: "direct",
+          name: `${currentProfile.username} & ${friend.username}`,
+          memberIds: sortedIds,
+          memberNames: [currentProfile.username, friend.username],
+          monitoredByAdmins: true,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+      }
+
+      return roomId;
+    }
+
+    async function openDirectChatWithProfile(friend) {
+      if (!friend?.uid) {
+        setStatus(chatStatus, "That friend profile could not be opened.", true);
+        return;
+      }
+
+      try {
+        const roomId = await ensureDirectRoom(friend);
+        openRoom(roomId, friend.username || "Direct Chat");
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    async function addFriendByCode() {
+      if (!currentUser || !currentProfile) {
+        setStatus(chatStatus, "Log in first to add a friend.", true);
+        return;
+      }
+
+      const friendCode = normalizeCode(friendCodeInput.value);
+      if (!friendCode) {
+        setStatus(chatStatus, "Enter a friend code first.", true);
+        return;
+      }
+
+      if (friendCode === currentProfile.friendCode) {
+        setStatus(chatStatus, "Use someone else's code, not your own.", true);
+        return;
+      }
+
+      try {
+        const friendSnap = await getDocs(query(collection(db, "profiles"), where("friendCode", "==", friendCode)));
+        if (friendSnap.empty) {
+          setStatus(chatStatus, "No user found with that friend code.", true);
+          return;
+        }
+
+        const friend = friendSnap.docs[0].data();
+        await setDoc(doc(db, "profiles", currentUser.uid), {
+          friendUids: arrayUnion(friend.uid)
+        }, { merge: true });
+        await setDoc(doc(db, "profiles", friend.uid), {
+          friendUids: arrayUnion(currentUser.uid)
+        }, { merge: true });
+
+        friendCodeInput.value = "";
+        setStatus(chatStatus, `${friend.username || friend.email} was added to your friends list.`);
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    async function removeFriend(profile) {
+      if (!currentUser || !profile?.uid) {
+        return;
+      }
+
+      try {
+        await setDoc(doc(db, "profiles", currentUser.uid), {
+          friendUids: arrayRemove(profile.uid)
+        }, { merge: true });
+        setStatus(chatStatus, `${profile.username || profile.email} was removed from your friends list.`);
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    async function leaveCurrentRoom() {
+      if (!currentUser || !activeRoomId || !activeRoomData) {
+        return;
+      }
+
+      if (activeRoomData.public || activeRoomData.type === "public") {
+        setStatus(chatStatus, "You cannot leave the Everyone room.", true);
+        return;
+      }
+
+      try {
+        const previousMemberIds = Array.isArray(activeRoomData.memberIds) ? activeRoomData.memberIds : [];
+        const otherDirectUid = activeRoomData.type === "direct"
+          ? previousMemberIds.find((uid) => uid !== currentUser.uid)
+          : null;
+        const nextMemberIds = (activeRoomData.memberIds || []).filter((uid) => uid !== currentUser.uid);
+        const nextMemberNames = (activeRoomData.memberNames || []).filter((_, index) => activeRoomData.memberIds?.[index] !== currentUser.uid);
+
+        await setDoc(doc(db, "chatRooms", activeRoomId), {
+          memberIds: nextMemberIds,
+          memberNames: nextMemberNames,
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+
+        if (activeRoomData.type === "direct" && otherDirectUid) {
+          await setDoc(doc(db, "profiles", currentUser.uid), {
+            friendUids: arrayRemove(otherDirectUid)
+          }, { merge: true });
+        }
+
+        setStatus(chatStatus, `You left ${activeRoomName}.`);
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    async function saveGroupSettings() {
+      if (!canManageActiveGroup()) {
+        return;
+      }
+
+      try {
+        await setDoc(doc(db, "chatRooms", activeRoomId), {
+          name: groupRenameInput.value.trim() || activeRoomData.name || "Private Group",
+          iconUrl: groupIconInput.value.trim(),
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+        await logOwnerAction("saved group settings", {
+          groupName: groupRenameInput.value.trim() || activeRoomData.name || "Private Group"
+        });
+        setStatus(chatStatus, "Group settings saved.");
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    async function addMemberToGroupByCode() {
+      if (!canManageActiveGroup()) {
+        return;
+      }
+
+      const friendCode = normalizeCode(groupAddCodeInput.value);
+      if (!friendCode) {
+        setStatus(chatStatus, "Enter a friend code to add.", true);
+        return;
+      }
+
+      try {
+        const friendSnap = await getDocs(query(collection(db, "profiles"), where("friendCode", "==", friendCode)));
+        if (friendSnap.empty) {
+          setStatus(chatStatus, "No user found with that friend code.", true);
+          return;
+        }
+
+        const friend = friendSnap.docs[0].data();
+        if ((activeRoomData.memberIds || []).includes(friend.uid)) {
+          setStatus(chatStatus, `${friend.username || friend.email} is already in this group.`, true);
+          return;
+        }
+
+        await setDoc(doc(db, "chatRooms", activeRoomId), {
+          memberIds: arrayUnion(friend.uid),
+          memberNames: arrayUnion(friend.username || friend.email || "Unknown"),
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+
+        await addDoc(collection(db, "chatRooms", activeRoomId, "messages"), {
+          text: `${friend.username || friend.email} joined the group.`,
+          user: "wedoall",
+          userEmail: "system@wedoall.local",
+          senderUid: "",
+          rank: "SYSTEM",
+          rankColor: "#4484ff",
+          time: Date.now(),
+          createdAt: serverTimestamp(),
+          system: true
+        });
+
+        groupAddCodeInput.value = "";
+        await logOwnerAction("added a group member", {
+          targetUid: friend.uid,
+          targetName: friend.username || friend.email || "Unknown"
+        });
+        setStatus(chatStatus, `${friend.username || friend.email} was added to the group.`);
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    async function kickGroupMember(profile) {
+      if (!canManageActiveGroup() || !profile?.uid) {
+        return;
+      }
+
+      try {
+        const nextMemberIds = (activeRoomData.memberIds || []).filter((uid) => uid !== profile.uid);
+        const nextMemberNames = nextMemberIds.map((uid) => profilesByUid.get(uid)?.username || profilesByUid.get(uid)?.email || "Unknown");
+
+        await setDoc(doc(db, "chatRooms", activeRoomId), {
+          memberIds: nextMemberIds,
+          memberNames: nextMemberNames,
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+
+        await addDoc(collection(db, "chatRooms", activeRoomId, "messages"), {
+          text: `${profile.username || profile.email} was removed from the group.`,
+          user: "wedoall",
+          userEmail: "system@wedoall.local",
+          senderUid: "",
+          rank: "SYSTEM",
+          rankColor: "#4484ff",
+          time: Date.now(),
+          createdAt: serverTimestamp(),
+          system: true
+        });
+
+        await logOwnerAction("removed a group member", {
+          targetUid: profile.uid,
+          targetName: profile.username || profile.email || "Unknown"
+        });
+        setStatus(chatStatus, `${profile.username || profile.email} was kicked from the group.`);
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    async function togglePinMessage(messageId, message) {
+      if (!activeRoomId || !isAdminUser()) {
+        return;
+      }
+
+      const pins = Array.isArray(activeRoomData?.pinnedMessages) ? [...activeRoomData.pinnedMessages] : [];
+      const existingIndex = pins.findIndex((pin) => pin.id === messageId);
+
+      if (existingIndex >= 0) {
+        pins.splice(existingIndex, 1);
+      } else {
+        pins.unshift({
+          id: messageId,
+          user: message.user || "Unknown",
+          text: String(message.text || "").slice(0, 220)
+        });
+      }
+
+      try {
+        await setDoc(doc(db, "chatRooms", activeRoomId), {
+          pinnedMessages: pins.slice(0, 5),
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+        await logOwnerAction(existingIndex >= 0 ? "unpinned a message" : "pinned a message", {
+          messageId
+        });
+        setStatus(chatStatus, existingIndex >= 0 ? "Message unpinned." : "Message pinned.");
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    async function sendImageMessage() {
+      if (!currentUser || !activeRoomId) {
+        setStatus(chatStatus, "Open a chat first.", true);
+        return;
+      }
+
+      const imageUrl = imageUrlInput.value.trim();
+      if (!imageUrl) {
+        setStatus(chatStatus, "Paste an image URL first.", true);
+        return;
+      }
+
+      try {
+        new URL(imageUrl);
+      } catch {
+        setStatus(chatStatus, "That image URL is not valid.", true);
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "chatRooms", activeRoomId, "messages"), {
+          text: messageInput.value.trim(),
+          imageUrl,
+          user: getDisplayName(currentUser),
+          userEmail: currentUser.email,
+          senderUid: currentUser.uid,
+          rank: currentProfile?.rank || "",
+          rankColor: currentProfile?.rankColor || "",
+          time: Date.now(),
+          createdAt: serverTimestamp()
+        });
+        await setDoc(doc(db, "chatRooms", activeRoomId), {
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+        imageUrlInput.value = "";
+        messageInput.value = "";
+        setStatus(chatStatus, "Image sent.");
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    async function createPrivateGroupChat() {
+      if (!currentUser || !currentProfile) {
+        setStatus(chatStatus, "Log in first to create a private group.", true);
+        return;
+      }
+
+      const rawName = groupNameInput.value.trim();
+      const groupName = rawName || "Private Group";
+      const codes = Array.from(
+        new Set(
+          groupCodesInput.value
+            .split(/[\s,]+/)
+            .map((value) => normalizeCode(value))
+            .filter(Boolean)
+        )
+      );
+
+      if (!codes.length) {
+        setStatus(chatStatus, "Add at least one friend code for the group.", true);
+        return;
+      }
+
+      try {
+        const invitedProfiles = [];
+
+        for (const code of codes) {
+          if (code === currentProfile.friendCode) {
+            continue;
+          }
+
+          const friendSnap = await getDocs(query(collection(db, "profiles"), where("friendCode", "==", code)));
+          if (!friendSnap.empty) {
+            invitedProfiles.push(friendSnap.docs[0].data());
+          }
+        }
+
+        const uniqueProfiles = Array.from(
+          new Map(invitedProfiles.map((profile) => [profile.uid, profile])).values()
+        );
+
+        if (!uniqueProfiles.length) {
+          setStatus(chatStatus, "No matching people were found for those codes.", true);
+          return;
+        }
+
+        const memberIds = Array.from(new Set([currentUser.uid, ...uniqueProfiles.map((profile) => profile.uid)]));
+        const memberNames = memberIds.map((uid) => {
+          if (uid === currentUser.uid) {
+            return currentProfile.username || getDisplayName(currentUser);
+          }
+          return uniqueProfiles.find((profile) => profile.uid === uid)?.username || "Unknown";
+        });
+        const roomId = `group_${currentUser.uid}_${Date.now().toString(36)}`;
+
+        await setDoc(doc(db, "chatRooms", roomId), {
+          type: "private-group",
+          name: groupName,
+          memberIds,
+          memberNames,
+          createdByUid: currentUser.uid,
+          createdByName: currentProfile.username || getDisplayName(currentUser),
+          monitoredByAdmins: true,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+
+        await addDoc(collection(db, "chatRooms", roomId, "messages"), {
+          text: `This private group was created by ${currentProfile.username || getDisplayName(currentUser)}. All chats here are monitored by owners.`,
+          user: "wedoall",
+          userEmail: "system@wedoall.local",
+          senderUid: "",
+          rank: "SYSTEM",
+          rankColor: "#4484ff",
+          time: Date.now(),
+          createdAt: serverTimestamp(),
+          system: true
+        });
+
+        groupNameInput.value = "";
+        groupCodesInput.value = "";
+        openRoom(roomId, groupName);
+        setStatus(chatStatus, `Private group ${groupName} is ready.`);
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    async function signUp() {
+      const { username, email, password } = getFormValues();
+
+      setAuthError(null);
+
+      if (!username) {
+        setStatus(authStatus, "Please choose a username before signing up.", true);
+        setAuthError({ code: "missing-username", message: "Enter a username first." });
+        return;
+      }
+
+      if (!email) {
+        setStatus(authStatus, "Enter an email address.", true);
+        setAuthError({ code: "missing-email", message: "Email cannot be empty." });
+        return;
+      }
+
+      if (!password) {
+        setStatus(authStatus, "Enter a password.", true);
+        setAuthError({ code: "missing-password", message: "Password cannot be empty." });
+        return;
+      }
+
+      if (password.length < 6) {
+        setStatus(authStatus, "Password must be at least 6 characters.", true);
+        setAuthError({ code: "weak-password", message: "Firebase Email/Password sign up requires 6 or more characters." });
+        return;
+      }
+
+      try {
+        signupBtn.disabled = true;
+        loginBtn.disabled = true;
+        setStatus(authStatus, "Creating account...");
+        const credential = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(credential.user, { displayName: username });
+        await ensureProfile(credential.user, username);
+        setStatus(authStatus, "Signed up successfully.");
+        setAuthError(null);
+      } catch (error) {
+        setStatus(authStatus, error.message, true);
+        setAuthError(error);
+        console.error("Sign up failed:", error);
+      } finally {
+        signupBtn.disabled = false;
+        loginBtn.disabled = false;
+      }
+    }
+
+    async function logIn() {
+      const { email, password } = getFormValues();
+      setAuthError(null);
+
+      if (!email || !password) {
+        setStatus(authStatus, "Enter your email and password first.", true);
+        setAuthError({ code: "missing-login-fields", message: "Both email and password are required for login." });
+        return;
+      }
+
+      try {
+        loginBtn.disabled = true;
+        signupBtn.disabled = true;
+        setStatus(authStatus, "Logging in...");
+        await signInWithEmailAndPassword(auth, email, password);
+        setStatus(authStatus, "Logged in successfully.");
+        setAuthError(null);
+      } catch (error) {
+        setStatus(authStatus, error.message, true);
+        setAuthError(error);
+        console.error("Login failed:", error);
+      } finally {
+        loginBtn.disabled = false;
+        signupBtn.disabled = false;
+      }
+    }
+
+    async function logOut() {
+      try {
+        await signOut(auth);
+        currentProfile = null;
+        friendCodeBox.textContent = "Sign up or log in first";
+        setStatus(authStatus, "Logged out.");
+      } catch (error) {
+        setStatus(authStatus, error.message, true);
+      }
+    }
+
+    async function sendMessage() {
+      if (!currentUser) {
+        setStatus(chatStatus, "You need to log in first.", true);
+        return;
+      }
+
+      const restrictionMessage = getRestrictionMessage();
+      if (restrictionMessage) {
+        setStatus(chatStatus, restrictionMessage, true);
+        setSignedInState(currentUser);
+        return;
+      }
+
+      const text = messageInput.value.trim();
+      if (!text) {
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "chatRooms", activeRoomId, "messages"), {
+          text,
+          user: getDisplayName(currentUser),
+          userEmail: currentUser.email,
+          senderUid: currentUser.uid,
+          rank: currentProfile?.rank || "",
+          rankColor: currentProfile?.rankColor || "",
+          replyTo: activeReply,
+          time: Date.now(),
+          createdAt: serverTimestamp()
+        });
+        await setDoc(doc(db, "chatRooms", activeRoomId), {
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+        messageInput.value = "";
+        clearReply();
+        setTypingState(false);
+        setStatus(chatStatus, "Message sent.");
+      } catch (error) {
+        setStatus(chatStatus, error.message, true);
+      }
+    }
+
+    signupBtn.addEventListener("click", signUp);
+    loginBtn.addEventListener("click", logIn);
+    logoutBtn.addEventListener("click", logOut);
+    addFriendBtn.addEventListener("click", createOrOpenFriendChat);
+    saveFriendBtn.addEventListener("click", addFriendByCode);
+    createGroupBtn.addEventListener("click", createPrivateGroupChat);
+    leaveRoomBtn.addEventListener("click", leaveCurrentRoom);
+    adminSearch.addEventListener("input", renderAdminUsers);
+    adminSaveUser.addEventListener("click", async () => {
+      const nextUsername = adminUsername.value.trim();
+      if (!nextUsername) {
+        setStatus(authStatus, "Enter a username before saving.", true);
+        return;
+      }
+      await updateManagedUser({ username: nextUsername });
+    });
+    adminSaveRank.addEventListener("click", async () => {
+      await updateManagedUser({
+        rank: adminRank.value.trim(),
+        rankColor: adminRankColor.value
+      });
+    });
+    adminTimeout10.addEventListener("click", async () => {
+      await updateManagedUser({
+        timeoutUntil: Date.now() + 10 * 60 * 1000,
+        banned: false
+      });
+    });
+    adminTimeoutCustom.addEventListener("click", async () => {
+      const minutesText = window.prompt("Timeout for how many minutes?", "30");
+      if (minutesText === null) {
+        return;
+      }
+
+      const minutes = Number(minutesText);
+      if (!Number.isFinite(minutes) || minutes <= 0) {
+        setStatus(authStatus, "Enter a valid number of minutes.", true);
+        return;
+      }
+
+      await updateManagedUser({
+        timeoutUntil: Date.now() + minutes * 60 * 1000,
+        banned: false
+      });
+    });
+    adminBanUser.addEventListener("click", async () => {
+      await updateManagedUser({
+        banned: true,
+        timeoutUntil: null
+      });
+    });
+    adminClearTimeout.addEventListener("click", async () => {
+      await updateManagedUser({
+        timeoutUntil: null
+      });
+    });
+    adminUnbanUser.addEventListener("click", async () => {
+      await updateManagedUser({
+        banned: false,
+        timeoutUntil: null
+      });
+    });
+    saveSettingsBtn.addEventListener("click", async () => {
+      const selectedAvailability = availabilitySelect.value;
+      const selectedCustomStatus = customStatusInput.value.trim();
+      const selectedAvatarUrl = avatarUrlInput.value.trim();
+      const selectedTheme = themeSelect.value;
+      const selectedViewMode = viewModeSelect.value;
+      const selectedCursor = cursorStyle.value;
+      const selectedSoundLevel = soundLevel.value;
+
+      applyTheme(selectedTheme);
+      applyViewMode(selectedViewMode);
+      applyCursorStyle(selectedCursor);
+
+      if (!currentUser) {
+        setStatus(authStatus, "Log in first to save settings.", true);
+        return;
+      }
+
+      try {
+        await setDoc(
+          doc(db, "profiles", currentUser.uid),
+          {
+            availability: selectedAvailability,
+            customStatus: selectedCustomStatus,
+            avatarUrl: selectedAvatarUrl,
+            theme: selectedTheme,
+            viewMode: selectedViewMode,
+            cursorStyle: selectedCursor,
+            soundLevel: selectedSoundLevel,
+            isOnline: selectedAvailability !== "offline",
+            lastSeenAt: Date.now()
+          },
+          { merge: true }
+        );
+        setStatus(authStatus, "Settings saved.");
+      } catch (error) {
+        setStatus(authStatus, error.message, true);
+      }
+    });
+    saveGroupSettingsBtn.addEventListener("click", saveGroupSettings);
+    addGroupMemberBtn.addEventListener("click", addMemberToGroupByCode);
+    cancelReply.addEventListener("click", clearReply);
+    [emojiPicker, stickerPicker].forEach((picker) => {
+      picker.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-token]");
+        if (!button) {
+          return;
+        }
+
+        const token = button.getAttribute("data-token");
+        const spacer = messageInput.value && !messageInput.value.endsWith(" ") ? " " : "";
+        messageInput.value += `${spacer}${token} `;
+        messageInput.focus();
+      });
+    });
+    messageSearch.addEventListener("input", () => {
+      const term = messageSearch.value.trim().toLowerCase();
+      const filtered = term
+        ? lastRoomMessages.filter(({ data }) =>
+            String(data.text || "").toLowerCase().includes(term) ||
+            String(data.user || "").toLowerCase().includes(term)
+          )
+        : lastRoomMessages;
+      renderMessagesFromEntries(filtered);
+    });
+    notificationsBtn.addEventListener("click", async () => {
+      if (!("Notification" in window)) {
+        setStatus(chatStatus, "This browser does not support notifications.", true);
+        return;
+      }
+
+      const permission = await Notification.requestPermission();
+      updateNotificationsButton();
+      setStatus(
+        chatStatus,
+        permission === "granted"
+          ? "Notifications enabled."
+          : "Notifications were not enabled.",
+        permission !== "granted"
+      );
+    });
+    themeSelect.addEventListener("change", () => {
+      applyTheme(themeSelect.value);
+    });
+    viewModeSelect.addEventListener("change", () => {
+      applyViewMode(viewModeSelect.value);
+    });
+    friendCodeInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        createOrOpenFriendChat();
+      }
+    });
+    groupCodesInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        createPrivateGroupChat();
+      }
+    });
+    groupAddCodeInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        addMemberToGroupByCode();
+      }
+    });
+    clearBtn.addEventListener("click", () => {
+      usernameInput.value = "";
+      emailInput.value = "";
+      passwordInput.value = "";
+      friendCodeInput.value = "";
+      groupNameInput.value = "";
+      groupCodesInput.value = "";
+      avatarUrlInput.value = "";
+      imageUrlInput.value = "";
+      messageInput.focus();
+      setStatus(authStatus, "");
+      setAuthError(null);
+    });
+
+    sendBtn.addEventListener("click", sendMessage);
+    sendImageBtn.addEventListener("click", sendImageMessage);
+    messageInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        sendMessage();
+      } else {
+        queueTypingPulse();
+      }
+    });
+    messageInput.addEventListener("input", queueTypingPulse);
+
+    onAuthStateChanged(auth, (user) => {
+      currentUser = user;
+      if (!user) {
+        currentProfile = null;
+        friendCodeBox.textContent = "Sign up or log in first";
+        if (unsubscribeRooms) {
+          unsubscribeRooms();
+          unsubscribeRooms = null;
+        }
+        if (unsubscribeProfile) {
+          unsubscribeProfile();
+          unsubscribeProfile = null;
+        }
+        if (unsubscribeAdminUsers) {
+          unsubscribeAdminUsers();
+          unsubscribeAdminUsers = null;
+        }
+        if (unsubscribeProfilesDirectory) {
+          unsubscribeProfilesDirectory();
+          unsubscribeProfilesDirectory = null;
+        }
+        adminProfiles = [];
+        profilesByUid.clear();
+        roomsById.clear();
+        resetAdminSelection();
+        clearRoomState();
+        setSignedInState(null);
+        setStatus(authStatus, "Not logged in.");
+        return;
+      }
+
+      friendCodeBox.textContent = "Loading friend code...";
+      Promise.all([
+        ensurePublicRoom(),
+        ensureProfile(user, usernameInput.value.trim())
+      ])
+        .then(() => {
+          watchCurrentProfile(user);
+          watchRooms(user);
+          watchAdminUsers();
+          watchAuditLogs();
+          watchProfilesDirectory();
+          applyTheme(currentProfile?.theme || localStorage.getItem("wedoall-theme") || "default");
+          applyViewMode(currentProfile?.viewMode || localStorage.getItem("wedoall-view-mode") || "auto");
+          applyCursorStyle(currentProfile?.cursorStyle || localStorage.getItem("wedoall-cursor-style") || "default");
+          themeSelect.value = currentProfile?.theme || localStorage.getItem("wedoall-theme") || "default";
+          viewModeSelect.value = currentProfile?.viewMode || localStorage.getItem("wedoall-view-mode") || "auto";
+          cursorStyle.value = currentProfile?.cursorStyle || localStorage.getItem("wedoall-cursor-style") || "default";
+          soundLevel.value = currentProfile?.soundLevel || "soft";
+          setPresence(true);
+          setSignedInState(user);
+          setStatus(authStatus, `Logged in as ${getDisplayName(user)}`);
+        })
+        .catch((error) => {
+          friendCodeBox.textContent = "Could not load friend code";
+          setStatus(authStatus, error.message, true);
+        });
+    });
+
+    setSignedInState(null);
+    clearRoomState();
+    updateNotificationsButton();
+    applyTheme(localStorage.getItem("wedoall-theme") || "default");
+    themeSelect.value = localStorage.getItem("wedoall-theme") || "default";
+    applyViewMode(localStorage.getItem("wedoall-view-mode") || "auto");
+    viewModeSelect.value = localStorage.getItem("wedoall-view-mode") || "auto";
+    applyCursorStyle(localStorage.getItem("wedoall-cursor-style") || "default");
+    cursorStyle.value = localStorage.getItem("wedoall-cursor-style") || "default";
+    soundLevel.value = "soft";
+    document.addEventListener("visibilitychange", () => {
+      if (!currentUser) {
+        return;
+      }
+      setPresence(!document.hidden);
+    });
+    window.addEventListener("beforeunload", () => {
+      if (!currentUser) {
+        return;
+      }
+      setPresence(false);
+    });
+  </script>
+</body>
+</html>
