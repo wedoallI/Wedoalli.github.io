@@ -329,6 +329,32 @@
       max-width: 55ch;
     }
 
+    .billing-toggle {
+      display: inline-flex;
+      gap: 8px;
+      margin-top: 18px;
+      padding: 6px;
+      border-radius: 999px;
+      background: rgba(95, 31, 105, 0.08);
+      border: 1px solid rgba(95, 31, 105, 0.1);
+    }
+
+    .billing-toggle button {
+      min-width: 120px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: transparent;
+      color: #5f556d;
+      box-shadow: none;
+      border: 0;
+      font-weight: 800;
+    }
+
+    .billing-toggle button.active {
+      background: #5f1f69;
+      color: #fff;
+    }
+
     .pricing-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -2297,61 +2323,65 @@
         <div class="pricing-copy">
           <h3>Simple pricing for teams that want to move fast.</h3>
           <p>Start with a lower first month, invite your team with one link, and upgrade whenever you need more rooms, more storage, and more workspace power.</p>
+          <div class="billing-toggle" role="tablist" aria-label="Billing cycle">
+            <button id="billing-monthly-btn" class="active" type="button">Monthly</button>
+            <button id="billing-yearly-btn" type="button">Yearly</button>
+          </div>
           <div id="pricing-status" class="pricing-status">Secure checkout can be connected here with Stripe when your keys and backend endpoint are ready.</div>
         </div>
         <div class="pricing-grid">
-          <article class="price-card">
+          <article class="price-card" data-plan-card="starter">
             <div class="price-top">
               <div>
                 <h4>Starter</h4>
-                <div class="price-tag">$3</div>
-                <div class="price-sub">first month, then $5/month</div>
+                <div id="starter-price" class="price-tag">$3</div>
+                <div id="starter-sub" class="price-sub">first month, then $5/month</div>
               </div>
               <span class="price-badge">Best for small teams</span>
             </div>
-            <p class="price-note">Create one organization, unlimited direct messages, and core rooms.</p>
+            <p id="starter-note" class="price-note">Create one organization, unlimited direct messages, and core rooms.</p>
             <ul class="price-list">
               <li>Up to 25 members</li>
               <li>Organization invite links</li>
               <li>Voice and video rooms</li>
             </ul>
-            <button id="buy-starter-btn" class="secondary" type="button">Choose Starter</button>
+            <button id="buy-starter-btn" class="secondary" type="button">Choose Starter Monthly</button>
           </article>
 
-          <article class="price-card featured">
+          <article class="price-card featured" data-plan-card="pro">
             <div class="price-top">
               <div>
                 <h4>Pro</h4>
-                <div class="price-tag">$7</div>
-                <div class="price-sub">first month, then $10/month</div>
+                <div id="pro-price" class="price-tag">$7</div>
+                <div id="pro-sub" class="price-sub">first month, then $10/month</div>
               </div>
               <span class="price-badge">Most popular</span>
             </div>
-            <p class="price-note">For growing teams that need stronger collaboration and workspace control.</p>
+            <p id="pro-note" class="price-note">For growing teams that need stronger collaboration and workspace control.</p>
             <ul class="price-list">
               <li>Up to 150 members</li>
               <li>Priority workspace features</li>
               <li>Advanced room organization</li>
             </ul>
-            <button id="buy-pro-btn" class="primary" type="button">Choose Pro</button>
+            <button id="buy-pro-btn" class="primary" type="button">Choose Pro Monthly</button>
           </article>
 
-          <article class="price-card">
+          <article class="price-card" data-plan-card="business">
             <div class="price-top">
               <div>
                 <h4>Business</h4>
-                <div class="price-tag">$15</div>
-                <div class="price-sub">first month, then $20/month</div>
+                <div id="business-price" class="price-tag">$15</div>
+                <div id="business-sub" class="price-sub">first month, then $20/month</div>
               </div>
               <span class="price-badge">Large teams</span>
             </div>
-            <p class="price-note">For busy companies that want more scale, structure, and higher room limits.</p>
+            <p id="business-note" class="price-note">For busy companies that want more scale, structure, and higher room limits.</p>
             <ul class="price-list">
               <li>Unlimited members</li>
               <li>Premium workspace controls</li>
               <li>More powerful automation-ready layout</li>
             </ul>
-            <button id="buy-business-btn" class="secondary" type="button">Choose Business</button>
+            <button id="buy-business-btn" class="secondary" type="button">Choose Business Monthly</button>
           </article>
         </div>
       </div>
@@ -2860,26 +2890,53 @@
     };
 
     const PAYMENT_LINKS = {
-      starter: "",
-      pro: "",
-      business: ""
+      starter_monthly: "",
+      starter_yearly: "",
+      pro_monthly: "",
+      pro_yearly: "",
+      business_monthly: "",
+      business_yearly: ""
     };
 
     const PLAN_CONFIG = {
       starter: {
         label: "Starter",
-        trialPrice: 3,
-        renewalPrice: 5
+        monthly: {
+          displayPrice: 3,
+          sublabel: "first month, then $5/month",
+          note: "Create one organization, unlimited direct messages, and core rooms."
+        },
+        yearly: {
+          displayPrice: 25,
+          sublabel: "per year",
+          note: "Best yearly value for small teams that want one clean workspace."
+        }
       },
       pro: {
         label: "Pro",
-        trialPrice: 7,
-        renewalPrice: 10
+        monthly: {
+          displayPrice: 7,
+          sublabel: "first month, then $10/month",
+          note: "For growing teams that need stronger collaboration and workspace control."
+        },
+        yearly: {
+          displayPrice: 40,
+          sublabel: "per year",
+          note: "Lower yearly price for teams that want Pro all year long."
+        }
       },
       business: {
         label: "Business",
-        trialPrice: 15,
-        renewalPrice: 20
+        monthly: {
+          displayPrice: 15,
+          sublabel: "first month, then $20/month",
+          note: "For busy companies that want more scale, structure, and higher room limits."
+        },
+        yearly: {
+          displayPrice: 100,
+          sublabel: "per year",
+          note: "Best long-term value for larger companies and active workspaces."
+        }
       }
     };
 
@@ -2899,6 +2956,17 @@
     const buyStarterBtn = document.getElementById("buy-starter-btn");
     const buyProBtn = document.getElementById("buy-pro-btn");
     const buyBusinessBtn = document.getElementById("buy-business-btn");
+    const billingMonthlyBtn = document.getElementById("billing-monthly-btn");
+    const billingYearlyBtn = document.getElementById("billing-yearly-btn");
+    const starterPrice = document.getElementById("starter-price");
+    const starterSub = document.getElementById("starter-sub");
+    const starterNote = document.getElementById("starter-note");
+    const proPrice = document.getElementById("pro-price");
+    const proSub = document.getElementById("pro-sub");
+    const proNote = document.getElementById("pro-note");
+    const businessPrice = document.getElementById("business-price");
+    const businessSub = document.getElementById("business-sub");
+    const businessNote = document.getElementById("business-note");
     const homePage = document.getElementById("home-page");
     const workspaceLayout = document.getElementById("workspace-layout");
     const authShowcase = document.getElementById("auth-showcase");
@@ -3022,6 +3090,7 @@
     let typingTimer = null;
     let profileDrawerOpen = false;
     let activeScreen = "home";
+    let selectedBillingMode = "monthly";
 
     function getAvatarUrl(profile) {
       return String(profile?.avatarUrl || "").trim();
@@ -3122,18 +3191,44 @@
       pricingStatus.style.color = isError ? "#b84c67" : "#6e6679";
     }
 
+    function updatePricingDisplay(mode = selectedBillingMode) {
+      selectedBillingMode = mode === "yearly" ? "yearly" : "monthly";
+      billingMonthlyBtn.classList.toggle("active", selectedBillingMode === "monthly");
+      billingYearlyBtn.classList.toggle("active", selectedBillingMode === "yearly");
+
+      const visiblePlans = [
+        ["starter", starterPrice, starterSub, starterNote, buyStarterBtn],
+        ["pro", proPrice, proSub, proNote, buyProBtn],
+        ["business", businessPrice, businessSub, businessNote, buyBusinessBtn]
+      ];
+
+      visiblePlans.forEach(([id, priceEl, subEl, noteEl, buttonEl]) => {
+        const planCopy = PLAN_CONFIG[id]?.[selectedBillingMode];
+        const label = PLAN_CONFIG[id]?.label || id;
+        if (!planCopy) {
+          return;
+        }
+        priceEl.textContent = `$${planCopy.displayPrice}`;
+        subEl.textContent = planCopy.sublabel;
+        noteEl.textContent = planCopy.note;
+        buttonEl.textContent = `Choose ${label} ${selectedBillingMode === "yearly" ? "Yearly" : "Monthly"}`;
+      });
+    }
+
     async function startCheckout(planId) {
       const normalized = String(planId || "").toLowerCase();
-      const checkoutLink = PAYMENT_LINKS[normalized];
+      const checkoutKey = `${normalized}_${selectedBillingMode}`;
+      const checkoutLink = PAYMENT_LINKS[checkoutKey];
       const plan = PLAN_CONFIG[normalized];
+      const planCopy = plan?.[selectedBillingMode];
 
-      if (!plan) {
+      if (!plan || !planCopy) {
         setPricingStatus("That pricing plan is not configured yet.", true);
         return;
       }
 
       if (checkoutLink) {
-        setPricingStatus(`Opening secure ${plan.label} checkout...`);
+        setPricingStatus(`Opening secure ${plan.label} ${selectedBillingMode} checkout...`);
         window.open(checkoutLink, "_blank", "noopener,noreferrer");
         return;
       }
@@ -3141,12 +3236,12 @@
       if (!STRIPE_CONFIG.publishableKey || !STRIPE_CONFIG.checkoutEndpoint) {
         setScreen("organization");
         setPricingStatus(
-          `Stripe is not connected yet. Add your publishable key and backend endpoint to activate ${plan.label} checkout.`,
+          `Stripe is not connected yet. Add your publishable key and backend endpoint to activate ${plan.label} ${selectedBillingMode} checkout.`,
           true
         );
         setStatus(
           authStatus,
-          `Stripe is not connected yet. Add your publishable key and backend endpoint to activate ${plan.label} checkout.`,
+          `Stripe is not connected yet. Add your publishable key and backend endpoint to activate ${plan.label} ${selectedBillingMode} checkout.`,
           true
         );
         return;
@@ -3158,10 +3253,10 @@
       }
 
       try {
-        localStorage.setItem("wedoall-selected-plan", normalized);
+        localStorage.setItem("wedoall-selected-plan", checkoutKey);
       } catch {}
 
-      setPricingStatus(`Preparing secure ${plan.label} checkout...`);
+      setPricingStatus(`Preparing secure ${plan.label} ${selectedBillingMode} checkout...`);
 
       try {
         const stripe = window.Stripe(STRIPE_CONFIG.publishableKey);
@@ -3172,9 +3267,10 @@
           },
           body: JSON.stringify({
             planId: normalized,
+            billingMode: selectedBillingMode,
             customerEmail: currentUser?.email || emailInput.value.trim() || "",
-            successUrl: `${window.location.origin}${window.location.pathname}?checkout=success&plan=${normalized}`,
-            cancelUrl: `${window.location.origin}${window.location.pathname}?checkout=cancel&plan=${normalized}`
+            successUrl: `${window.location.origin}${window.location.pathname}?checkout=success&plan=${checkoutKey}`,
+            cancelUrl: `${window.location.origin}${window.location.pathname}?checkout=cancel&plan=${checkoutKey}`
           })
         });
 
@@ -5621,6 +5717,8 @@
     workspaceNavBtn.addEventListener("click", () => setScreen("workspace"));
     homeSigninBtn.addEventListener("click", () => setScreen("signin"));
     homeOrgBtn.addEventListener("click", () => setScreen("organization"));
+    billingMonthlyBtn.addEventListener("click", () => updatePricingDisplay("monthly"));
+    billingYearlyBtn.addEventListener("click", () => updatePricingDisplay("yearly"));
     pricingNavBtn.addEventListener("click", scrollToPricing);
     featuresNavBtn.addEventListener("click", () => {
       document.querySelector(".marketing-preview")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -5930,6 +6028,7 @@
     applyCursorStyle(localStorage.getItem("wedoall-cursor-style") || "default");
     cursorStyle.value = localStorage.getItem("wedoall-cursor-style") || "default";
     soundLevel.value = "soft";
+    updatePricingDisplay("monthly");
     setScreen("home");
     document.addEventListener("visibilitychange", () => {
       if (!currentUser) {
