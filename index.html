@@ -1328,7 +1328,7 @@
           </div>
           <div class="feature-card">
             <strong>Owner Oversight</strong>
-            <span>Keep workspaces safe with monitoring, moderation, and owner tools.</span>
+            <span>Keep workspaces organized with moderation tools, team rooms, and company structure.</span>
           </div>
         </div>
       </div>
@@ -1436,7 +1436,7 @@
               <label for="group-codes-input">Teammate usernames</label>
               <input id="group-codes-input" type="text" placeholder="Paste usernames separated by commas">
             </div>
-            <p class="hint">Invite multiple coworkers by username. Private team rooms are still monitored by owners.</p>
+            <p class="hint">Invite multiple coworkers by username to create a private team room.</p>
             <button id="create-group-btn" class="primary" type="button">Create Team Room</button>
           </div>
 
@@ -1632,7 +1632,7 @@
             <button id="leave-room-btn" class="danger" type="button">Leave Chat</button>
           </div>
 
-          <div id="monitor-banner" class="monitor-banner">All chats are monitored by owners for safety.</div>
+          <div id="monitor-banner" class="monitor-banner">Private rooms stay visible only to the people inside them.</div>
 
           <div id="pinned-panel" class="pinned-panel">
             <strong>Pinned Messages</strong>
@@ -2286,7 +2286,6 @@
         organizationName: org.name,
         memberIds: Array.isArray(org.memberUids) ? org.memberUids : [],
         memberNames: Array.isArray(org.memberUsernames) ? org.memberUsernames : [],
-        monitoredByAdmins: true,
         updatedAt: serverTimestamp()
       };
 
@@ -2297,7 +2296,7 @@
         });
 
         await addDoc(collection(db, "chatRooms", roomId, "messages"), {
-          text: `${org.name} workspace is live. Owners can monitor rooms for safety and business support.`,
+          text: `${org.name} workspace is live. This General room is ready for your team.`,
           user: "wedoall",
           userEmail: "system@wedoall.local",
           senderUid: "",
@@ -2624,7 +2623,7 @@
       roomsDiv.innerHTML = '<div class="empty-state">Your chats will appear here.</div>';
       messagesDiv.innerHTML = '<div class="empty-state">Pick a chat to start messaging.</div>';
       roomLabel.textContent = "No room selected";
-      monitorBanner.textContent = "All chats are monitored by owners for safety.";
+      monitorBanner.textContent = "Private rooms stay visible only to the people inside them.";
       voiceCallLink.href = "#";
       videoCallLink.href = "#";
       leaveRoomBtn.classList.add("hidden");
@@ -2801,7 +2800,7 @@
 
       if (!roomId) {
         roomLabel.textContent = "No room selected";
-        monitorBanner.textContent = "All chats are monitored by owners for safety.";
+        monitorBanner.textContent = "Private rooms stay visible only to the people inside them.";
         voiceCallLink.href = "#";
         videoCallLink.href = "#";
         pinnedPanel.classList.remove("visible");
@@ -2812,10 +2811,10 @@
 
       roomLabel.textContent = `Current room: ${roomName} • ${getRoomTypeLabel(activeRoomData)}`;
       monitorBanner.textContent = activeRoomData?.type === "private-group"
-        ? "This private team room is invite-only, and owners can access it from the moment it is created."
+        ? "This private team room is invite-only and only visible to its members."
         : activeRoomData?.type === "organization"
-          ? "This organization room belongs to a company workspace and is monitored by owners for safety."
-          : "All chats are monitored by owners for safety.";
+          ? "This organization room belongs to your company workspace."
+          : "Private rooms stay visible only to the people inside them.";
       voiceCallLink.href = getCallUrl(roomId, roomName, "voice");
       videoCallLink.href = getCallUrl(roomId, roomName, "video");
       leaveRoomBtn.classList.toggle(
@@ -3755,7 +3754,7 @@
               const isPublic = Boolean(data.public) || data.type === "public";
               const isMember = Array.isArray(data.memberIds) && data.memberIds.includes(user.uid);
               const isOrganizationRoom = data.type === "organization" && getOrganizationIds().includes(data.organizationId);
-              if (!isAdminUser(user) && !isPublic && !isMember && !isOrganizationRoom) {
+              if (!isPublic && !isMember && !isOrganizationRoom) {
                 return null;
               }
               return {
@@ -3845,7 +3844,6 @@
           name: `${currentProfile.username} & ${friend.username}`,
           memberIds: sortedIds,
           memberNames: [currentProfile.username, friend.username],
-          monitoredByAdmins: true,
           createdAt: serverTimestamp(),
           updatedAt: serverTimestamp()
         });
@@ -4198,13 +4196,12 @@
           memberNames,
           createdByUid: currentUser.uid,
           createdByName: currentProfile.username || getDisplayName(currentUser),
-          monitoredByAdmins: true,
           createdAt: serverTimestamp(),
           updatedAt: serverTimestamp()
         });
 
         await addDoc(collection(db, "chatRooms", roomId, "messages"), {
-          text: `This private team room was created by ${currentProfile.username || getDisplayName(currentUser)}. All chats here are monitored by owners.`,
+          text: `This private team room was created by ${currentProfile.username || getDisplayName(currentUser)}.`,
           user: "wedoall",
           userEmail: "system@wedoall.local",
           senderUid: "",
