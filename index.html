@@ -469,6 +469,37 @@
       border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
 
+    .profile-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+    }
+
+    .profile-card strong,
+    .profile-card small {
+      display: block;
+    }
+
+    .profile-card small {
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .profile-drawer {
+      display: none;
+    }
+
+    .profile-drawer.visible {
+      display: flex;
+    }
+
     .stack h3 {
       margin: 0 0 6px;
       font-size: 1rem;
@@ -1180,7 +1211,18 @@
           Admin delete is enabled only when the signed-in email matches the value inside the script.
         </p>
 
-        <div class="stack">
+        <button id="profile-toggle-card" class="profile-card hidden" type="button">
+          <span class="member-name">
+            <img id="profile-card-avatar" class="avatar large" alt="Profile avatar">
+            <span>
+              <strong id="profile-card-name">Profile</strong>
+              <small id="profile-card-subtitle">Tap to open profile tools</small>
+            </span>
+          </span>
+          <span id="profile-card-arrow">Open</span>
+        </button>
+
+        <div id="profile-drawer" class="stack profile-drawer">
           <div>
             <h3>Your Friend Code</h3>
             <div id="friend-code" class="code-box">Sign up or log in first</div>
@@ -1189,8 +1231,8 @@
           <div>
             <h3>Start Private Chat</h3>
             <div class="field">
-              <label for="friend-code-input">Friend code</label>
-              <input id="friend-code-input" type="text" placeholder="Enter a friend's code" maxlength="12">
+              <label for="friend-code-input">Username or friend code</label>
+              <input id="friend-code-input" type="text" placeholder="Enter a username or friend code" maxlength="24">
             </div>
             <div class="actions">
               <button id="add-friend-btn" class="primary" type="button">Create / Open Chat</button>
@@ -1212,10 +1254,10 @@
               <input id="group-name-input" type="text" placeholder="Squad, Family, Mods" maxlength="32">
             </div>
             <div class="field">
-              <label for="group-codes-input">Friend codes</label>
-              <input id="group-codes-input" type="text" placeholder="Paste codes separated by commas">
+              <label for="group-codes-input">Usernames or friend codes</label>
+              <input id="group-codes-input" type="text" placeholder="Paste usernames or codes separated by commas">
             </div>
-            <p class="hint">Invite multiple people with their friend codes. Private groups are still monitored by owners.</p>
+            <p class="hint">Invite multiple people with their usernames or friend codes. Private groups are still monitored by owners.</p>
             <button id="create-group-btn" class="primary" type="button">Create Private Group</button>
           </div>
 
@@ -1381,8 +1423,8 @@
               <input id="group-icon-input" type="url" placeholder="https://example.com/icon.png">
             </div>
             <div class="field">
-              <label for="group-add-code-input">Add friend code</label>
-              <input id="group-add-code-input" type="text" placeholder="Invite by friend code">
+              <label for="group-add-code-input">Add username or friend code</label>
+              <input id="group-add-code-input" type="text" placeholder="Invite by username or friend code">
             </div>
           </div>
           <div class="room-settings-actions">
@@ -1493,6 +1535,12 @@
     const passwordInput = document.getElementById("password");
     const authStatus = document.getElementById("auth-status");
     const authError = document.getElementById("auth-error");
+    const profileToggleCard = document.getElementById("profile-toggle-card");
+    const profileCardAvatar = document.getElementById("profile-card-avatar");
+    const profileCardName = document.getElementById("profile-card-name");
+    const profileCardSubtitle = document.getElementById("profile-card-subtitle");
+    const profileCardArrow = document.getElementById("profile-card-arrow");
+    const profileDrawer = document.getElementById("profile-drawer");
     const chatStatus = document.getElementById("chat-status");
     const sessionPill = document.getElementById("session-pill");
     const userLabel = document.getElementById("user-label");
@@ -1585,6 +1633,7 @@
     let activeReply = null;
     let lastRoomMessages = [];
     let typingTimer = null;
+    let profileDrawerOpen = false;
 
     function getAvatarUrl(profile) {
       return String(profile?.avatarUrl || "").trim();
@@ -1600,6 +1649,45 @@
         img.src = fallbackAvatar;
       }, { once: true });
       return img;
+    }
+
+    function setProfileDrawer(open) {
+      profileDrawerOpen = Boolean(open);
+      profileDrawer.classList.toggle("visible", profileDrawerOpen);
+      profileCardArrow.textContent = profileDrawerOpen ? "Close" : "Open";
+      profileCardSubtitle.textContent = profileDrawerOpen
+        ? "Tap to hide profile tools"
+        : "Tap to open profile tools";
+    }
+
+    async function resolveProfileFromInput(rawValue, { excludeSelf = true } = {}) {
+      const input = String(rawValue || "").trim();
+      if (!input) {
+        return null;
+      }
+
+      const normalizedInput = normalizeName(input);
+      const normalizedCode = normalizeCode(input);
+      const profilesSnapshot = await getDocs(collection(db, "profiles"));
+      const profile = profilesSnapshot.docs
+        .map((docSnap) => docSnap.data())
+        .find((entry) =>
+          entry &&
+          (
+            normalizeCode(entry.friendCode || "") === normalizedCode ||
+            normalizeName(entry.username || "") === normalizedInput
+          )
+        );
+
+      if (!profile) {
+        return null;
+      }
+
+      if (excludeSelf && profile.uid === currentUser?.uid) {
+        return "self";
+      }
+
+      return profile;
     }
 
     function getDisplayName(user) {
@@ -2495,6 +2583,13 @@
         : blockedMessage || (activeRoomName ? `Chatting in ${activeRoomName}.` : "Join Everyone, open a private chat, or make a private group.");
 
       friendCodeBox.textContent = loggedIn && currentProfile ? currentProfile.friendCode : "Sign up or log in first";
+      profileToggleCard.classList.toggle("hidden", !loggedIn);
+      if (loggedIn && currentProfile) {
+        profileCardName.textContent = currentProfile.username || getDisplayName(user);
+        profileCardAvatar.src = getAvatarUrl(currentProfile) || createAvatar(currentProfile).src;
+      } else {
+        setProfileDrawer(false);
+      }
       renderFriendsList();
       setAdminPanelState();
     }
@@ -3188,25 +3283,22 @@
         return;
       }
 
-      const friendCode = normalizeCode(friendCodeInput.value);
-      if (!friendCode) {
-        setStatus(chatStatus, "Enter a friend code first.", true);
-        return;
-      }
-
-      if (friendCode === currentProfile.friendCode) {
-        setStatus(chatStatus, "Use someone else's code, not your own.", true);
+      const friendInput = friendCodeInput.value.trim();
+      if (!friendInput) {
+        setStatus(chatStatus, "Enter a username or friend code first.", true);
         return;
       }
 
       try {
-        const friendSnap = await getDocs(query(collection(db, "profiles"), where("friendCode", "==", friendCode)));
-        if (friendSnap.empty) {
-          setStatus(chatStatus, "No user found with that friend code.", true);
+        const friend = await resolveProfileFromInput(friendInput);
+        if (friend === "self") {
+          setStatus(chatStatus, "Use someone else's username or code, not your own.", true);
           return;
         }
-
-        const friend = friendSnap.docs[0].data();
+        if (!friend) {
+          setStatus(chatStatus, "No user found with that username or friend code.", true);
+          return;
+        }
         await ensureDirectRoom(friend);
 
         friendCodeInput.value = "";
@@ -3258,25 +3350,22 @@
         return;
       }
 
-      const friendCode = normalizeCode(friendCodeInput.value);
-      if (!friendCode) {
-        setStatus(chatStatus, "Enter a friend code first.", true);
-        return;
-      }
-
-      if (friendCode === currentProfile.friendCode) {
-        setStatus(chatStatus, "Use someone else's code, not your own.", true);
+      const friendInput = friendCodeInput.value.trim();
+      if (!friendInput) {
+        setStatus(chatStatus, "Enter a username or friend code first.", true);
         return;
       }
 
       try {
-        const friendSnap = await getDocs(query(collection(db, "profiles"), where("friendCode", "==", friendCode)));
-        if (friendSnap.empty) {
-          setStatus(chatStatus, "No user found with that friend code.", true);
+        const friend = await resolveProfileFromInput(friendInput);
+        if (friend === "self") {
+          setStatus(chatStatus, "Use someone else's username or code, not your own.", true);
           return;
         }
-
-        const friend = friendSnap.docs[0].data();
+        if (!friend) {
+          setStatus(chatStatus, "No user found with that username or friend code.", true);
+          return;
+        }
         await setDoc(doc(db, "profiles", currentUser.uid), {
           friendUids: arrayUnion(friend.uid)
         }, { merge: true });
@@ -3367,20 +3456,22 @@
         return;
       }
 
-      const friendCode = normalizeCode(groupAddCodeInput.value);
-      if (!friendCode) {
-        setStatus(chatStatus, "Enter a friend code to add.", true);
+      const friendInput = groupAddCodeInput.value.trim();
+      if (!friendInput) {
+        setStatus(chatStatus, "Enter a username or friend code to add.", true);
         return;
       }
 
       try {
-        const friendSnap = await getDocs(query(collection(db, "profiles"), where("friendCode", "==", friendCode)));
-        if (friendSnap.empty) {
-          setStatus(chatStatus, "No user found with that friend code.", true);
+        const friend = await resolveProfileFromInput(friendInput);
+        if (friend === "self") {
+          setStatus(chatStatus, "You are already in this group.", true);
           return;
         }
-
-        const friend = friendSnap.docs[0].data();
+        if (!friend) {
+          setStatus(chatStatus, "No user found with that username or friend code.", true);
+          return;
+        }
         if ((activeRoomData.memberIds || []).includes(friend.uid)) {
           setStatus(chatStatus, `${friend.username || friend.email} is already in this group.`, true);
           return;
@@ -3538,27 +3629,23 @@
         new Set(
           groupCodesInput.value
             .split(/[\s,]+/)
-            .map((value) => normalizeCode(value))
+            .map((value) => value.trim())
             .filter(Boolean)
         )
       );
 
       if (!codes.length) {
-        setStatus(chatStatus, "Add at least one friend code for the group.", true);
+        setStatus(chatStatus, "Add at least one username or friend code for the group.", true);
         return;
       }
 
       try {
         const invitedProfiles = [];
 
-        for (const code of codes) {
-          if (code === currentProfile.friendCode) {
-            continue;
-          }
-
-          const friendSnap = await getDocs(query(collection(db, "profiles"), where("friendCode", "==", code)));
-          if (!friendSnap.empty) {
-            invitedProfiles.push(friendSnap.docs[0].data());
+        for (const token of codes) {
+          const profile = await resolveProfileFromInput(token);
+          if (profile && profile !== "self") {
+            invitedProfiles.push(profile);
           }
         }
 
@@ -3919,6 +4006,12 @@
       setAuthError(null);
     });
 
+    profileToggleCard.addEventListener("click", () => {
+      if (profileToggleCard.classList.contains("hidden")) {
+        return;
+      }
+      setProfileDrawer(!profileDrawerOpen);
+    });
     sendBtn.addEventListener("click", sendMessage);
     sendImageBtn.addEventListener("click", sendImageMessage);
     messageInput.addEventListener("keydown", (event) => {
@@ -3956,6 +4049,7 @@
         roomsById.clear();
         resetAdminSelection();
         clearRoomState();
+        setProfileDrawer(false);
         setSignedInState(null);
         setStatus(authStatus, "Not logged in.");
         return;
