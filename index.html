@@ -180,6 +180,18 @@
       border: 1px solid var(--panel-border);
     }
 
+    .marketing-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .marketing-links span {
+      white-space: nowrap;
+    }
+
     .status-pill::before {
       content: "";
       width: 10px;
@@ -213,33 +225,250 @@
     }
 
     .home-page {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 18px;
-      align-items: stretch;
+      display: block;
     }
 
-    .home-copy h2 {
-      margin-bottom: 10px;
-      font-size: clamp(1.6rem, 2.4vw, 2.3rem);
+    .marketing-hero {
+      max-width: 920px;
+      margin: 30px auto 0;
+      text-align: center;
     }
 
-    .home-copy p {
-      max-width: 60ch;
+    .marketing-hero h2 {
+      margin: 0;
+      font-size: clamp(3rem, 6vw, 5.8rem);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      color: #17111f;
+    }
+
+    .marketing-hero p {
+      max-width: 760px;
+      margin: 22px auto 0;
+      font-size: 1.35rem;
+      color: #5f596d;
     }
 
     .cta-row {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 10px;
-      margin-top: 20px;
+      margin-top: 28px;
     }
 
-    .feature-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    .cta-row button {
+      min-width: 220px;
+      padding: 16px 22px;
+      font-weight: 800;
+      border-radius: 14px;
+      letter-spacing: 0.01em;
+    }
+
+    .brand-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 36px;
+      color: #726d7f;
+      font-weight: 700;
+    }
+
+    .brand-chip {
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(77, 36, 98, 0.06);
+      border: 1px solid rgba(77, 36, 98, 0.08);
+      color: #40384e;
+    }
+
+    .marketing-preview {
+      margin-top: 44px;
+      padding: 26px;
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at left bottom, rgba(239, 182, 209, 0.35), transparent 28%),
+        radial-gradient(circle at right bottom, rgba(235, 228, 138, 0.28), transparent 30%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.86));
+      border: 1px solid rgba(97, 55, 113, 0.1);
+      box-shadow: 0 30px 80px rgba(73, 39, 92, 0.12);
+    }
+
+    .preview-window {
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(76, 40, 102, 0.14);
+      background: #fff;
+      box-shadow: 0 24px 55px rgba(55, 33, 66, 0.16);
+    }
+
+    .preview-window-top {
+      display: flex;
+      align-items: center;
       gap: 12px;
-      margin-top: 20px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #4b185f, #6d2a80 58%, #7e368f);
+      color: #fff;
+    }
+
+    .preview-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .preview-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .preview-search {
+      flex: 1;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .preview-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #ffd26b, #69d9cb);
+    }
+
+    .preview-body {
+      display: grid;
+      grid-template-columns: 96px 1.1fr 1fr;
+      min-height: 560px;
+    }
+
+    .preview-sidebar {
+      padding: 22px 14px;
+      background: linear-gradient(180deg, #52176a, #411157);
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .preview-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 22px;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .preview-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .preview-feed,
+    .preview-assistant {
+      padding: 22px;
+      background: #fff;
+    }
+
+    .preview-feed {
+      border-right: 1px solid #ece5ef;
+    }
+
+    .preview-panel-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      font-weight: 900;
+      font-size: 1.15rem;
+      color: #24192f;
+    }
+
+    .preview-card {
+      display: flex;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid #f1ebf4;
+    }
+
+    .preview-face {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      flex: 0 0 auto;
+      background: linear-gradient(135deg, #5dd0bf, #8d52ff);
+    }
+
+    .preview-lines {
+      flex: 1;
+      display: grid;
+      gap: 10px;
+      padding-top: 4px;
+    }
+
+    .preview-lines span {
+      display: block;
+      height: 12px;
+      border-radius: 999px;
+      background: #ebe6ef;
+    }
+
+    .preview-lines span:nth-child(1) {
+      width: 70%;
+    }
+
+    .preview-lines span:nth-child(2) {
+      width: 92%;
+    }
+
+    .preview-lines span:nth-child(3) {
+      width: 54%;
+    }
+
+    .assistant-card {
+      height: 100%;
+      border-radius: 22px;
+      background: linear-gradient(180deg, #fff, #fcf9ff);
+      border: 1px solid #ece5ef;
+      padding: 22px;
+      text-align: left;
+    }
+
+    .assistant-badge {
+      width: 84px;
+      height: 84px;
+      margin: 18px auto 22px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #ffd565, #58d7c7 48%, #7d3ac1);
+    }
+
+    .assistant-card h3 {
+      margin: 0;
+      font-size: 2rem;
+      line-height: 1.05;
+      color: #1b1321;
+      text-align: center;
+    }
+
+    .assistant-card p {
+      margin: 16px auto 0;
+      max-width: 320px;
+      text-align: center;
+      color: #5f596d;
+    }
+
+    .assistant-thread {
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .assistant-thread .preview-card {
+      border-bottom: 0;
+      margin-top: 12px;
     }
 
     .feature-card,
@@ -290,6 +519,82 @@
     .org-row button {
       padding: 9px 12px;
       border-radius: 12px;
+    }
+
+    body[data-screen="home"] {
+      color: #1d1c1d;
+      background:
+        radial-gradient(circle at left bottom, rgba(255, 206, 231, 0.55), transparent 24%),
+        radial-gradient(circle at right bottom, rgba(251, 245, 181, 0.62), transparent 22%),
+        linear-gradient(180deg, #fbf7f2, #fffdfa);
+    }
+
+    body[data-screen="home"] .app {
+      width: min(1320px, calc(100% - 48px));
+    }
+
+    body[data-screen="home"] .hero {
+      padding: 24px 0 10px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+    }
+
+    body[data-screen="home"] .brand {
+      gap: 16px;
+    }
+
+    body[data-screen="home"] .logo {
+      width: 64px;
+      height: 64px;
+      filter: none;
+    }
+
+    body[data-screen="home"] .hero h1 {
+      font-size: 2.4rem;
+      color: #1d1c1d;
+    }
+
+    body[data-screen="home"] .hero p {
+      display: none;
+    }
+
+    body[data-screen="home"] .marketing-links {
+      color: #2a2135;
+    }
+
+    body[data-screen="home"] .nav-btn.secondary {
+      background: transparent;
+      border: 0;
+      color: #1d1c1d;
+      box-shadow: none;
+    }
+
+    body[data-screen="home"] .nav-btn.primary {
+      background: #5f1f69;
+      box-shadow: none;
+    }
+
+    body[data-screen="home"] .cta-row .secondary {
+      background: #fff;
+      color: #5f1f69;
+      border: 2px solid rgba(95, 31, 105, 0.3);
+      box-shadow: none;
+    }
+
+    body[data-screen="home"] #home-nav-btn,
+    body[data-screen="home"] #workspace-nav-btn,
+    body[data-screen="home"] .status-pill {
+      display: none !important;
+    }
+
+    body[data-screen="home"] .page-panel {
+      padding: 12px 0 36px;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
     }
 
     body[data-view-mode="computer"] .app {
@@ -1295,10 +1600,17 @@
           <p>The business messaging workspace for organizations, teams, clients, and secure company conversations.</p>
         </div>
       </div>
+      <div class="marketing-links">
+        <span>Features</span>
+        <span>Solutions</span>
+        <span>Enterprise</span>
+        <span>Resources</span>
+        <span>Pricing</span>
+      </div>
       <div class="hero-actions">
         <button id="home-nav-btn" class="secondary nav-btn" type="button">Home</button>
-        <button id="signin-nav-btn" class="primary nav-btn" type="button">Sign In</button>
-        <button id="org-nav-btn" class="secondary nav-btn" type="button">Organization Setup</button>
+        <button id="signin-nav-btn" class="secondary nav-btn" type="button">Sign In</button>
+        <button id="org-nav-btn" class="primary nav-btn" type="button">Get Started</button>
         <button id="workspace-nav-btn" class="secondary nav-btn hidden" type="button">Workspace</button>
         <button id="signout-nav-btn" class="danger nav-btn hidden" type="button">Sign Out</button>
         <div id="session-pill" class="status-pill">Signed out</div>
@@ -1306,46 +1618,107 @@
     </section>
 
     <section id="home-page" class="panel page-panel home-page">
-      <div class="home-copy">
-        <h2>Business chat that feels clear, not chaotic.</h2>
-        <p><strong>wedoall</strong> now works more like a lightweight business workspace. Companies can create organizations, bring teammates together, open direct chats by username, and keep client or department rooms in one place.</p>
+      <div class="marketing-hero">
+        <h2>All your teams, rooms, and company chats working together.</h2>
+        <p>wedoall gives organizations one clean place to message, organize departments, open private team rooms, and move into voice or video without the clutter.</p>
         <div class="cta-row">
-          <button id="home-signin-btn" class="primary" type="button">Open Sign In</button>
-          <button id="home-org-btn" class="secondary" type="button">Create Organization</button>
+          <button id="home-org-btn" class="primary" type="button">GET STARTED</button>
+          <button id="home-signin-btn" class="secondary" type="button">SIGN IN</button>
         </div>
-        <div class="feature-grid">
-          <div class="feature-card">
-            <strong>Organization Workspaces</strong>
-            <span>Create a company area with its own general room and team spaces.</span>
-          </div>
-          <div class="feature-card">
-            <strong>Username-Based Chat</strong>
-            <span>Open direct messages and team rooms by username instead of sharing friend codes.</span>
-          </div>
-          <div class="feature-card">
-            <strong>Voice and Video</strong>
-            <span>Move from chat to calls quickly when a team needs to talk live.</span>
-          </div>
-          <div class="feature-card">
-            <strong>Owner Oversight</strong>
-            <span>Keep workspaces organized with moderation tools, team rooms, and company structure.</span>
-          </div>
+        <div class="brand-strip">
+          <span>Trusted by modern teams</span>
+          <span class="brand-chip">OPENAI</span>
+          <span class="brand-chip">STRIPE</span>
+          <span class="brand-chip">IBM</span>
+          <span class="brand-chip">NOTION</span>
+          <span class="brand-chip">TARGET</span>
         </div>
       </div>
-      <div class="home-side">
-        <h3>Made for real teams</h3>
-        <div class="workspace-list">
-          <div class="auth-mode-card">
-            <strong>Front page first</strong>
-            <span>Visitors land on a real product page before they sign in.</span>
+
+      <div class="marketing-preview">
+        <div class="preview-window">
+          <div class="preview-window-top">
+            <div class="preview-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="preview-search"></div>
+            <div class="preview-avatar"></div>
           </div>
-          <div class="auth-mode-card">
-            <strong>Separate access flow</strong>
-            <span>People can sign in normally or set up an organization from a dedicated area.</span>
-          </div>
-          <div class="auth-mode-card">
-            <strong>Simple deployment</strong>
-            <span>Everything still stays in one HTML file, which keeps hosting easy.</span>
+
+          <div class="preview-body">
+            <aside class="preview-sidebar">
+              <div class="preview-nav-item">
+                <div class="preview-icon"></div>
+                <span>Home</span>
+              </div>
+              <div class="preview-nav-item">
+                <div class="preview-icon"></div>
+                <span>DMs</span>
+              </div>
+              <div class="preview-nav-item">
+                <div class="preview-icon"></div>
+                <span>Activity</span>
+              </div>
+              <div class="preview-nav-item">
+                <div class="preview-icon"></div>
+                <span>Files</span>
+              </div>
+            </aside>
+
+            <section class="preview-feed">
+              <div class="preview-panel-title">
+                <span># sales-ops</span>
+                <span>12 online</span>
+              </div>
+              <div class="preview-card">
+                <div class="preview-face"></div>
+                <div class="preview-lines">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+              <div class="preview-card">
+                <div class="preview-face" style="background: linear-gradient(135deg, #ffb36b, #ff6fa3);"></div>
+                <div class="preview-lines">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+              <div class="preview-card">
+                <div class="preview-face" style="background: linear-gradient(135deg, #77d9a7, #58a8ff);"></div>
+                <div class="preview-lines">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+            </section>
+
+            <section class="preview-assistant">
+              <div class="assistant-card">
+                <div class="preview-panel-title">
+                  <span>wedoall AI</span>
+                  <span>Workspace bot</span>
+                </div>
+                <div class="assistant-badge"></div>
+                <h3>Good afternoon, team.</h3>
+                <p>Need a summary, follow-up draft, project update, or a quick decision room?</p>
+                <div class="assistant-thread">
+                  <div class="preview-card">
+                    <div class="preview-face" style="background: linear-gradient(135deg, #7d3ac1, #49c98b);"></div>
+                    <div class="preview-lines">
+                      <span style="width: 58%;"></span>
+                      <span style="width: 84%;"></span>
+                      <span style="width: 66%;"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </div>
@@ -1918,6 +2291,7 @@
 
     function setScreen(screen = "home") {
       activeScreen = screen;
+      document.body.setAttribute("data-screen", screen);
       const loggedIn = Boolean(currentUser);
       const showWorkspace = loggedIn || screen !== "home";
 
