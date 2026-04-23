@@ -437,6 +437,10 @@
       border: 1px solid rgba(95, 31, 105, 0.1);
     }
 
+    .paypal-subscribe-form.billing-hidden {
+      display: none;
+    }
+
     .paypal-subscribe-form label {
       color: #4d4358;
       font-size: 0.88rem;
@@ -481,6 +485,39 @@
       color: #5f1f69;
       background: #fff;
       box-shadow: 0 14px 24px rgba(0, 0, 0, 0.16);
+    }
+
+    .donate-card {
+      grid-column: 1 / -1;
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(95, 31, 105, 0.08), rgba(139, 59, 178, 0.12));
+      border: 1px solid rgba(95, 31, 105, 0.12);
+      text-align: center;
+    }
+
+    .donate-card h4,
+    .donate-card p {
+      margin: 0;
+    }
+
+    .donate-card p {
+      margin: 6px auto 14px;
+      max-width: 48ch;
+      color: #655d71;
+    }
+
+    .paypal-donate-button {
+      width: min(260px, 100%);
+      border: 0;
+      border-radius: 14px;
+      padding: 13px 16px;
+      color: #fff;
+      background: linear-gradient(135deg, #5f1f69, #8b3bb2);
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 14px 24px rgba(95, 31, 105, 0.2);
     }
 
     .price-badge {
@@ -2383,7 +2420,7 @@
             <button id="billing-monthly-btn" class="active" type="button">Monthly</button>
             <button id="billing-yearly-btn" type="button">Yearly</button>
           </div>
-          <div id="pricing-status" class="pricing-status">Secure checkout can be connected here with Stripe when your keys and backend endpoint are ready.</div>
+          <div id="pricing-status" class="pricing-status">Choose monthly or yearly to show the matching PayPal subscription buttons.</div>
         </div>
         <div class="pricing-grid">
           <article class="price-card" data-plan-card="starter">
@@ -2401,7 +2438,7 @@
               <li>Organization invite links</li>
               <li>Voice and video rooms</li>
             </ul>
-            <form class="paypal-subscribe-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <form class="paypal-subscribe-form" data-billing="monthly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
               <input type="hidden" name="hosted_button_id" value="L4YWKAQG8AN9G">
               <input type="hidden" name="on0" value="Do you Agree to the Terms and Policies ">
@@ -2412,7 +2449,7 @@
               <input type="hidden" name="currency_code" value="USD">
               <button class="paypal-subscribe-button" type="submit">Subscribe to Starter Monthly</button>
             </form>
-            <form class="paypal-subscribe-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <form class="paypal-subscribe-form" data-billing="yearly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
               <input type="hidden" name="hosted_button_id" value="VHXZ2LD4Q3SJE">
               <input type="hidden" name="on0" value="Do you Agree to the Terms and Policies ">
@@ -2440,7 +2477,7 @@
               <li>Priority workspace features</li>
               <li>Advanced room organization</li>
             </ul>
-            <form class="paypal-subscribe-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <form class="paypal-subscribe-form" data-billing="monthly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
               <input type="hidden" name="hosted_button_id" value="8XRSJHHRS5FNQ">
               <input type="hidden" name="on0" value="Do you Agree to the Terms and Policies ">
@@ -2451,7 +2488,7 @@
               <input type="hidden" name="currency_code" value="CAD">
               <button class="paypal-subscribe-button" type="submit">Subscribe to Pro Monthly</button>
             </form>
-            <form class="paypal-subscribe-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <form class="paypal-subscribe-form" data-billing="yearly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
               <input type="hidden" name="hosted_button_id" value="3Z6WZBDK8VT3U">
               <input type="hidden" name="on0" value="Do you Agree to the Terms and Policies ">
@@ -2479,7 +2516,7 @@
               <li>Premium workspace controls</li>
               <li>More powerful automation-ready layout</li>
             </ul>
-            <form class="paypal-subscribe-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <form class="paypal-subscribe-form" data-billing="monthly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
               <input type="hidden" name="hosted_button_id" value="HZXUA8N8XMTMW">
               <input type="hidden" name="on0" value="Do you Agree to the Terms and Policies ">
@@ -2490,7 +2527,7 @@
               <input type="hidden" name="currency_code" value="CAD">
               <button class="paypal-subscribe-button" type="submit">Subscribe to Business Monthly</button>
             </form>
-            <form class="paypal-subscribe-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <form class="paypal-subscribe-form" data-billing="yearly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
               <input type="hidden" name="hosted_button_id" value="SW3QXP6KXNJJA">
               <input type="hidden" name="on0" value="Do you Agree to the Terms and Policies ">
@@ -2500,6 +2537,14 @@
               </select>
               <input type="hidden" name="currency_code" value="CAD">
               <button class="paypal-subscribe-button" type="submit">Subscribe to Business Yearly - $100 CAD</button>
+            </form>
+          </article>
+          <article class="donate-card" aria-label="Donate with PayPal">
+            <h4>Support wedoall</h4>
+            <p>If you want to help keep the project growing, you can send a one-time donation through PayPal.</p>
+            <form action="https://www.paypal.com/donate" method="post" target="_top">
+              <input type="hidden" name="hosted_button_id" value="5692KXYC4JLHU">
+              <button class="paypal-donate-button" type="submit">Donate with PayPal</button>
             </form>
           </article>
         </div>
@@ -3312,6 +3357,16 @@
         subEl.textContent = planCopy.sublabel;
         noteEl.textContent = planCopy.note;
       });
+
+      document.querySelectorAll(".paypal-subscribe-form[data-billing]").forEach((form) => {
+        form.classList.toggle("billing-hidden", form.dataset.billing !== selectedBillingMode);
+      });
+
+      setPricingStatus(
+        selectedBillingMode === "yearly"
+          ? "Showing yearly PayPal subscriptions."
+          : "Showing monthly PayPal subscriptions."
+      );
     }
 
     async function resolveProfileFromInput(rawValue, { excludeSelf = true } = {}) {
