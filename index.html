@@ -668,16 +668,80 @@
       border-radius: 12px;
     }
 
+    body[data-screen="home"] {
+      color: #1d1c1d;
+      background:
+        radial-gradient(circle at left bottom, rgba(255, 206, 231, 0.55), transparent 24%),
+        radial-gradient(circle at right bottom, rgba(251, 245, 181, 0.62), transparent 22%),
+        linear-gradient(180deg, #fbf7f2, #fffdfa);
+    }
+
+    body[data-screen="home"] .app {
+      width: min(1320px, calc(100% - 48px));
+    }
+
+    body[data-screen="home"] .hero {
+      padding: 24px 0 10px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+    }
+
+    body[data-screen="home"] .brand {
+      gap: 16px;
+    }
+
+    body[data-screen="home"] .logo {
+      width: 64px;
+      height: 64px;
+      filter: none;
+    }
+
+    body[data-screen="home"] .hero h1 {
+      font-size: 2.4rem;
+      color: #1d1c1d;
+    }
+
+    body[data-screen="home"] .hero p {
+      display: none;
+    }
+
+    body[data-screen="home"] .marketing-links {
+      color: #2a2135;
+    }
+
+    body[data-screen="home"] .nav-btn.secondary {
+      background: transparent;
+      border: 0;
+      color: #1d1c1d;
+      box-shadow: none;
+    }
+
+    body[data-screen="home"] .nav-btn.primary {
+      background: #5f1f69;
+      box-shadow: none;
+    }
+
+    body[data-screen="home"] .cta-row .secondary {
+      background: #fff;
+      color: #5f1f69;
+      border: 2px solid rgba(95, 31, 105, 0.3);
+      box-shadow: none;
+    }
+
     body[data-screen="home"] #home-nav-btn,
-    body[data-screen="home"] #workspace-nav-btn {
+    body[data-screen="home"] #workspace-nav-btn,
+    body[data-screen="home"] .status-pill {
       display: none !important;
     }
 
     body[data-screen="home"] .page-panel {
-      padding: 24px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--panel-border);
-      box-shadow: var(--shadow);
+      padding: 12px 0 36px;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
     }
 
     body[data-view-mode="computer"] .app {
