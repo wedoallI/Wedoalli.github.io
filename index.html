@@ -155,6 +155,19 @@
       color: var(--muted);
     }
 
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      padding: 10px 14px;
+      border-radius: 999px;
+    }
+
     .status-pill {
       display: inline-flex;
       align-items: center;
@@ -188,6 +201,97 @@
       margin-top: 18px;
     }
 
+    .page-panel {
+      margin-top: 18px;
+      padding: 24px;
+    }
+
+    .page-panel.hidden,
+    .layout.hidden,
+    .hidden {
+      display: none !important;
+    }
+
+    .home-page {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .home-copy h2 {
+      margin-bottom: 10px;
+      font-size: clamp(1.6rem, 2.4vw, 2.3rem);
+    }
+
+    .home-copy p {
+      max-width: 60ch;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .feature-card,
+    .auth-mode-card {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .feature-card strong,
+    .auth-mode-card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .auth-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .auth-showcase h2,
+    .home-side h3 {
+      margin-bottom: 8px;
+    }
+
+    .org-list,
+    .workspace-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .org-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .org-row button {
+      padding: 9px 12px;
+      border-radius: 12px;
+    }
+
     body[data-view-mode="computer"] .app {
       width: min(1300px, calc(100% - 40px));
     }
@@ -209,9 +313,26 @@
       border-radius: 20px;
     }
 
+    body[data-view-mode="phone"] .hero-actions,
+    body[data-view-mode="phone"] .cta-row {
+      width: 100%;
+      justify-content: stretch;
+    }
+
+    body[data-view-mode="phone"] .hero-actions button,
+    body[data-view-mode="phone"] .cta-row button {
+      flex: 1 1 100%;
+    }
+
     body[data-view-mode="phone"] .layout {
       grid-template-columns: 1fr;
       gap: 12px;
+    }
+
+    body[data-view-mode="phone"] .home-page,
+    body[data-view-mode="phone"] .auth-split,
+    body[data-view-mode="phone"] .feature-grid {
+      grid-template-columns: 1fr;
     }
 
     body[data-view-mode="phone"] .chat-panel {
@@ -1108,10 +1229,6 @@
       min-width: 110px;
     }
 
-    .hidden {
-      display: none !important;
-    }
-
     @keyframes rise {
       from {
         opacity: 0;
@@ -1131,6 +1248,12 @@
       .hero {
         flex-direction: column;
         align-items: flex-start;
+      }
+
+      .home-page,
+      .auth-split,
+      .feature-grid {
+        grid-template-columns: 1fr;
       }
 
       .chat-panel {
@@ -1169,16 +1292,69 @@
         </svg>
         <div>
           <h1>wedoall</h1>
-          <p>One place for everyone to talk, message, and jump into calls.</p>
+          <p>The business messaging workspace for organizations, teams, clients, and secure company conversations.</p>
         </div>
       </div>
-      <div id="session-pill" class="status-pill">Signed out</div>
+      <div class="hero-actions">
+        <button id="home-nav-btn" class="secondary nav-btn" type="button">Home</button>
+        <button id="signin-nav-btn" class="primary nav-btn" type="button">Sign In</button>
+        <button id="org-nav-btn" class="secondary nav-btn" type="button">Organization Setup</button>
+        <button id="workspace-nav-btn" class="secondary nav-btn hidden" type="button">Workspace</button>
+        <button id="signout-nav-btn" class="danger nav-btn hidden" type="button">Sign Out</button>
+        <div id="session-pill" class="status-pill">Signed out</div>
+      </div>
     </section>
 
-    <section class="layout">
+    <section id="home-page" class="panel page-panel home-page">
+      <div class="home-copy">
+        <h2>Business chat that feels clear, not chaotic.</h2>
+        <p><strong>wedoall</strong> now works more like a lightweight business workspace. Companies can create organizations, bring teammates together, open direct chats by username, and keep client or department rooms in one place.</p>
+        <div class="cta-row">
+          <button id="home-signin-btn" class="primary" type="button">Open Sign In</button>
+          <button id="home-org-btn" class="secondary" type="button">Create Organization</button>
+        </div>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <strong>Organization Workspaces</strong>
+            <span>Create a company area with its own general room and team spaces.</span>
+          </div>
+          <div class="feature-card">
+            <strong>Username-Based Chat</strong>
+            <span>Open direct messages and team rooms by username instead of sharing friend codes.</span>
+          </div>
+          <div class="feature-card">
+            <strong>Voice and Video</strong>
+            <span>Move from chat to calls quickly when a team needs to talk live.</span>
+          </div>
+          <div class="feature-card">
+            <strong>Owner Oversight</strong>
+            <span>Keep workspaces safe with monitoring, moderation, and owner tools.</span>
+          </div>
+        </div>
+      </div>
+      <div class="home-side">
+        <h3>Made for real teams</h3>
+        <div class="workspace-list">
+          <div class="auth-mode-card">
+            <strong>Front page first</strong>
+            <span>Visitors land on a real product page before they sign in.</span>
+          </div>
+          <div class="auth-mode-card">
+            <strong>Separate access flow</strong>
+            <span>People can sign in normally or set up an organization from a dedicated area.</span>
+          </div>
+          <div class="auth-mode-card">
+            <strong>Simple deployment</strong>
+            <span>Everything still stays in one HTML file, which keeps hosting easy.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="workspace-layout" class="layout hidden">
       <aside class="panel auth-panel">
         <h2>Account</h2>
-        <p>Use the same Firebase project from your original files. Sign up once, then log in here whenever you want.</p>
+        <p id="account-copy">Sign in to your workspace, or create your member account so you can join an organization.</p>
 
         <div class="field">
           <label for="username">Username</label>
@@ -1224,41 +1400,44 @@
 
         <div id="profile-drawer" class="stack profile-drawer">
           <div>
-            <h3>Your Friend Code</h3>
-            <div id="friend-code" class="code-box">Sign up or log in first</div>
+            <h3>Organizations</h3>
+            <div id="friend-code" class="hidden"></div>
+            <div id="organizations-list" class="org-list">
+              <div class="empty-state">Sign in to view your organizations.</div>
+            </div>
           </div>
 
           <div>
-            <h3>Start Private Chat</h3>
+            <h3>Start Direct Chat</h3>
             <div class="field">
-              <label for="friend-code-input">Username or friend code</label>
-              <input id="friend-code-input" type="text" placeholder="Enter a username or friend code" maxlength="24">
+              <label for="friend-code-input">Username</label>
+              <input id="friend-code-input" type="text" placeholder="Enter a teammate username" maxlength="24">
             </div>
             <div class="actions">
               <button id="add-friend-btn" class="primary" type="button">Create / Open Chat</button>
-              <button id="save-friend-btn" class="secondary" type="button">Add Friend</button>
+              <button id="save-friend-btn" class="secondary" type="button">Save Contact</button>
             </div>
           </div>
 
           <div>
-            <h3>Friends</h3>
+            <h3>Contacts</h3>
             <div id="friends-list" class="friend-list">
-              <div class="empty-state">Add a friend once, then open chats from here.</div>
+              <div class="empty-state">Save coworkers once, then open chats from here.</div>
             </div>
           </div>
 
           <div>
-            <h3>Start Private Group</h3>
+            <h3>Create Team Room</h3>
             <div class="field">
               <label for="group-name-input">Group name</label>
-              <input id="group-name-input" type="text" placeholder="Squad, Family, Mods" maxlength="32">
+              <input id="group-name-input" type="text" placeholder="Marketing, Leadership, Client Alpha" maxlength="32">
             </div>
             <div class="field">
-              <label for="group-codes-input">Usernames or friend codes</label>
-              <input id="group-codes-input" type="text" placeholder="Paste usernames or codes separated by commas">
+              <label for="group-codes-input">Teammate usernames</label>
+              <input id="group-codes-input" type="text" placeholder="Paste usernames separated by commas">
             </div>
-            <p class="hint">Invite multiple people with their usernames or friend codes. Private groups are still monitored by owners.</p>
-            <button id="create-group-btn" class="primary" type="button">Create Private Group</button>
+            <p class="hint">Invite multiple coworkers by username. Private team rooms are still monitored by owners.</p>
+            <button id="create-group-btn" class="primary" type="button">Create Team Room</button>
           </div>
 
           <div>
@@ -1379,104 +1558,158 @@
       </aside>
 
       <main class="panel chat-panel">
-        <div class="chat-topbar">
-          <div>
-            <h2>Live Chat</h2>
-            <p id="chat-status">Log in to open your chats.</p>
-          </div>
-          <div class="chat-actions">
-            <span id="user-label" class="status-pill">No account</span>
-          </div>
-        </div>
-
-        <div id="rooms" class="rooms-bar">
-          <div class="empty-state">Your chats will appear here.</div>
-        </div>
-
-        <div class="room-tools">
-          <span id="room-label" class="room-label">No room selected</span>
-          <a id="voice-call-link" href="#" target="_blank" rel="noopener noreferrer">Join Voice Call</a>
-          <a id="video-call-link" href="#" target="_blank" rel="noopener noreferrer">Join Video Call</a>
-          <button id="leave-room-btn" class="danger" type="button">Leave Chat</button>
-        </div>
-
-        <div id="monitor-banner" class="monitor-banner">All chats are monitored by owners for safety.</div>
-
-        <div id="pinned-panel" class="pinned-panel">
-          <strong>Pinned Messages</strong>
-          <div id="pinned-list" class="pinned-list"></div>
-        </div>
-
-        <div class="top-tools">
-          <input id="message-search" type="text" placeholder="Search this room">
-        </div>
-
-        <div id="room-settings" class="room-settings">
-          <strong>Group Settings</strong>
-          <div class="room-settings-grid">
-            <div class="field">
-              <label for="group-rename-input">Group name</label>
-              <input id="group-rename-input" type="text" placeholder="Rename group">
+        <div id="auth-showcase">
+          <div class="chat-topbar">
+            <div>
+              <h2>Business Access</h2>
+              <p id="chat-status">Choose sign in or organization setup to enter the workspace.</p>
             </div>
-            <div class="field">
-              <label for="group-icon-input">Group icon URL</label>
-              <input id="group-icon-input" type="url" placeholder="https://example.com/icon.png">
-            </div>
-            <div class="field">
-              <label for="group-add-code-input">Add username or friend code</label>
-              <input id="group-add-code-input" type="text" placeholder="Invite by username or friend code">
+            <div class="chat-actions">
+              <span id="user-label" class="status-pill">No account</span>
             </div>
           </div>
-          <div class="room-settings-actions">
-            <button id="save-group-settings-btn" class="secondary" type="button">Save Group</button>
-            <button id="add-group-member-btn" class="secondary" type="button">Add Member</button>
-          </div>
-          <div id="kick-list" class="kick-list">
-            <div class="empty-state">Group member actions will appear here.</div>
+
+          <div class="auth-split">
+            <section class="auth-showcase">
+              <h2>Member access</h2>
+              <p>Members sign in with email and password, then work inside organization rooms, direct chats, and private team spaces.</p>
+              <div class="workspace-list">
+                <div class="auth-mode-card">
+                  <strong>Sign in</strong>
+                  <span>Existing teammates use the account form on the left.</span>
+                </div>
+                <div class="auth-mode-card">
+                  <strong>Sign up</strong>
+                  <span>New teammates create an account first, then join an organization.</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="auth-showcase">
+              <h2>Organization setup</h2>
+              <p>Create a company workspace or join an existing organization by its handle. This replaces the old friend-code style flow with a business structure.</p>
+              <div class="field">
+                <label for="org-name-input">Organization name</label>
+                <input id="org-name-input" type="text" placeholder="Acme Studio">
+              </div>
+              <div class="field">
+                <label for="org-slug-input">Organization handle</label>
+                <input id="org-slug-input" type="text" placeholder="acme-studio">
+              </div>
+              <div class="actions">
+                <button id="create-org-btn" class="primary" type="button">Create Organization</button>
+                <button id="join-org-btn" class="secondary" type="button">Join Organization</button>
+              </div>
+              <div>
+                <h3>Your organizations</h3>
+                <div id="auth-organizations-list" class="org-list">
+                  <div class="empty-state">Sign in to create or join an organization.</div>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
 
-        <div class="member-panel">
-          <h3>People Here</h3>
-          <div id="member-list" class="member-list">
-            <div class="empty-state">Open a room to see who is around.</div>
+        <div id="workspace-content" class="hidden">
+          <div class="chat-topbar">
+            <div>
+              <h2>Workspace Chat</h2>
+              <p id="workspace-chat-status">Open an organization room, direct message, or team space.</p>
+            </div>
+            <div class="chat-actions">
+              <span id="workspace-user-label" class="status-pill">No account</span>
+            </div>
           </div>
-        </div>
 
-        <div id="messages" aria-live="polite">
-          <div class="empty-state">Pick a chat to start messaging.</div>
-        </div>
-
-        <div id="typing-indicator" class="typing-indicator">Nobody is typing.</div>
-
-        <div id="reply-bar" class="reply-bar">
-          <span id="reply-label">Replying to nobody.</span>
-          <button id="cancel-reply" class="secondary" type="button">Cancel Reply</button>
-        </div>
-
-        <div class="composer">
-          <input id="msg" type="text" placeholder="Type a message..." disabled>
-          <button id="send-btn" class="primary" type="button" disabled>Send</button>
-        </div>
-        <div class="composer-tools">
-          <div class="field" style="flex: 1 1 260px; margin: 0;">
-            <label for="image-url-input">Image URL</label>
-            <input id="image-url-input" type="url" placeholder="Paste an image link and send it" style="width: 100%;">
+          <div id="rooms" class="rooms-bar">
+            <div class="empty-state">Your chats will appear here.</div>
           </div>
-          <button id="send-image-btn" class="secondary" type="button">Send Image</button>
-          <div class="token-picker" id="emoji-picker">
-            <button class="mini-btn" type="button" data-token="😀">😀</button>
-            <button class="mini-btn" type="button" data-token="🔥">🔥</button>
-            <button class="mini-btn" type="button" data-token="❤️">❤️</button>
-            <button class="mini-btn" type="button" data-token="😭">😭</button>
-            <button class="mini-btn" type="button" data-token="😂">😂</button>
-            <button class="mini-btn" type="button" data-token="😎">😎</button>
+
+          <div class="room-tools">
+            <span id="room-label" class="room-label">No room selected</span>
+            <a id="voice-call-link" href="#" target="_blank" rel="noopener noreferrer">Join Voice Call</a>
+            <a id="video-call-link" href="#" target="_blank" rel="noopener noreferrer">Join Video Call</a>
+            <button id="leave-room-btn" class="danger" type="button">Leave Chat</button>
           </div>
-          <div class="token-picker" id="sticker-picker">
-            <button class="mini-btn" type="button" data-token="[sticker: star]">⭐ Sticker</button>
-            <button class="mini-btn" type="button" data-token="[sticker: fire]">🔥 Sticker</button>
-            <button class="mini-btn" type="button" data-token="[sticker: heart]">💖 Sticker</button>
-            <button class="mini-btn" type="button" data-token="[sticker: party]">🎉 Sticker</button>
+
+          <div id="monitor-banner" class="monitor-banner">All chats are monitored by owners for safety.</div>
+
+          <div id="pinned-panel" class="pinned-panel">
+            <strong>Pinned Messages</strong>
+            <div id="pinned-list" class="pinned-list"></div>
+          </div>
+
+          <div class="top-tools">
+            <input id="message-search" type="text" placeholder="Search this room">
+          </div>
+
+          <div id="room-settings" class="room-settings">
+            <strong>Group Settings</strong>
+            <div class="room-settings-grid">
+              <div class="field">
+                <label for="group-rename-input">Group name</label>
+                <input id="group-rename-input" type="text" placeholder="Rename group">
+              </div>
+              <div class="field">
+                <label for="group-icon-input">Group icon URL</label>
+                <input id="group-icon-input" type="url" placeholder="https://example.com/icon.png">
+              </div>
+              <div class="field">
+                <label for="group-add-code-input">Add username</label>
+                <input id="group-add-code-input" type="text" placeholder="Invite by username">
+              </div>
+            </div>
+            <div class="room-settings-actions">
+              <button id="save-group-settings-btn" class="secondary" type="button">Save Group</button>
+              <button id="add-group-member-btn" class="secondary" type="button">Add Member</button>
+            </div>
+            <div id="kick-list" class="kick-list">
+              <div class="empty-state">Group member actions will appear here.</div>
+            </div>
+          </div>
+
+          <div class="member-panel">
+            <h3>People Here</h3>
+            <div id="member-list" class="member-list">
+              <div class="empty-state">Open a room to see who is around.</div>
+            </div>
+          </div>
+
+          <div id="messages" aria-live="polite">
+            <div class="empty-state">Pick a chat to start messaging.</div>
+          </div>
+
+          <div id="typing-indicator" class="typing-indicator">Nobody is typing.</div>
+
+          <div id="reply-bar" class="reply-bar">
+            <span id="reply-label">Replying to nobody.</span>
+            <button id="cancel-reply" class="secondary" type="button">Cancel Reply</button>
+          </div>
+
+          <div class="composer">
+            <input id="msg" type="text" placeholder="Type a message..." disabled>
+            <button id="send-btn" class="primary" type="button" disabled>Send</button>
+          </div>
+          <div class="composer-tools">
+            <div class="field" style="flex: 1 1 260px; margin: 0;">
+              <label for="image-url-input">Image URL</label>
+              <input id="image-url-input" type="url" placeholder="Paste an image link and send it" style="width: 100%;">
+            </div>
+            <button id="send-image-btn" class="secondary" type="button">Send Image</button>
+            <div class="token-picker" id="emoji-picker">
+              <button class="mini-btn" type="button" data-token="😀">😀</button>
+              <button class="mini-btn" type="button" data-token="🔥">🔥</button>
+              <button class="mini-btn" type="button" data-token="❤️">❤️</button>
+              <button class="mini-btn" type="button" data-token="😭">😭</button>
+              <button class="mini-btn" type="button" data-token="😂">😂</button>
+              <button class="mini-btn" type="button" data-token="😎">😎</button>
+            </div>
+            <div class="token-picker" id="sticker-picker">
+              <button class="mini-btn" type="button" data-token="[sticker: star]">⭐ Sticker</button>
+              <button class="mini-btn" type="button" data-token="[sticker: fire]">🔥 Sticker</button>
+              <button class="mini-btn" type="button" data-token="[sticker: heart]">💖 Sticker</button>
+              <button class="mini-btn" type="button" data-token="[sticker: party]">🎉 Sticker</button>
+            </div>
           </div>
         </div>
       </main>
@@ -1533,6 +1766,18 @@
     const usernameInput = document.getElementById("username");
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
+    const homeNavBtn = document.getElementById("home-nav-btn");
+    const signinNavBtn = document.getElementById("signin-nav-btn");
+    const orgNavBtn = document.getElementById("org-nav-btn");
+    const workspaceNavBtn = document.getElementById("workspace-nav-btn");
+    const signoutNavBtn = document.getElementById("signout-nav-btn");
+    const homeSigninBtn = document.getElementById("home-signin-btn");
+    const homeOrgBtn = document.getElementById("home-org-btn");
+    const homePage = document.getElementById("home-page");
+    const workspaceLayout = document.getElementById("workspace-layout");
+    const authShowcase = document.getElementById("auth-showcase");
+    const workspaceContent = document.getElementById("workspace-content");
+    const accountCopy = document.getElementById("account-copy");
     const authStatus = document.getElementById("auth-status");
     const authError = document.getElementById("auth-error");
     const profileToggleCard = document.getElementById("profile-toggle-card");
@@ -1544,11 +1789,19 @@
     const chatStatus = document.getElementById("chat-status");
     const sessionPill = document.getElementById("session-pill");
     const userLabel = document.getElementById("user-label");
+    const workspaceChatStatus = document.getElementById("workspace-chat-status");
+    const workspaceUserLabel = document.getElementById("workspace-user-label");
     const friendCodeBox = document.getElementById("friend-code");
     const friendCodeInput = document.getElementById("friend-code-input");
     const addFriendBtn = document.getElementById("add-friend-btn");
     const saveFriendBtn = document.getElementById("save-friend-btn");
     const friendsList = document.getElementById("friends-list");
+    const organizationsList = document.getElementById("organizations-list");
+    const authOrganizationsList = document.getElementById("auth-organizations-list");
+    const orgNameInput = document.getElementById("org-name-input");
+    const orgSlugInput = document.getElementById("org-slug-input");
+    const createOrgBtn = document.getElementById("create-org-btn");
+    const joinOrgBtn = document.getElementById("join-org-btn");
     const groupNameInput = document.getElementById("group-name-input");
     const groupCodesInput = document.getElementById("group-codes-input");
     const createGroupBtn = document.getElementById("create-group-btn");
@@ -1621,6 +1874,7 @@
     let unsubscribeAdminUsers = null;
     let unsubscribeAuditLogs = null;
     let unsubscribeProfilesDirectory = null;
+    let unsubscribeOrganizations = null;
     let unsubscribeTyping = null;
     let isInitialMessageLoad = true;
     const seenMessageIds = new Set();
@@ -1629,11 +1883,13 @@
     let selectedAdminProfile = null;
     const profilesByUid = new Map();
     const roomsById = new Map();
+    const organizationsById = new Map();
     const roomMembers = new Set();
     let activeReply = null;
     let lastRoomMessages = [];
     let typingTimer = null;
     let profileDrawerOpen = false;
+    let activeScreen = "home";
 
     function getAvatarUrl(profile) {
       return String(profile?.avatarUrl || "").trim();
@@ -1658,6 +1914,38 @@
       profileCardSubtitle.textContent = profileDrawerOpen
         ? "Tap to hide profile tools"
         : "Tap to open profile tools";
+    }
+
+    function setScreen(screen = "home") {
+      activeScreen = screen;
+      const loggedIn = Boolean(currentUser);
+      const showWorkspace = loggedIn || screen !== "home";
+
+      homePage.classList.toggle("hidden", showWorkspace);
+      workspaceLayout.classList.toggle("hidden", !showWorkspace);
+      authShowcase.classList.toggle("hidden", loggedIn);
+      workspaceContent.classList.toggle("hidden", !loggedIn);
+
+      signinNavBtn.classList.toggle("hidden", loggedIn);
+      orgNavBtn.classList.toggle("hidden", loggedIn);
+      workspaceNavBtn.classList.toggle("hidden", !loggedIn);
+      signoutNavBtn.classList.toggle("hidden", !loggedIn);
+
+      if (!loggedIn) {
+        accountCopy.textContent = screen === "organization"
+          ? "Create or join an organization workspace here. If you do not have an account yet, sign up with your username, email, and password first."
+          : "Sign in to your workspace, or create your member account so you can join an organization.";
+      } else {
+        accountCopy.textContent = "Manage your account, profile, organizations, and saved contacts from here.";
+      }
+    }
+
+    function getOrganizationIds() {
+      return Array.isArray(currentProfile?.organizationIds) ? currentProfile.organizationIds : [];
+    }
+
+    function slugifyOrganization(value) {
+      return slugifyRoomName(value).slice(0, 32) || "organization";
     }
 
     async function resolveProfileFromInput(rawValue, { excludeSelf = true } = {}) {
@@ -1986,6 +2274,206 @@
       }
     }
 
+    async function createOrganizationGeneralRoom(org) {
+      const roomId = `org_${org.id}_general`;
+      const roomRef = doc(db, "chatRooms", roomId);
+      const roomSnap = await getDoc(roomRef);
+
+      const roomPayload = {
+        type: "organization",
+        name: "General",
+        organizationId: org.id,
+        organizationName: org.name,
+        memberIds: Array.isArray(org.memberUids) ? org.memberUids : [],
+        memberNames: Array.isArray(org.memberUsernames) ? org.memberUsernames : [],
+        monitoredByAdmins: true,
+        updatedAt: serverTimestamp()
+      };
+
+      if (!roomSnap.exists()) {
+        await setDoc(roomRef, {
+          ...roomPayload,
+          createdAt: serverTimestamp(),
+        });
+
+        await addDoc(collection(db, "chatRooms", roomId, "messages"), {
+          text: `${org.name} workspace is live. Owners can monitor rooms for safety and business support.`,
+          user: "wedoall",
+          userEmail: "system@wedoall.local",
+          senderUid: "",
+          rank: "SYSTEM",
+          rankColor: "#4484ff",
+          time: Date.now(),
+          createdAt: serverTimestamp(),
+          system: true
+        });
+      } else {
+        await setDoc(roomRef, roomPayload, { merge: true });
+      }
+
+      return roomId;
+    }
+
+    function renderOrganizations() {
+      const renderTarget = (target, profilesOnly = false) => {
+        if (!target) {
+          return;
+        }
+
+        target.innerHTML = "";
+        const orgs = Array.from(organizationsById.values())
+          .sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+
+        if (!orgs.length) {
+          target.innerHTML = `<div class="empty-state">${profilesOnly ? "Sign in to create or join an organization." : "No organizations yet. Create one from the organization setup panel."}</div>`;
+          return;
+        }
+
+        orgs.forEach((org) => {
+          const row = document.createElement("div");
+          row.className = "org-row";
+
+          const copy = document.createElement("div");
+          copy.innerHTML = `<strong>${escapeHtml(org.name || "Organization")}</strong><div>@${escapeHtml(org.slug || org.id || "")}</div>`;
+
+          const openBtn = document.createElement("button");
+          openBtn.type = "button";
+          openBtn.className = "secondary";
+          openBtn.textContent = "Open";
+          openBtn.addEventListener("click", async () => {
+            const roomId = await createOrganizationGeneralRoom(org);
+            openRoom(roomId, `${org.name} / General`);
+            setScreen("workspace");
+          });
+
+          row.append(copy, openBtn);
+          target.append(row);
+        });
+      };
+
+      renderTarget(organizationsList);
+      renderTarget(authOrganizationsList, true);
+    }
+
+    function watchOrganizations() {
+      if (unsubscribeOrganizations) {
+        unsubscribeOrganizations();
+      }
+
+      if (!currentUser) {
+        organizationsById.clear();
+        renderOrganizations();
+        return;
+      }
+
+      unsubscribeOrganizations = onSnapshot(
+        collection(db, "organizations"),
+        (snapshot) => {
+          organizationsById.clear();
+          const allowedOrgIds = new Set(getOrganizationIds());
+          snapshot.forEach((orgDoc) => {
+            const data = orgDoc.data();
+            const isMember = Array.isArray(data.memberUids) && data.memberUids.includes(currentUser.uid);
+            if (isAdminUser() || isMember || allowedOrgIds.has(orgDoc.id)) {
+              organizationsById.set(orgDoc.id, { id: orgDoc.id, ...data });
+            }
+          });
+          renderOrganizations();
+        },
+        (error) => {
+          setStatus(authStatus, error.message, true);
+        }
+      );
+    }
+
+    async function createOrganization() {
+      const name = orgNameInput.value.trim();
+      const slug = slugifyOrganization(orgSlugInput.value.trim() || name);
+
+      if (!name) {
+        setStatus(authStatus, "Enter an organization name first.", true);
+        return;
+      }
+
+      if (!currentUser || !currentProfile) {
+        setStatus(authStatus, "Create or sign in to your member account first, then create the organization.", true);
+        return;
+      }
+
+      try {
+        const existing = await getDoc(doc(db, "organizations", slug));
+        if (existing.exists()) {
+          setStatus(authStatus, "That organization handle is already taken.", true);
+          return;
+        }
+
+        const org = {
+          id: slug,
+          name,
+          slug,
+          ownerUid: currentUser.uid,
+          ownerName: currentProfile.username || getDisplayName(currentUser),
+          memberUids: [currentUser.uid],
+          memberUsernames: [currentProfile.username || getDisplayName(currentUser)],
+          createdAt: Date.now()
+        };
+
+        await setDoc(doc(db, "organizations", slug), org);
+        await setDoc(doc(db, "profiles", currentUser.uid), {
+          organizationIds: arrayUnion(slug),
+          activeOrganizationId: slug
+        }, { merge: true });
+
+        const roomId = await createOrganizationGeneralRoom(org);
+
+        orgNameInput.value = "";
+        orgSlugInput.value = "";
+        setStatus(authStatus, `${name} was created successfully.`);
+        openRoom(roomId, `${name} / General`);
+        setScreen("workspace");
+      } catch (error) {
+        setStatus(authStatus, error.message, true);
+      }
+    }
+
+    async function joinOrganization() {
+      const slug = slugifyOrganization(orgSlugInput.value.trim() || orgNameInput.value.trim());
+      if (!slug) {
+        setStatus(authStatus, "Enter the organization handle to join.", true);
+        return;
+      }
+
+      if (!currentUser || !currentProfile) {
+        setStatus(authStatus, "Sign in first, then join the organization.", true);
+        return;
+      }
+
+      try {
+        const orgRef = doc(db, "organizations", slug);
+        const orgSnap = await getDoc(orgRef);
+        if (!orgSnap.exists()) {
+          setStatus(authStatus, "That organization was not found.", true);
+          return;
+        }
+
+        const org = orgSnap.data();
+        await setDoc(orgRef, {
+          memberUids: arrayUnion(currentUser.uid),
+          memberUsernames: arrayUnion(currentProfile.username || getDisplayName(currentUser))
+        }, { merge: true });
+        await setDoc(doc(db, "profiles", currentUser.uid), {
+          organizationIds: arrayUnion(slug),
+          activeOrganizationId: slug
+        }, { merge: true });
+        const roomId = await createOrganizationGeneralRoom({ id: slug, ...org, memberUids: [...new Set([...(org.memberUids || []), currentUser.uid])], memberUsernames: [...new Set([...(org.memberUsernames || []), currentProfile.username || getDisplayName(currentUser)])] });
+        setStatus(authStatus, `You joined ${org.name || slug}.`);
+        openRoom(roomId, `${org.name || slug} / General`);
+        setScreen("workspace");
+      } catch (error) {
+        setStatus(authStatus, error.message, true);
+      }
+    }
+
     function makeCode() {
       return Math.random().toString(36).slice(2, 8).toUpperCase();
     }
@@ -2030,6 +2518,10 @@
           updates.friendUids = [];
         }
 
+        if (!Array.isArray(existingProfile.organizationIds)) {
+          updates.organizationIds = [];
+        }
+
         Object.assign(updates, getOwnerProfilePatch({
           ...existingProfile,
           ...updates,
@@ -2051,7 +2543,9 @@
         }
 
         currentProfile = profile;
-        friendCodeBox.textContent = profile.friendCode || "Unavailable";
+        if (friendCodeBox) {
+          friendCodeBox.textContent = "";
+        }
         return profile;
       }
 
@@ -2063,6 +2557,7 @@
         username,
         friendCode,
         friendUids: [],
+        organizationIds: [],
         ...getOwnerProfilePatch({ username, email: user.email }),
         createdAt: Date.now()
       };
@@ -2072,7 +2567,9 @@
         await updateProfile(user, { displayName: username });
       }
       currentProfile = profile;
-      friendCodeBox.textContent = friendCode;
+      if (friendCodeBox) {
+        friendCodeBox.textContent = "";
+      }
       return profile;
     }
 
@@ -2100,8 +2597,12 @@
             ...liveProfile,
             ...ownerPatch
           };
-          friendCodeBox.textContent = currentProfile.friendCode || "Unavailable";
+          if (friendCodeBox) {
+            friendCodeBox.textContent = "";
+          }
           setSignedInState(currentUser);
+          watchOrganizations();
+          watchRooms(currentUser);
         },
         (error) => {
           setStatus(authStatus, error.message, true);
@@ -2134,6 +2635,7 @@
       messageInput.disabled = true;
       sendBtn.disabled = true;
       memberList.innerHTML = '<div class="empty-state">Open a room to see who is around.</div>';
+      workspaceChatStatus.textContent = "Open an organization room, direct message, or team space.";
     }
 
     function getFriendProfiles() {
@@ -2146,7 +2648,7 @@
 
     function renderFriendsList() {
       if (!currentUser || !currentProfile) {
-        friendsList.innerHTML = '<div class="empty-state">Log in to keep a saved friends list.</div>';
+        friendsList.innerHTML = '<div class="empty-state">Log in to keep a saved contacts list.</div>';
         return;
       }
 
@@ -2154,7 +2656,7 @@
       friendsList.innerHTML = "";
 
       if (!friends.length) {
-        friendsList.innerHTML = '<div class="empty-state">Add a friend once, then open chats from here.</div>';
+        friendsList.innerHTML = '<div class="empty-state">Save a coworker once, then open chats from here.</div>';
         return;
       }
 
@@ -2280,8 +2782,12 @@
         return "Public room";
       }
 
+      if (roomData.type === "organization") {
+        return "Organization room";
+      }
+
       if (roomData.type === "private-group") {
-        return "Private group";
+        return "Private team room";
       }
 
       return "Private chat";
@@ -2306,8 +2812,10 @@
 
       roomLabel.textContent = `Current room: ${roomName} • ${getRoomTypeLabel(activeRoomData)}`;
       monitorBanner.textContent = activeRoomData?.type === "private-group"
-        ? "This private group is invite-only, and owners can access it from the moment it is created."
-        : "All chats are monitored by owners for safety.";
+        ? "This private team room is invite-only, and owners can access it from the moment it is created."
+        : activeRoomData?.type === "organization"
+          ? "This organization room belongs to a company workspace and is monitored by owners for safety."
+          : "All chats are monitored by owners for safety.";
       voiceCallLink.href = getCallUrl(roomId, roomName, "voice");
       videoCallLink.href = getCallUrl(roomId, roomName, "video");
       leaveRoomBtn.classList.toggle(
@@ -2579,10 +3087,16 @@
       soundLevel.value = loggedIn && currentProfile?.soundLevel ? currentProfile.soundLevel : "soft";
 
       chatStatus.textContent = !loggedIn
-        ? "Log in to open your chats."
-        : blockedMessage || (activeRoomName ? `Chatting in ${activeRoomName}.` : "Join Everyone, open a private chat, or make a private group.");
+        ? "Choose sign in or organization setup to enter the workspace."
+        : blockedMessage || (activeRoomName ? `Chatting in ${activeRoomName}.` : "Open an organization room, direct message, or team space.");
 
-      friendCodeBox.textContent = loggedIn && currentProfile ? currentProfile.friendCode : "Sign up or log in first";
+      workspaceChatStatus.textContent = !loggedIn
+        ? "Open an organization room, direct message, or team space."
+        : blockedMessage || (activeRoomName ? `Chatting in ${activeRoomName}.` : "Open an organization room, direct message, or team space.");
+
+      if (friendCodeBox) {
+        friendCodeBox.textContent = "";
+      }
       profileToggleCard.classList.toggle("hidden", !loggedIn);
       if (loggedIn && currentProfile) {
         profileCardName.textContent = currentProfile.username || getDisplayName(user);
@@ -2590,8 +3104,12 @@
       } else {
         setProfileDrawer(false);
       }
+      userLabel.textContent = loggedIn ? "Workspace access ready" : "No account";
+      workspaceUserLabel.textContent = loggedIn ? getDisplayName(user) : "No account";
+      renderOrganizations();
       renderFriendsList();
       setAdminPanelState();
+      setScreen(loggedIn ? "workspace" : activeScreen);
     }
 
     function formatTime(value) {
@@ -3132,7 +3650,7 @@
       roomsDiv.innerHTML = "";
 
       if (!rooms.length) {
-        roomsDiv.innerHTML = '<div class="empty-state">No chats yet. Use a friend code or create a private group.</div>';
+        roomsDiv.innerHTML = '<div class="empty-state">No rooms yet. Join an organization, open a direct chat, or create a team room.</div>';
         return;
       }
 
@@ -3142,8 +3660,10 @@
         button.className = `room-chip${room.id === activeRoomId ? " active" : ""}`;
         if (room.type === "public") {
           button.textContent = `# ${room.name}`;
+        } else if (room.type === "organization") {
+          button.textContent = `Org: ${room.organizationName || room.name}`;
         } else if (room.type === "private-group") {
-          button.textContent = `Group: ${room.name}`;
+          button.textContent = `Team: ${room.name}`;
         } else {
           button.textContent = room.name;
         }
@@ -3234,15 +3754,19 @@
               const fallbackName = data.memberNames?.join(", ") || data.name || "Direct Chat";
               const isPublic = Boolean(data.public) || data.type === "public";
               const isMember = Array.isArray(data.memberIds) && data.memberIds.includes(user.uid);
-              if (!isAdminUser(user) && !isPublic && !isMember) {
+              const isOrganizationRoom = data.type === "organization" && getOrganizationIds().includes(data.organizationId);
+              if (!isAdminUser(user) && !isPublic && !isMember && !isOrganizationRoom) {
                 return null;
               }
               return {
                 id: roomDoc.id,
                 type: data.type || (isPublic ? "public" : "direct"),
+                organizationName: data.organizationName || "",
                 name: isAdminUser(user)
                   ? fallbackName
-                  : data.memberNames?.filter((name) => name !== getDisplayName(user)).join(", ") || data.name || fallbackName,
+                  : data.type === "organization"
+                    ? `${data.organizationName || "Organization"} / ${data.name || "General"}`
+                    : data.memberNames?.filter((name) => name !== getDisplayName(user)).join(", ") || data.name || fallbackName,
                 updatedAt: typeof data.updatedAt === "number"
                   ? data.updatedAt
                   : data.updatedAt?.toMillis?.() || data.updatedAt?.seconds || 0
@@ -3285,18 +3809,18 @@
 
       const friendInput = friendCodeInput.value.trim();
       if (!friendInput) {
-        setStatus(chatStatus, "Enter a username or friend code first.", true);
+        setStatus(chatStatus, "Enter a username first.", true);
         return;
       }
 
       try {
         const friend = await resolveProfileFromInput(friendInput);
         if (friend === "self") {
-          setStatus(chatStatus, "Use someone else's username or code, not your own.", true);
+          setStatus(chatStatus, "Use someone else's username, not your own.", true);
           return;
         }
         if (!friend) {
-          setStatus(chatStatus, "No user found with that username or friend code.", true);
+          setStatus(chatStatus, "No user found with that username.", true);
           return;
         }
         await ensureDirectRoom(friend);
@@ -3332,7 +3856,7 @@
 
     async function openDirectChatWithProfile(friend) {
       if (!friend?.uid) {
-        setStatus(chatStatus, "That friend profile could not be opened.", true);
+        setStatus(chatStatus, "That user profile could not be opened.", true);
         return;
       }
 
@@ -3346,24 +3870,24 @@
 
     async function addFriendByCode() {
       if (!currentUser || !currentProfile) {
-        setStatus(chatStatus, "Log in first to add a friend.", true);
+        setStatus(chatStatus, "Log in first to save a contact.", true);
         return;
       }
 
       const friendInput = friendCodeInput.value.trim();
       if (!friendInput) {
-        setStatus(chatStatus, "Enter a username or friend code first.", true);
+        setStatus(chatStatus, "Enter a username first.", true);
         return;
       }
 
       try {
         const friend = await resolveProfileFromInput(friendInput);
         if (friend === "self") {
-          setStatus(chatStatus, "Use someone else's username or code, not your own.", true);
+          setStatus(chatStatus, "Use someone else's username, not your own.", true);
           return;
         }
         if (!friend) {
-          setStatus(chatStatus, "No user found with that username or friend code.", true);
+          setStatus(chatStatus, "No user found with that username.", true);
           return;
         }
         await setDoc(doc(db, "profiles", currentUser.uid), {
@@ -3374,7 +3898,7 @@
         }, { merge: true });
 
         friendCodeInput.value = "";
-        setStatus(chatStatus, `${friend.username || friend.email} was added to your friends list.`);
+        setStatus(chatStatus, `${friend.username || friend.email} was added to your contacts.`);
       } catch (error) {
         setStatus(chatStatus, error.message, true);
       }
@@ -3389,7 +3913,7 @@
         await setDoc(doc(db, "profiles", currentUser.uid), {
           friendUids: arrayRemove(profile.uid)
         }, { merge: true });
-        setStatus(chatStatus, `${profile.username || profile.email} was removed from your friends list.`);
+        setStatus(chatStatus, `${profile.username || profile.email} was removed from your contacts.`);
       } catch (error) {
         setStatus(chatStatus, error.message, true);
       }
@@ -3458,7 +3982,7 @@
 
       const friendInput = groupAddCodeInput.value.trim();
       if (!friendInput) {
-        setStatus(chatStatus, "Enter a username or friend code to add.", true);
+        setStatus(chatStatus, "Enter a username to add.", true);
         return;
       }
 
@@ -3469,7 +3993,7 @@
           return;
         }
         if (!friend) {
-          setStatus(chatStatus, "No user found with that username or friend code.", true);
+          setStatus(chatStatus, "No user found with that username.", true);
           return;
         }
         if ((activeRoomData.memberIds || []).includes(friend.uid)) {
@@ -3619,7 +4143,7 @@
 
     async function createPrivateGroupChat() {
       if (!currentUser || !currentProfile) {
-        setStatus(chatStatus, "Log in first to create a private group.", true);
+        setStatus(chatStatus, "Log in first to create a team room.", true);
         return;
       }
 
@@ -3635,7 +4159,7 @@
       );
 
       if (!codes.length) {
-        setStatus(chatStatus, "Add at least one username or friend code for the group.", true);
+        setStatus(chatStatus, "Add at least one username for the group.", true);
         return;
       }
 
@@ -3654,7 +4178,7 @@
         );
 
         if (!uniqueProfiles.length) {
-          setStatus(chatStatus, "No matching people were found for those codes.", true);
+          setStatus(chatStatus, "No matching people were found for those usernames.", true);
           return;
         }
 
@@ -3680,7 +4204,7 @@
         });
 
         await addDoc(collection(db, "chatRooms", roomId, "messages"), {
-          text: `This private group was created by ${currentProfile.username || getDisplayName(currentUser)}. All chats here are monitored by owners.`,
+          text: `This private team room was created by ${currentProfile.username || getDisplayName(currentUser)}. All chats here are monitored by owners.`,
           user: "wedoall",
           userEmail: "system@wedoall.local",
           senderUid: "",
@@ -3694,7 +4218,7 @@
         groupNameInput.value = "";
         groupCodesInput.value = "";
         openRoom(roomId, groupName);
-        setStatus(chatStatus, `Private group ${groupName} is ready.`);
+        setStatus(chatStatus, `Team room ${groupName} is ready.`);
       } catch (error) {
         setStatus(chatStatus, error.message, true);
       }
@@ -3779,7 +4303,9 @@
       try {
         await signOut(auth);
         currentProfile = null;
-        friendCodeBox.textContent = "Sign up or log in first";
+        if (friendCodeBox) {
+          friendCodeBox.textContent = "";
+        }
         setStatus(authStatus, "Logged out.");
       } catch (error) {
         setStatus(authStatus, error.message, true);
@@ -3831,9 +4357,18 @@
     signupBtn.addEventListener("click", signUp);
     loginBtn.addEventListener("click", logIn);
     logoutBtn.addEventListener("click", logOut);
+    signoutNavBtn.addEventListener("click", logOut);
+    homeNavBtn.addEventListener("click", () => setScreen("home"));
+    signinNavBtn.addEventListener("click", () => setScreen("signin"));
+    orgNavBtn.addEventListener("click", () => setScreen("organization"));
+    workspaceNavBtn.addEventListener("click", () => setScreen("workspace"));
+    homeSigninBtn.addEventListener("click", () => setScreen("signin"));
+    homeOrgBtn.addEventListener("click", () => setScreen("organization"));
     addFriendBtn.addEventListener("click", createOrOpenFriendChat);
     saveFriendBtn.addEventListener("click", addFriendByCode);
     createGroupBtn.addEventListener("click", createPrivateGroupChat);
+    createOrgBtn.addEventListener("click", createOrganization);
+    joinOrgBtn.addEventListener("click", joinOrganization);
     leaveRoomBtn.addEventListener("click", leaveCurrentRoom);
     adminSearch.addEventListener("input", renderAdminUsers);
     adminSaveUser.addEventListener("click", async () => {
@@ -3997,6 +4532,8 @@
       emailInput.value = "";
       passwordInput.value = "";
       friendCodeInput.value = "";
+      orgNameInput.value = "";
+      orgSlugInput.value = "";
       groupNameInput.value = "";
       groupCodesInput.value = "";
       avatarUrlInput.value = "";
@@ -4027,7 +4564,9 @@
       currentUser = user;
       if (!user) {
         currentProfile = null;
-        friendCodeBox.textContent = "Sign up or log in first";
+        if (friendCodeBox) {
+          friendCodeBox.textContent = "";
+        }
         if (unsubscribeRooms) {
           unsubscribeRooms();
           unsubscribeRooms = null;
@@ -4044,18 +4583,27 @@
           unsubscribeProfilesDirectory();
           unsubscribeProfilesDirectory = null;
         }
+        if (unsubscribeOrganizations) {
+          unsubscribeOrganizations();
+          unsubscribeOrganizations = null;
+        }
         adminProfiles = [];
         profilesByUid.clear();
         roomsById.clear();
+        organizationsById.clear();
         resetAdminSelection();
         clearRoomState();
         setProfileDrawer(false);
         setSignedInState(null);
         setStatus(authStatus, "Not logged in.");
+        renderOrganizations();
+        setScreen(activeScreen === "organization" ? "organization" : "home");
         return;
       }
 
-      friendCodeBox.textContent = "Loading friend code...";
+      if (friendCodeBox) {
+        friendCodeBox.textContent = "";
+      }
       Promise.all([
         ensurePublicRoom(),
         ensureProfile(user, usernameInput.value.trim())
@@ -4066,6 +4614,7 @@
           watchAdminUsers();
           watchAuditLogs();
           watchProfilesDirectory();
+          watchOrganizations();
           applyTheme(currentProfile?.theme || localStorage.getItem("wedoall-theme") || "default");
           applyViewMode(currentProfile?.viewMode || localStorage.getItem("wedoall-view-mode") || "auto");
           applyCursorStyle(currentProfile?.cursorStyle || localStorage.getItem("wedoall-cursor-style") || "default");
@@ -4076,15 +4625,19 @@
           setPresence(true);
           setSignedInState(user);
           setStatus(authStatus, `Logged in as ${getDisplayName(user)}`);
+          setScreen("workspace");
         })
         .catch((error) => {
-          friendCodeBox.textContent = "Could not load friend code";
+          if (friendCodeBox) {
+            friendCodeBox.textContent = "";
+          }
           setStatus(authStatus, error.message, true);
         });
     });
 
     setSignedInState(null);
     clearRoomState();
+    renderOrganizations();
     updateNotificationsButton();
     applyTheme(localStorage.getItem("wedoall-theme") || "default");
     themeSelect.value = localStorage.getItem("wedoall-theme") || "default";
@@ -4093,6 +4646,7 @@
     applyCursorStyle(localStorage.getItem("wedoall-cursor-style") || "default");
     cursorStyle.value = localStorage.getItem("wedoall-cursor-style") || "default";
     soundLevel.value = "soft";
+    setScreen("home");
     document.addEventListener("visibilitychange", () => {
       if (!currentUser) {
         return;
