@@ -2345,7 +2345,45 @@
               <li>Organization invite links</li>
               <li>Voice and video rooms</li>
             </ul>
-            <button id="buy-starter-btn" class="secondary" type="button">Choose Starter Monthly</button>
+            <div>
+              <div style="
+                overflow: auto;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                align-items: center;
+                width: 259px;
+                max-width: 100%;
+                background: #FFFFFF;
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                box-shadow: -2px 10px 5px rgba(0, 0, 0, 0);
+                border-radius: 10px;
+                font-family: SQ Market, SQ Market, Helvetica, Arial, sans-serif;
+              ">
+                <div style="padding: 20px;">
+                  <a
+                    id="embedded-checkout-modal-checkout-button"
+                    target="_blank"
+                    data-url="https://square.link/u/mRvzwxRO?src=embd"
+                    href="https://square.link/u/mRvzwxRO?src=embed"
+                    style="
+                      display: inline-block;
+                      font-size: 18px;
+                      line-height: 48px;
+                      height: 48px;
+                      color: #ffffff;
+                      min-width: 212px;
+                      background-color: #006aff;
+                      text-align: center;
+                      box-shadow: 0 0 0 1px rgba(0,0,0,.1) inset;
+                      border-radius: 6px;
+                      text-decoration: none;
+                      font-weight: 700;
+                    "
+                  >Pay now</a>
+                </div>
+              </div>
+            </div>
           </article>
 
           <article class="price-card featured" data-plan-card="pro">
@@ -2889,6 +2927,8 @@
       checkoutEndpoint: "/api/create-checkout-session"
     };
 
+    const SQUARE_PAYMENT_URL = "https://square.link/u/mRvzwxRO?src=embed";
+
     const PAYMENT_LINKS = {
       starter_monthly: "",
       starter_yearly: "",
@@ -2902,8 +2942,8 @@
       starter: {
         label: "Starter",
         monthly: {
-          displayPrice: 3,
-          sublabel: "first month, then $5/month",
+          displayPrice: 5,
+          sublabel: "per month",
           note: "Create one organization, unlimited direct messages, and core rooms."
         },
         yearly: {
@@ -2915,8 +2955,8 @@
       pro: {
         label: "Pro",
         monthly: {
-          displayPrice: 7,
-          sublabel: "first month, then $10/month",
+          displayPrice: 10,
+          sublabel: "per month",
           note: "For growing teams that need stronger collaboration and workspace control."
         },
         yearly: {
@@ -2928,8 +2968,8 @@
       business: {
         label: "Business",
         monthly: {
-          displayPrice: 15,
-          sublabel: "first month, then $20/month",
+          displayPrice: 20,
+          sublabel: "per month",
           note: "For busy companies that want more scale, structure, and higher room limits."
         },
         yearly: {
@@ -2958,6 +2998,7 @@
     const buyBusinessBtn = document.getElementById("buy-business-btn");
     const billingMonthlyBtn = document.getElementById("billing-monthly-btn");
     const billingYearlyBtn = document.getElementById("billing-yearly-btn");
+    const starterSquareCheckoutBtn = document.getElementById("embedded-checkout-modal-checkout-button");
     const starterPrice = document.getElementById("starter-price");
     const starterSub = document.getElementById("starter-sub");
     const starterNote = document.getElementById("starter-note");
@@ -3191,6 +3232,37 @@
       pricingStatus.style.color = isError ? "#b84c67" : "#6e6679";
     }
 
+    function openSquareCheckoutWindow(url = SQUARE_PAYMENT_URL) {
+      const title = "Square Payment Links";
+      const topWindow = window.top ? window.top : window;
+      const dualScreenLeft = topWindow.screenLeft !== undefined ? topWindow.screenLeft : topWindow.screenX;
+      const dualScreenTop = topWindow.screenTop !== undefined ? topWindow.screenTop : topWindow.screenY;
+      const width = topWindow.innerWidth
+        ? topWindow.innerWidth
+        : document.documentElement.clientWidth
+          ? document.documentElement.clientWidth
+          : screen.width;
+      const height = topWindow.innerHeight
+        ? topWindow.innerHeight
+        : document.documentElement.clientHeight
+          ? document.documentElement.clientHeight
+          : screen.height;
+      const h = height * 0.75;
+      const w = 500;
+      const systemZoom = width / topWindow.screen.availWidth;
+      const left = (width - w) / 2 / systemZoom + dualScreenLeft;
+      const top = (height - h) / 2 / systemZoom + dualScreenTop;
+      const newWindow = window.open(
+        url,
+        title,
+        `scrollbars=yes,width=${w / systemZoom},height=${h / systemZoom},top=${top},left=${left}`
+      );
+
+      if (newWindow && window.focus) {
+        newWindow.focus();
+      }
+    }
+
     function updatePricingDisplay(mode = selectedBillingMode) {
       selectedBillingMode = mode === "yearly" ? "yearly" : "monthly";
       billingMonthlyBtn.classList.toggle("active", selectedBillingMode === "monthly");
@@ -3213,6 +3285,12 @@
         noteEl.textContent = planCopy.note;
         buttonEl.textContent = `Choose ${label} ${selectedBillingMode === "yearly" ? "Yearly" : "Monthly"}`;
       });
+
+      if (starterSquareCheckoutBtn) {
+        starterSquareCheckoutBtn.textContent = selectedBillingMode === "yearly"
+          ? "Pay Starter Yearly"
+          : "Pay Starter Monthly";
+      }
     }
 
     async function startCheckout(planId) {
@@ -5745,6 +5823,14 @@
       }
       copyText(value, "Room invite link copied.");
     });
+    if (starterSquareCheckoutBtn) {
+      starterSquareCheckoutBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        const url = starterSquareCheckoutBtn.getAttribute("data-url") || SQUARE_PAYMENT_URL;
+        setPricingStatus(`Opening Square checkout for Starter ${selectedBillingMode}...`);
+        openSquareCheckoutWindow(url);
+      });
+    }
     addFriendBtn.addEventListener("click", createOrOpenFriendChat);
     saveFriendBtn.addEventListener("click", addFriendByCode);
     createGroupBtn.addEventListener("click", createPrivateGroupChat);
