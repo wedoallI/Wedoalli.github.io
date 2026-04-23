@@ -222,6 +222,10 @@
       margin-top: 18px;
     }
 
+    .workspace-rail {
+      display: none;
+    }
+
     .page-panel {
       margin-top: 18px;
       padding: 24px;
@@ -431,6 +435,12 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    .pricing-status {
+      margin-top: 14px;
+      color: #6e6679;
+      font-size: 0.95rem;
     }
 
     .preview-window {
@@ -740,6 +750,322 @@
 
     body[data-view-mode="computer"] .layout {
       grid-template-columns: 360px 1fr;
+    }
+
+    body[data-screen="workspace"] {
+      background: linear-gradient(180deg, #3f123f 0%, #2e0f31 100%);
+    }
+
+    body[data-screen="workspace"]::before {
+      display: none;
+    }
+
+    body[data-screen="workspace"] .app {
+      width: min(1500px, calc(100% - 22px));
+      margin: 10px auto;
+    }
+
+    body[data-screen="workspace"] .hero {
+      display: none;
+    }
+
+    body[data-screen="workspace"] .layout {
+      grid-template-columns: 68px 320px 1fr;
+      gap: 0;
+      margin-top: 0;
+      min-height: calc(100vh - 20px);
+      border-radius: 28px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 36px 90px rgba(17, 8, 23, 0.35);
+    }
+
+    body[data-screen="workspace"] .workspace-rail {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 10px;
+      background: linear-gradient(180deg, #47175f, #371045);
+      color: rgba(255, 255, 255, 0.94);
+    }
+
+    .rail-badge,
+    .rail-icon,
+    .rail-plus {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.12);
+      font-weight: 900;
+      font-size: 1.15rem;
+    }
+
+    .rail-group {
+      display: grid;
+      gap: 14px;
+      justify-items: center;
+      width: 100%;
+    }
+
+    .rail-item {
+      display: grid;
+      gap: 6px;
+      justify-items: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    body[data-screen="workspace"] .auth-panel {
+      padding: 16px 16px 18px;
+      border-radius: 0;
+      border: 0;
+      box-shadow: none;
+      backdrop-filter: none;
+      background: linear-gradient(180deg, #5f2c6d, #4b1d58 58%, #43184f);
+      color: #fff;
+      overflow-y: auto;
+    }
+
+    body[data-screen="workspace"] .auth-panel h2,
+    body[data-screen="workspace"] .auth-panel h3,
+    body[data-screen="workspace"] .auth-panel h4,
+    body[data-screen="workspace"] .auth-panel p,
+    body[data-screen="workspace"] .auth-panel label,
+    body[data-screen="workspace"] .auth-panel .hint,
+    body[data-screen="workspace"] .auth-panel .small-status,
+    body[data-screen="workspace"] .auth-panel .stack h3 {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    body[data-screen="workspace"] .auth-panel input,
+    body[data-screen="workspace"] .auth-panel select,
+    body[data-screen="workspace"] .auth-panel .invite-link,
+    body[data-screen="workspace"] .auth-panel .code-box {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    body[data-screen="workspace"] .auth-panel .secondary {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    body[data-screen="workspace"] .auth-panel .danger {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    body[data-screen="workspace"] .profile-card,
+    body[data-screen="workspace"] .auth-mode-card,
+    body[data-screen="workspace"] .org-row,
+    body[data-screen="workspace"] .admin-settings,
+    body[data-screen="workspace"] .invite-panel,
+    body[data-screen="workspace"] .friend-row,
+    body[data-screen="workspace"] .kick-row {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .workspace-sidebar-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .workspace-sidebar-head h2 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .sidebar-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .sidebar-actions button {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .upgrade-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #fff;
+      color: #29182c;
+      font-weight: 900;
+    }
+
+    .sidebar-section {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .sidebar-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .sidebar-list button,
+    .sidebar-list .list-chip {
+      justify-content: flex-start;
+      text-align: left;
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    body[data-screen="workspace"] .chat-panel {
+      padding: 0;
+      border-radius: 0;
+      border: 0;
+      box-shadow: none;
+      background: #f8f5fa;
+      backdrop-filter: none;
+      color: #221a28;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .workspace-topbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: linear-gradient(180deg, #5a2563, #4a1a53);
+      color: #fff;
+    }
+
+    .workspace-window-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .workspace-window-actions span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .workspace-search {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .workspace-search input {
+      width: 100%;
+      border: 0;
+      outline: none;
+      background: transparent;
+      color: #fff;
+      font: inherit;
+    }
+
+    .workspace-shell {
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      min-height: 0;
+      flex: 1;
+    }
+
+    .workspace-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 22px 12px;
+      border-bottom: 1px solid #ece3f0;
+      background: #fff;
+    }
+
+    .workspace-header h2,
+    .workspace-header p {
+      margin: 0;
+      color: #241a2f;
+    }
+
+    .workspace-room-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px 22px 14px;
+      background: #fff;
+      border-bottom: 1px solid #ece3f0;
+    }
+
+    .workspace-body {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      min-height: 0;
+      flex: 1;
+    }
+
+    .conversation-pane {
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto auto auto;
+      min-height: 0;
+      border-right: 1px solid #ece3f0;
+      background: #fff;
+    }
+
+    .insight-pane {
+      padding: 18px;
+      background: #fcfbfd;
+      overflow-y: auto;
+    }
+
+    .insight-card {
+      padding: 18px;
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid #ebe3ef;
+      box-shadow: 0 12px 24px rgba(77, 33, 96, 0.06);
+    }
+
+    .insight-badge {
+      width: 76px;
+      height: 76px;
+      margin: 8px auto 18px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #ffd768, #69d9cc 52%, #7451ff);
+    }
+
+    .insight-card h3,
+    .insight-card p {
+      text-align: center;
+      margin: 0;
+      color: #281d30;
+    }
+
+    .insight-card p {
+      margin-top: 12px;
+      color: #7a7287;
     }
 
     body[data-view-mode="phone"] .app {
@@ -1492,6 +1818,29 @@
       box-shadow: 0 10px 24px rgba(125, 58, 193, 0.3);
     }
 
+    body[data-screen="workspace"] .rooms-bar {
+      margin: 0;
+      padding: 12px 22px 10px;
+      background: #fff;
+      border-bottom: 1px solid #ece3f0;
+      overflow-x: auto;
+    }
+
+    body[data-screen="workspace"] .room-chip {
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: #efe8f4;
+      border-color: transparent;
+      color: #41264b;
+      font-weight: 700;
+    }
+
+    body[data-screen="workspace"] .room-chip.active {
+      background: #dfd0ea;
+      color: #2e1737;
+      box-shadow: none;
+    }
+
     #messages {
       flex: 1;
       overflow-y: auto;
@@ -1504,6 +1853,13 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+    }
+
+    body[data-screen="workspace"] #messages {
+      background: #fff;
+      border: 0;
+      border-radius: 0;
+      padding: 18px 22px;
     }
 
     .empty-state {
@@ -1524,6 +1880,19 @@
       overflow-wrap: anywhere;
     }
 
+    body[data-screen="workspace"] .msg {
+      max-width: 100%;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+    }
+
+    body[data-screen="workspace"] .msg.me {
+      background: transparent;
+      margin-left: 0;
+    }
+
     .msg.me {
       margin-left: auto;
       background: linear-gradient(135deg, rgba(163, 54, 162, 0.88), rgba(125, 58, 193, 0.92));
@@ -1541,6 +1910,18 @@
     .msg-text {
       white-space: pre-wrap;
       line-height: 1.45;
+    }
+
+    body[data-screen="workspace"] .msg-head {
+      margin-bottom: 4px;
+      color: #6f667d;
+      font-size: 0.92rem;
+    }
+
+    body[data-screen="workspace"] .msg-text {
+      color: #251a2b;
+      font-size: 1rem;
+      line-height: 1.55;
     }
 
     .msg-image {
@@ -1636,6 +2017,14 @@
       font-size: 0.9rem;
     }
 
+    body[data-screen="workspace"] .typing-indicator,
+    body[data-screen="workspace"] .reply-bar {
+      margin: 0 22px 12px;
+      background: #f4eff8;
+      border-color: #e9deef;
+      color: #6b6277;
+    }
+
     .typing-indicator.active {
       color: var(--text);
       background: rgba(163, 54, 162, 0.12);
@@ -1661,6 +2050,53 @@
       background: rgba(0, 0, 0, 0.22);
       color: var(--text);
       outline: none;
+    }
+
+    body[data-screen="workspace"] .composer {
+      margin: 0 22px 10px;
+      padding: 14px 16px;
+      border-radius: 18px 18px 0 0;
+      background: #fff;
+      border: 1px solid #ece3f0;
+      border-bottom: 0;
+    }
+
+    body[data-screen="workspace"] .composer input {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #261b2c;
+      font-size: 1rem;
+    }
+
+    body[data-screen="workspace"] .composer-tools {
+      margin: 0 22px 18px;
+      padding: 10px 16px 14px;
+      border-radius: 0 0 18px 18px;
+      background: #fff;
+      border: 1px solid #ece3f0;
+      border-top: 0;
+    }
+
+    body[data-screen="workspace"] .token-picker .mini-btn,
+    body[data-screen="workspace"] .reaction-chip,
+    body[data-screen="workspace"] .mod-actions button,
+    body[data-screen="workspace"] .room-tools button,
+    body[data-screen="workspace"] .room-tools a {
+      background: #f0e9f5;
+      color: #3d2348;
+      border: 1px solid #e3d6ea;
+      box-shadow: none;
+    }
+
+    body[data-screen="workspace"] .member-panel,
+    body[data-screen="workspace"] .room-settings,
+    body[data-screen="workspace"] .pinned-panel {
+      background: #fff;
+      border: 1px solid #ece3f0;
+      border-radius: 18px;
+      color: #261b2c;
+      box-shadow: none;
     }
 
     .composer input:disabled {
@@ -1861,6 +2297,7 @@
         <div class="pricing-copy">
           <h3>Simple pricing for teams that want to move fast.</h3>
           <p>Start with a lower first month, invite your team with one link, and upgrade whenever you need more rooms, more storage, and more workspace power.</p>
+          <div id="pricing-status" class="pricing-status">Secure checkout can be connected here with Stripe when your keys and backend endpoint are ready.</div>
         </div>
         <div class="pricing-grid">
           <article class="price-card">
@@ -1921,40 +2358,79 @@
     </section>
 
     <section id="workspace-layout" class="layout hidden">
+      <nav class="workspace-rail" aria-label="Workspace navigation">
+        <div class="rail-badge">M</div>
+        <div class="rail-group">
+          <div class="rail-item">
+            <div class="rail-icon">⌂</div>
+            <span>Home</span>
+          </div>
+          <div class="rail-item">
+            <div class="rail-icon">◌</div>
+            <span>DMs</span>
+          </div>
+          <div class="rail-item">
+            <div class="rail-icon">⟳</div>
+            <span>Activity</span>
+          </div>
+          <div class="rail-item">
+            <div class="rail-icon">▣</div>
+            <span>Files</span>
+          </div>
+          <div class="rail-item">
+            <div class="rail-icon">⚙</div>
+            <span>Admin</span>
+          </div>
+        </div>
+        <div style="margin-top:auto;">
+          <div class="rail-plus">＋</div>
+        </div>
+      </nav>
       <aside class="panel auth-panel">
-        <h2>Account</h2>
-        <p id="account-copy">Sign in to your workspace, or create your member account so you can join an organization.</p>
-
-        <div class="field">
-          <label for="username">Username</label>
-          <input id="username" type="text" placeholder="Pick a username" autocomplete="nickname" maxlength="24">
+        <div class="workspace-sidebar-head">
+          <div>
+            <h2>Msging</h2>
+            <p id="account-copy">Sign in to your workspace, or create your member account so you can join an organization.</p>
+          </div>
+          <div class="sidebar-actions">
+            <button type="button" aria-label="Settings">⚙</button>
+            <button type="button" aria-label="Compose">✎</button>
+          </div>
         </div>
+        <div class="upgrade-card">🚀 Upgrade Plan</div>
 
-        <div class="field">
-          <label for="email">Email</label>
-          <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
+        <div id="auth-form-section">
+          <div class="field">
+            <label for="username">Username</label>
+            <input id="username" type="text" placeholder="Pick a username" autocomplete="nickname" maxlength="24">
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+          </div>
+
+          <div class="actions">
+            <button id="signup-btn" class="primary" type="button">Sign Up</button>
+            <button id="login-btn" class="secondary" type="button">Log In</button>
+          </div>
+
+          <div class="actions">
+            <button id="logout-btn" class="danger" type="button">Log Out</button>
+            <button id="clear-btn" class="secondary" type="button">Clear Fields</button>
+          </div>
+
+          <p id="auth-status" class="small-status"></p>
+          <div id="auth-error" class="error-box"></div>
+          <p class="hint">
+            Admin delete is enabled only when the signed-in email matches the value inside the script.
+          </p>
         </div>
-
-        <div class="field">
-          <label for="password">Password</label>
-          <input id="password" type="password" placeholder="Password" autocomplete="current-password">
-        </div>
-
-        <div class="actions">
-          <button id="signup-btn" class="primary" type="button">Sign Up</button>
-          <button id="login-btn" class="secondary" type="button">Log In</button>
-        </div>
-
-        <div class="actions">
-          <button id="logout-btn" class="danger" type="button">Log Out</button>
-          <button id="clear-btn" class="secondary" type="button">Clear Fields</button>
-        </div>
-
-        <p id="auth-status" class="small-status"></p>
-        <div id="auth-error" class="error-box"></div>
-        <p class="hint">
-          Admin delete is enabled only when the signed-in email matches the value inside the script.
-        </p>
 
         <button id="profile-toggle-card" class="profile-card hidden" type="button">
           <span class="member-name">
@@ -1973,6 +2449,15 @@
             <div id="friend-code" class="hidden"></div>
             <div id="organizations-list" class="org-list">
               <div class="empty-state">Sign in to view your organizations.</div>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <h3>Quick Links</h3>
+            <div class="sidebar-list">
+              <div class="list-chip">Threads</div>
+              <div class="list-chip">Activity</div>
+              <div class="list-chip">Directories</div>
             </div>
           </div>
 
@@ -2187,111 +2672,133 @@
         </div>
 
         <div id="workspace-content" class="hidden">
-          <div class="chat-topbar">
-            <div>
-              <h2>Workspace Chat</h2>
-              <p id="workspace-chat-status">Open an organization room, direct message, or team space.</p>
+          <div class="workspace-topbar">
+            <div class="workspace-window-actions">
+              <span></span><span></span><span></span>
             </div>
-            <div class="chat-actions">
-              <span id="workspace-user-label" class="status-pill">No account</span>
+            <div class="workspace-search">
+              <span>⌕</span>
+              <input id="message-search" type="text" placeholder="Search Msging">
             </div>
+            <span id="workspace-user-label" class="status-pill">No account</span>
           </div>
 
-          <div id="rooms" class="rooms-bar">
-            <div class="empty-state">Your chats will appear here.</div>
-          </div>
-
-          <div class="room-tools">
-            <span id="room-label" class="room-label">No room selected</span>
-            <a id="voice-call-link" href="#" target="_blank" rel="noopener noreferrer">Join Voice Call</a>
-            <a id="video-call-link" href="#" target="_blank" rel="noopener noreferrer">Join Video Call</a>
-            <button id="leave-room-btn" class="danger" type="button">Leave Chat</button>
-          </div>
-
-          <div id="monitor-banner" class="monitor-banner">Private rooms stay visible only to the people inside them.</div>
-
-          <div id="pinned-panel" class="pinned-panel">
-            <strong>Pinned Messages</strong>
-            <div id="pinned-list" class="pinned-list"></div>
-          </div>
-
-          <div class="top-tools">
-            <input id="message-search" type="text" placeholder="Search this room">
-          </div>
-
-          <div id="room-settings" class="room-settings">
-            <strong>Group Settings</strong>
-            <div class="room-settings-grid">
-              <div class="field">
-                <label for="group-rename-input">Group name</label>
-                <input id="group-rename-input" type="text" placeholder="Rename group">
+          <div class="workspace-shell">
+            <div class="workspace-header">
+              <div>
+                <h2 id="room-label">Threads</h2>
+                <p id="workspace-chat-status">Open an organization room, direct message, or team space.</p>
               </div>
-              <div class="field">
-                <label for="group-icon-input">Group icon URL</label>
-                <input id="group-icon-input" type="url" placeholder="https://example.com/icon.png">
-              </div>
-              <div class="field">
-                <label for="group-add-code-input">Add username</label>
-                <input id="group-add-code-input" type="text" placeholder="Invite by username">
+              <div class="chat-actions">
+                <span id="monitor-banner" class="room-label">Private rooms stay visible only to the people inside them.</span>
               </div>
             </div>
-            <div class="room-settings-actions">
-              <button id="save-group-settings-btn" class="secondary" type="button">Save Group</button>
-              <button id="add-group-member-btn" class="secondary" type="button">Add Member</button>
+
+            <div id="rooms" class="rooms-bar">
+              <div class="empty-state">Your chats will appear here.</div>
             </div>
-            <div class="invite-panel">
-              <strong>Room invite link</strong>
-              <div id="room-invite-link" class="invite-link">Open a private team room to generate an invite link.</div>
-              <div class="actions">
-                <button id="copy-room-invite-btn" class="secondary" type="button">Copy Room Invite</button>
+
+            <div class="workspace-body">
+              <div class="conversation-pane">
+                <div class="workspace-room-tools room-tools">
+                  <a id="voice-call-link" href="#" target="_blank" rel="noopener noreferrer">Join Voice Call</a>
+                  <a id="video-call-link" href="#" target="_blank" rel="noopener noreferrer">Join Video Call</a>
+                  <button id="leave-room-btn" class="danger" type="button">Leave Chat</button>
+                </div>
+
+                <div id="pinned-panel" class="pinned-panel">
+                  <strong>Pinned Messages</strong>
+                  <div id="pinned-list" class="pinned-list"></div>
+                </div>
+
+                <div id="messages" aria-live="polite">
+                  <div class="empty-state">Pick a chat to start messaging.</div>
+                </div>
+
+                <div id="typing-indicator" class="typing-indicator">Nobody is typing.</div>
+
+                <div id="reply-bar" class="reply-bar">
+                  <span id="reply-label">Replying to nobody.</span>
+                  <button id="cancel-reply" class="secondary" type="button">Cancel Reply</button>
+                </div>
+
+                <div class="composer">
+                  <input id="msg" type="text" placeholder="Reply..." disabled>
+                  <button id="send-btn" class="primary" type="button" disabled>Send</button>
+                </div>
+                <div class="composer-tools">
+                  <div class="field" style="flex: 1 1 260px; margin: 0;">
+                    <label for="image-url-input">Image URL</label>
+                    <input id="image-url-input" type="url" placeholder="Paste an image link and send it" style="width: 100%;">
+                  </div>
+                  <button id="send-image-btn" class="secondary" type="button">Send Image</button>
+                  <div class="token-picker" id="emoji-picker">
+                    <button class="mini-btn" type="button" data-token="😀">😀</button>
+                    <button class="mini-btn" type="button" data-token="🔥">🔥</button>
+                    <button class="mini-btn" type="button" data-token="❤️">❤️</button>
+                    <button class="mini-btn" type="button" data-token="😭">😭</button>
+                    <button class="mini-btn" type="button" data-token="😂">😂</button>
+                    <button class="mini-btn" type="button" data-token="😎">😎</button>
+                  </div>
+                  <div class="token-picker" id="sticker-picker">
+                    <button class="mini-btn" type="button" data-token="[sticker: star]">⭐ Sticker</button>
+                    <button class="mini-btn" type="button" data-token="[sticker: fire]">🔥 Sticker</button>
+                    <button class="mini-btn" type="button" data-token="[sticker: heart]">💖 Sticker</button>
+                    <button class="mini-btn" type="button" data-token="[sticker: party]">🎉 Sticker</button>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div id="kick-list" class="kick-list">
-              <div class="empty-state">Group member actions will appear here.</div>
-            </div>
-          </div>
 
-          <div class="member-panel">
-            <h3>People Here</h3>
-            <div id="member-list" class="member-list">
-              <div class="empty-state">Open a room to see who is around.</div>
-            </div>
-          </div>
+              <aside class="insight-pane">
+                <div id="room-settings" class="room-settings">
+                  <strong>Group Settings</strong>
+                  <div class="room-settings-grid">
+                    <div class="field">
+                      <label for="group-rename-input">Group name</label>
+                      <input id="group-rename-input" type="text" placeholder="Rename group">
+                    </div>
+                    <div class="field">
+                      <label for="group-icon-input">Group icon URL</label>
+                      <input id="group-icon-input" type="url" placeholder="https://example.com/icon.png">
+                    </div>
+                    <div class="field">
+                      <label for="group-add-code-input">Add username</label>
+                      <input id="group-add-code-input" type="text" placeholder="Invite by username">
+                    </div>
+                  </div>
+                  <div class="room-settings-actions">
+                    <button id="save-group-settings-btn" class="secondary" type="button">Save Group</button>
+                    <button id="add-group-member-btn" class="secondary" type="button">Add Member</button>
+                  </div>
+                  <div class="invite-panel">
+                    <strong>Room invite link</strong>
+                    <div id="room-invite-link" class="invite-link">Open a private team room to generate an invite link.</div>
+                    <div class="actions">
+                      <button id="copy-room-invite-btn" class="secondary" type="button">Copy Room Invite</button>
+                    </div>
+                  </div>
+                  <div id="kick-list" class="kick-list">
+                    <div class="empty-state">Group member actions will appear here.</div>
+                  </div>
+                </div>
 
-          <div id="messages" aria-live="polite">
-            <div class="empty-state">Pick a chat to start messaging.</div>
-          </div>
+                <div class="member-panel">
+                  <h3>People Here</h3>
+                  <div id="member-list" class="member-list">
+                    <div class="empty-state">Open a room to see who is around.</div>
+                  </div>
+                </div>
 
-          <div id="typing-indicator" class="typing-indicator">Nobody is typing.</div>
-
-          <div id="reply-bar" class="reply-bar">
-            <span id="reply-label">Replying to nobody.</span>
-            <button id="cancel-reply" class="secondary" type="button">Cancel Reply</button>
-          </div>
-
-          <div class="composer">
-            <input id="msg" type="text" placeholder="Type a message..." disabled>
-            <button id="send-btn" class="primary" type="button" disabled>Send</button>
-          </div>
-          <div class="composer-tools">
-            <div class="field" style="flex: 1 1 260px; margin: 0;">
-              <label for="image-url-input">Image URL</label>
-              <input id="image-url-input" type="url" placeholder="Paste an image link and send it" style="width: 100%;">
-            </div>
-            <button id="send-image-btn" class="secondary" type="button">Send Image</button>
-            <div class="token-picker" id="emoji-picker">
-              <button class="mini-btn" type="button" data-token="😀">😀</button>
-              <button class="mini-btn" type="button" data-token="🔥">🔥</button>
-              <button class="mini-btn" type="button" data-token="❤️">❤️</button>
-              <button class="mini-btn" type="button" data-token="😭">😭</button>
-              <button class="mini-btn" type="button" data-token="😂">😂</button>
-              <button class="mini-btn" type="button" data-token="😎">😎</button>
-            </div>
-            <div class="token-picker" id="sticker-picker">
-              <button class="mini-btn" type="button" data-token="[sticker: star]">⭐ Sticker</button>
-              <button class="mini-btn" type="button" data-token="[sticker: fire]">🔥 Sticker</button>
-              <button class="mini-btn" type="button" data-token="[sticker: heart]">💖 Sticker</button>
-              <button class="mini-btn" type="button" data-token="[sticker: party]">🎉 Sticker</button>
+                <div class="insight-card">
+                  <div class="preview-panel-title">
+                    <span>wedoall AI</span>
+                    <span>Workspace bot</span>
+                  </div>
+                  <div class="insight-badge"></div>
+                  <h3>Good afternoon, team.</h3>
+                  <p>Need a summary, follow-up draft, project update, or a quick decision room?</p>
+                </div>
+              </aside>
             </div>
           </div>
         </div>
@@ -2299,6 +2806,7 @@
     </section>
   </div>
 
+  <script src="https://js.stripe.com/v3/"></script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import {
@@ -2346,10 +2854,33 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
+    const STRIPE_CONFIG = {
+      publishableKey: "",
+      checkoutEndpoint: "/api/create-checkout-session"
+    };
+
     const PAYMENT_LINKS = {
       starter: "",
       pro: "",
       business: ""
+    };
+
+    const PLAN_CONFIG = {
+      starter: {
+        label: "Starter",
+        trialPrice: 3,
+        renewalPrice: 5
+      },
+      pro: {
+        label: "Pro",
+        trialPrice: 7,
+        renewalPrice: 10
+      },
+      business: {
+        label: "Business",
+        trialPrice: 15,
+        renewalPrice: 20
+      }
     };
 
     const usernameInput = document.getElementById("username");
@@ -2372,7 +2903,9 @@
     const workspaceLayout = document.getElementById("workspace-layout");
     const authShowcase = document.getElementById("auth-showcase");
     const workspaceContent = document.getElementById("workspace-content");
+    const authFormSection = document.getElementById("auth-form-section");
     const accountCopy = document.getElementById("account-copy");
+    const pricingStatus = document.getElementById("pricing-status");
     const authStatus = document.getElementById("auth-status");
     const authError = document.getElementById("auth-error");
     const profileToggleCard = document.getElementById("profile-toggle-card");
@@ -2581,12 +3114,46 @@
         });
     }
 
-    function startCheckout(planId) {
+    function setPricingStatus(message, isError = false) {
+      if (!pricingStatus) {
+        return;
+      }
+      pricingStatus.textContent = message;
+      pricingStatus.style.color = isError ? "#b84c67" : "#6e6679";
+    }
+
+    async function startCheckout(planId) {
       const normalized = String(planId || "").toLowerCase();
       const checkoutLink = PAYMENT_LINKS[normalized];
+      const plan = PLAN_CONFIG[normalized];
+
+      if (!plan) {
+        setPricingStatus("That pricing plan is not configured yet.", true);
+        return;
+      }
 
       if (checkoutLink) {
+        setPricingStatus(`Opening secure ${plan.label} checkout...`);
         window.open(checkoutLink, "_blank", "noopener,noreferrer");
+        return;
+      }
+
+      if (!STRIPE_CONFIG.publishableKey || !STRIPE_CONFIG.checkoutEndpoint) {
+        setScreen("organization");
+        setPricingStatus(
+          `Stripe is not connected yet. Add your publishable key and backend endpoint to activate ${plan.label} checkout.`,
+          true
+        );
+        setStatus(
+          authStatus,
+          `Stripe is not connected yet. Add your publishable key and backend endpoint to activate ${plan.label} checkout.`,
+          true
+        );
+        return;
+      }
+
+      if (!window.Stripe) {
+        setPricingStatus("Stripe.js did not load. Refresh and try again.", true);
         return;
       }
 
@@ -2594,12 +3161,35 @@
         localStorage.setItem("wedoall-selected-plan", normalized);
       } catch {}
 
-      setScreen("organization");
-      setStatus(
-        authStatus,
-        `The ${normalized} checkout is ready for a real payment link. Add your Stripe or payment URL in PAYMENT_LINKS to make billing live.`,
-        true
-      );
+      setPricingStatus(`Preparing secure ${plan.label} checkout...`);
+
+      try {
+        const stripe = window.Stripe(STRIPE_CONFIG.publishableKey);
+        const response = await fetch(STRIPE_CONFIG.checkoutEndpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            planId: normalized,
+            customerEmail: currentUser?.email || emailInput.value.trim() || "",
+            successUrl: `${window.location.origin}${window.location.pathname}?checkout=success&plan=${normalized}`,
+            cancelUrl: `${window.location.origin}${window.location.pathname}?checkout=cancel&plan=${normalized}`
+          })
+        });
+
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok || !payload.sessionId) {
+          throw new Error(payload.error || "Checkout session could not be created.");
+        }
+
+        const result = await stripe.redirectToCheckout({ sessionId: payload.sessionId });
+        if (result?.error?.message) {
+          throw new Error(result.error.message);
+        }
+      } catch (error) {
+        setPricingStatus(error.message || "Checkout could not start.", true);
+      }
     }
 
     async function resolveProfileFromInput(rawValue, { excludeSelf = true } = {}) {
@@ -3468,7 +4058,7 @@
       memberIds.forEach((uid) => roomMembers.add(uid));
 
       if (!roomId) {
-        roomLabel.textContent = "No room selected";
+        roomLabel.textContent = "Threads";
         monitorBanner.textContent = "Private rooms stay visible only to the people inside them.";
         voiceCallLink.href = "#";
         videoCallLink.href = "#";
@@ -3478,7 +4068,7 @@
         return;
       }
 
-      roomLabel.textContent = `Current room: ${roomName} • ${getRoomTypeLabel(activeRoomData)}`;
+      roomLabel.textContent = roomName || "Threads";
       monitorBanner.textContent = activeRoomData?.type === "private-group"
         ? "This private team room is invite-only and only visible to its members."
         : activeRoomData?.type === "organization"
@@ -3743,6 +4333,7 @@
 
       sessionPill.textContent = loggedIn ? "Signed in" : "Signed out";
       sessionPill.classList.toggle("online", loggedIn);
+      authFormSection.classList.toggle("hidden", loggedIn);
 
       userLabel.textContent = loggedIn ? getDisplayName(user) : "No account";
       userLabel.classList.toggle("online", loggedIn && isProfileOnline(currentProfile));
