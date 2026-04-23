@@ -192,6 +192,15 @@
       white-space: nowrap;
     }
 
+    .marketing-links button {
+      border: 0;
+      background: transparent;
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+      padding: 0;
+    }
+
     .status-pill::before {
       content: "";
       width: 10px;
@@ -294,6 +303,134 @@
         linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.86));
       border: 1px solid rgba(97, 55, 113, 0.1);
       box-shadow: 0 30px 80px rgba(73, 39, 92, 0.12);
+    }
+
+    .pricing-section {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .pricing-copy h3 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      line-height: 1;
+      color: #1d1322;
+    }
+
+    .pricing-copy p {
+      color: #655d71;
+      max-width: 55ch;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .price-card {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(90, 54, 109, 0.12);
+      box-shadow: 0 20px 44px rgba(68, 35, 84, 0.08);
+    }
+
+    .price-card.featured {
+      background: linear-gradient(180deg, #5f1f69, #7a36a0);
+      color: #fff;
+      border-color: rgba(95, 31, 105, 0.28);
+    }
+
+    .price-card h4,
+    .price-card p {
+      margin: 0;
+    }
+
+    .price-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .price-tag {
+      font-size: 2.4rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .price-sub {
+      margin-top: 6px;
+      color: #6d6579;
+      font-size: 0.95rem;
+    }
+
+    .price-card.featured .price-sub,
+    .price-card.featured .price-note,
+    .price-card.featured li {
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .price-note {
+      margin-top: 12px;
+      color: #5d566a;
+    }
+
+    .price-list {
+      margin: 14px 0 18px;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      color: #312938;
+    }
+
+    .price-card button {
+      width: 100%;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-weight: 800;
+    }
+
+    .price-badge {
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(95, 31, 105, 0.08);
+      color: #5f1f69;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .price-card.featured .price-badge {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+
+    .invite-panel {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .invite-link {
+      display: block;
+      width: 100%;
+      margin-top: 8px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.24);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .preview-window {
@@ -1601,11 +1738,9 @@
         </div>
       </div>
       <div class="marketing-links">
-        <span>Features</span>
-        <span>Solutions</span>
-        <span>Enterprise</span>
-        <span>Resources</span>
-        <span>Pricing</span>
+        <button id="features-nav-btn" type="button">Features</button>
+        <button id="resources-nav-btn" type="button">Resources</button>
+        <button id="pricing-nav-btn" type="button">Pricing</button>
       </div>
       <div class="hero-actions">
         <button id="home-nav-btn" class="secondary nav-btn" type="button">Home</button>
@@ -1626,7 +1761,6 @@
           <button id="home-signin-btn" class="secondary" type="button">SIGN IN</button>
         </div>
         <div class="brand-strip">
-          <span>Trusted by modern teams</span>
           <span class="brand-chip">OPENAI</span>
           <span class="brand-chip">STRIPE</span>
           <span class="brand-chip">IBM</span>
@@ -1720,6 +1854,68 @@
               </div>
             </section>
           </div>
+        </div>
+      </div>
+
+      <div id="pricing-section" class="pricing-section">
+        <div class="pricing-copy">
+          <h3>Simple pricing for teams that want to move fast.</h3>
+          <p>Start with a lower first month, invite your team with one link, and upgrade whenever you need more rooms, more storage, and more workspace power.</p>
+        </div>
+        <div class="pricing-grid">
+          <article class="price-card">
+            <div class="price-top">
+              <div>
+                <h4>Starter</h4>
+                <div class="price-tag">$3</div>
+                <div class="price-sub">first month, then $5/month</div>
+              </div>
+              <span class="price-badge">Best for small teams</span>
+            </div>
+            <p class="price-note">Create one organization, unlimited direct messages, and core rooms.</p>
+            <ul class="price-list">
+              <li>Up to 25 members</li>
+              <li>Organization invite links</li>
+              <li>Voice and video rooms</li>
+            </ul>
+            <button id="buy-starter-btn" class="secondary" type="button">Choose Starter</button>
+          </article>
+
+          <article class="price-card featured">
+            <div class="price-top">
+              <div>
+                <h4>Pro</h4>
+                <div class="price-tag">$7</div>
+                <div class="price-sub">first month, then $10/month</div>
+              </div>
+              <span class="price-badge">Most popular</span>
+            </div>
+            <p class="price-note">For growing teams that need stronger collaboration and workspace control.</p>
+            <ul class="price-list">
+              <li>Up to 150 members</li>
+              <li>Priority workspace features</li>
+              <li>Advanced room organization</li>
+            </ul>
+            <button id="buy-pro-btn" class="primary" type="button">Choose Pro</button>
+          </article>
+
+          <article class="price-card">
+            <div class="price-top">
+              <div>
+                <h4>Business</h4>
+                <div class="price-tag">$15</div>
+                <div class="price-sub">first month, then $20/month</div>
+              </div>
+              <span class="price-badge">Large teams</span>
+            </div>
+            <p class="price-note">For busy companies that want more scale, structure, and higher room limits.</p>
+            <ul class="price-list">
+              <li>Unlimited members</li>
+              <li>Premium workspace controls</li>
+              <li>More powerful automation-ready layout</li>
+            </ul>
+            <button id="buy-business-btn" class="secondary" type="button">Choose Business</button>
+          </article>
         </div>
       </div>
     </section>
@@ -1973,6 +2169,13 @@
                 <button id="create-org-btn" class="primary" type="button">Create Organization</button>
                 <button id="join-org-btn" class="secondary" type="button">Join Organization</button>
               </div>
+              <div class="invite-panel">
+                <strong>Organization invite link</strong>
+                <div id="org-invite-link" class="invite-link">Create or join an organization to get a share link.</div>
+                <div class="actions">
+                  <button id="copy-org-invite-btn" class="secondary" type="button">Copy Invite Link</button>
+                </div>
+              </div>
               <div>
                 <h3>Your organizations</h3>
                 <div id="auth-organizations-list" class="org-list">
@@ -2035,6 +2238,13 @@
             <div class="room-settings-actions">
               <button id="save-group-settings-btn" class="secondary" type="button">Save Group</button>
               <button id="add-group-member-btn" class="secondary" type="button">Add Member</button>
+            </div>
+            <div class="invite-panel">
+              <strong>Room invite link</strong>
+              <div id="room-invite-link" class="invite-link">Open a private team room to generate an invite link.</div>
+              <div class="actions">
+                <button id="copy-room-invite-btn" class="secondary" type="button">Copy Room Invite</button>
+              </div>
             </div>
             <div id="kick-list" class="kick-list">
               <div class="empty-state">Group member actions will appear here.</div>
@@ -2136,6 +2346,12 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
+    const PAYMENT_LINKS = {
+      starter: "",
+      pro: "",
+      business: ""
+    };
+
     const usernameInput = document.getElementById("username");
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
@@ -2144,8 +2360,14 @@
     const orgNavBtn = document.getElementById("org-nav-btn");
     const workspaceNavBtn = document.getElementById("workspace-nav-btn");
     const signoutNavBtn = document.getElementById("signout-nav-btn");
+    const featuresNavBtn = document.getElementById("features-nav-btn");
+    const resourcesNavBtn = document.getElementById("resources-nav-btn");
+    const pricingNavBtn = document.getElementById("pricing-nav-btn");
     const homeSigninBtn = document.getElementById("home-signin-btn");
     const homeOrgBtn = document.getElementById("home-org-btn");
+    const buyStarterBtn = document.getElementById("buy-starter-btn");
+    const buyProBtn = document.getElementById("buy-pro-btn");
+    const buyBusinessBtn = document.getElementById("buy-business-btn");
     const homePage = document.getElementById("home-page");
     const workspaceLayout = document.getElementById("workspace-layout");
     const authShowcase = document.getElementById("auth-showcase");
@@ -2173,6 +2395,8 @@
     const authOrganizationsList = document.getElementById("auth-organizations-list");
     const orgNameInput = document.getElementById("org-name-input");
     const orgSlugInput = document.getElementById("org-slug-input");
+    const orgInviteLink = document.getElementById("org-invite-link");
+    const copyOrgInviteBtn = document.getElementById("copy-org-invite-btn");
     const createOrgBtn = document.getElementById("create-org-btn");
     const joinOrgBtn = document.getElementById("join-org-btn");
     const groupNameInput = document.getElementById("group-name-input");
@@ -2216,6 +2440,8 @@
     const groupRenameInput = document.getElementById("group-rename-input");
     const groupIconInput = document.getElementById("group-icon-input");
     const groupAddCodeInput = document.getElementById("group-add-code-input");
+    const roomInviteLink = document.getElementById("room-invite-link");
+    const copyRoomInviteBtn = document.getElementById("copy-room-invite-btn");
     const saveGroupSettingsBtn = document.getElementById("save-group-settings-btn");
     const addGroupMemberBtn = document.getElementById("add-group-member-btn");
     const kickList = document.getElementById("kick-list");
@@ -2322,6 +2548,60 @@
       return slugifyRoomName(value).slice(0, 32) || "organization";
     }
 
+    function getBasePageUrl() {
+      const url = new URL(window.location.href);
+      url.search = "";
+      url.hash = "";
+      return url.toString();
+    }
+
+    function buildOrganizationInviteLink(orgId) {
+      return `${getBasePageUrl()}?invite=org:${encodeURIComponent(orgId)}`;
+    }
+
+    function buildRoomInviteLink(roomId) {
+      return `${getBasePageUrl()}?invite=room:${encodeURIComponent(roomId)}`;
+    }
+
+    function scrollToPricing() {
+      document.getElementById("pricing-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function copyText(value, successMessage) {
+      if (!value) {
+        return;
+      }
+
+      navigator.clipboard.writeText(value)
+        .then(() => {
+          setStatus(authStatus, successMessage);
+        })
+        .catch(() => {
+          setStatus(authStatus, "Copy failed. Try selecting the link manually.", true);
+        });
+    }
+
+    function startCheckout(planId) {
+      const normalized = String(planId || "").toLowerCase();
+      const checkoutLink = PAYMENT_LINKS[normalized];
+
+      if (checkoutLink) {
+        window.open(checkoutLink, "_blank", "noopener,noreferrer");
+        return;
+      }
+
+      try {
+        localStorage.setItem("wedoall-selected-plan", normalized);
+      } catch {}
+
+      setScreen("organization");
+      setStatus(
+        authStatus,
+        `The ${normalized} checkout is ready for a real payment link. Add your Stripe or payment URL in PAYMENT_LINKS to make billing live.`,
+        true
+      );
+    }
+
     async function resolveProfileFromInput(rawValue, { excludeSelf = true } = {}) {
       const input = String(rawValue || "").trim();
       if (!input) {
@@ -2329,16 +2609,12 @@
       }
 
       const normalizedInput = normalizeName(input);
-      const normalizedCode = normalizeCode(input);
       const profilesSnapshot = await getDocs(collection(db, "profiles"));
       const profile = profilesSnapshot.docs
         .map((docSnap) => docSnap.data())
         .find((entry) =>
           entry &&
-          (
-            normalizeCode(entry.friendCode || "") === normalizedCode ||
-            normalizeName(entry.username || "") === normalizedInput
-          )
+          normalizeName(entry.username || "") === normalizedInput
         );
 
       if (!profile) {
@@ -2688,6 +2964,12 @@
     }
 
     function renderOrganizations() {
+      const orgIds = getOrganizationIds();
+      const primaryOrgId = currentProfile?.activeOrganizationId || orgIds[0] || "";
+      orgInviteLink.textContent = primaryOrgId
+        ? buildOrganizationInviteLink(primaryOrgId)
+        : "Create or join an organization to get a share link.";
+
       const renderTarget = (target, profilesOnly = false) => {
         if (!target) {
           return;
@@ -2847,24 +3129,40 @@
       }
     }
 
-    function makeCode() {
-      return Math.random().toString(36).slice(2, 8).toUpperCase();
-    }
-
-    async function generateUniqueFriendCode() {
-      let code = makeCode();
-      let exists = true;
-
-      while (exists) {
-        const existing = await getDocs(query(collection(db, "profiles"), where("friendCode", "==", code)));
-        if (existing.empty) {
-          exists = false;
-        } else {
-          code = makeCode();
-        }
+    async function acceptInviteFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const invite = params.get("invite");
+      if (!invite || !currentUser || !currentProfile) {
+        return;
       }
 
-      return code;
+      if (invite.startsWith("org:")) {
+        const orgId = decodeURIComponent(invite.slice(4));
+        orgSlugInput.value = orgId;
+        await joinOrganization();
+        return;
+      }
+
+      if (invite.startsWith("room:")) {
+        const roomId = decodeURIComponent(invite.slice(5));
+        const roomSnap = await getDoc(doc(db, "chatRooms", roomId));
+        if (!roomSnap.exists()) {
+          setStatus(authStatus, "That room invite is no longer valid.", true);
+          return;
+        }
+
+        const room = roomSnap.data();
+        if (room.type === "private-group") {
+          await setDoc(doc(db, "chatRooms", roomId), {
+            memberIds: arrayUnion(currentUser.uid),
+            memberNames: arrayUnion(currentProfile.username || getDisplayName(currentUser)),
+            updatedAt: serverTimestamp()
+          }, { merge: true });
+        }
+
+        openRoom(roomId, room.name || "Shared Room");
+        setScreen("workspace");
+      }
     }
 
     async function ensureProfile(user, preferredUsername = "") {
@@ -2874,10 +3172,6 @@
       if (profileSnap.exists()) {
         const existingProfile = profileSnap.data();
         const updates = {};
-
-        if (!existingProfile.friendCode) {
-          updates.friendCode = await generateUniqueFriendCode();
-        }
 
         if (!existingProfile.username) {
           updates.username = preferredUsername.trim() || getDisplayName(user);
@@ -2922,13 +3216,11 @@
         return profile;
       }
 
-      const friendCode = await generateUniqueFriendCode();
       const username = preferredUsername.trim() || getDisplayName(user);
       const profile = {
         uid: user.uid,
         email: user.email,
         username,
-        friendCode,
         friendUids: [],
         organizationIds: [],
         ...getOwnerProfilePatch({ username, email: user.email }),
@@ -3103,6 +3395,9 @@
     function renderGroupSettings() {
       const visible = canManageActiveGroup();
       roomSettings.classList.toggle("visible", visible);
+      roomInviteLink.textContent = visible && activeRoomId
+        ? buildRoomInviteLink(activeRoomId)
+        : "Open a private team room to generate an invite link.";
 
       if (!visible) {
         kickList.innerHTML = '<div class="empty-state">Group member actions will appear here.</div>';
@@ -4735,6 +5030,32 @@
     workspaceNavBtn.addEventListener("click", () => setScreen("workspace"));
     homeSigninBtn.addEventListener("click", () => setScreen("signin"));
     homeOrgBtn.addEventListener("click", () => setScreen("organization"));
+    pricingNavBtn.addEventListener("click", scrollToPricing);
+    featuresNavBtn.addEventListener("click", () => {
+      document.querySelector(".marketing-preview")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    resourcesNavBtn.addEventListener("click", () => {
+      document.getElementById("workspace-layout")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    buyStarterBtn.addEventListener("click", () => startCheckout("starter"));
+    buyProBtn.addEventListener("click", () => startCheckout("pro"));
+    buyBusinessBtn.addEventListener("click", () => startCheckout("business"));
+    copyOrgInviteBtn.addEventListener("click", () => {
+      const value = orgInviteLink.textContent.trim();
+      if (!value.startsWith("http")) {
+        setStatus(authStatus, "Create or join an organization first.", true);
+        return;
+      }
+      copyText(value, "Organization invite link copied.");
+    });
+    copyRoomInviteBtn.addEventListener("click", () => {
+      const value = roomInviteLink.textContent.trim();
+      if (!value.startsWith("http")) {
+        setStatus(chatStatus, "Open a private team room first.", true);
+        return;
+      }
+      copyText(value, "Room invite link copied.");
+    });
     addFriendBtn.addEventListener("click", createOrOpenFriendChat);
     saveFriendBtn.addEventListener("click", addFriendByCode);
     createGroupBtn.addEventListener("click", createPrivateGroupChat);
@@ -4997,6 +5318,7 @@
           setSignedInState(user);
           setStatus(authStatus, `Logged in as ${getDisplayName(user)}`);
           setScreen("workspace");
+          acceptInviteFromUrl();
         })
         .catch((error) => {
           if (friendCodeBox) {
