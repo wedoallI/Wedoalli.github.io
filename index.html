@@ -351,7 +351,7 @@
     }
 
     .billing-toggle button.active {
-      background: #5f1f69;
+      background: #1f2630;
       color: #fff;
     }
 
@@ -370,9 +370,10 @@
     }
 
     .price-card.featured {
-      background: linear-gradient(180deg, #5f1f69, #7a36a0);
-      color: #fff;
-      border-color: rgba(95, 31, 105, 0.28);
+      background: #fff;
+      color: #1f2630;
+      border-color: #1f2630;
+      box-shadow: 0 24px 54px rgba(31, 38, 48, 0.14);
     }
 
     .price-card h4,
@@ -403,7 +404,7 @@
     .price-card.featured .price-sub,
     .price-card.featured .price-note,
     .price-card.featured li {
-      color: rgba(255, 255, 255, 0.86);
+      color: #5c6673;
     }
 
     .price-note {
@@ -465,7 +466,7 @@
       border-radius: 14px;
       padding: 13px 16px;
       color: #fff;
-      background: linear-gradient(135deg, #5f1f69, #8b3bb2);
+      background: linear-gradient(135deg, #1f2630, #3a4655);
       font: inherit;
       font-weight: 900;
       cursor: pointer;
@@ -482,9 +483,9 @@
     }
 
     .price-card.featured .paypal-subscribe-button {
-      color: #5f1f69;
-      background: #fff;
-      box-shadow: 0 14px 24px rgba(0, 0, 0, 0.16);
+      color: #fff;
+      background: linear-gradient(135deg, #1f2630, #3a4655);
+      box-shadow: 0 14px 24px rgba(31, 38, 48, 0.16);
     }
 
     .donate-card {
@@ -513,7 +514,7 @@
       border-radius: 14px;
       padding: 13px 16px;
       color: #fff;
-      background: linear-gradient(135deg, #5f1f69, #8b3bb2);
+      background: linear-gradient(135deg, #1f2630, #3a4655);
       font: inherit;
       font-weight: 900;
       cursor: pointer;
@@ -530,8 +531,8 @@
     }
 
     .price-card.featured .price-badge {
-      background: rgba(255, 255, 255, 0.18);
-      color: #fff;
+      background: #edf2f2;
+      color: #1f2630;
     }
 
     .invite-panel {
@@ -848,6 +849,85 @@
       color: #5f1f69;
       border: 2px solid rgba(95, 31, 105, 0.3);
       box-shadow: none;
+    }
+
+    body[data-screen="signin"],
+    body[data-screen="organization"] {
+      background: #f4f8f8;
+      color: #1f2630;
+    }
+
+    body[data-screen="signin"]::before,
+    body[data-screen="organization"]::before {
+      display: none;
+    }
+
+    body[data-screen="signin"] .app,
+    body[data-screen="organization"] .app {
+      width: min(1180px, calc(100% - 32px));
+      margin: 22px auto;
+    }
+
+    body[data-screen="signin"] .layout,
+    body[data-screen="organization"] .layout {
+      grid-template-columns: 420px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    body[data-screen="signin"] .workspace-rail,
+    body[data-screen="organization"] .workspace-rail {
+      display: none;
+    }
+
+    body[data-screen="signin"] .auth-panel,
+    body[data-screen="organization"] .auth-panel,
+    body[data-screen="signin"] .chat-panel,
+    body[data-screen="organization"] .chat-panel {
+      background: #fff;
+      color: #1f2630;
+      border: 1px solid #dbe5e5;
+      box-shadow: 0 24px 64px rgba(31, 38, 48, 0.1);
+    }
+
+    body[data-screen="signin"] .auth-panel h2,
+    body[data-screen="signin"] .auth-panel h3,
+    body[data-screen="signin"] .auth-panel p,
+    body[data-screen="signin"] .auth-panel label,
+    body[data-screen="signin"] .auth-panel .hint,
+    body[data-screen="organization"] .auth-panel h2,
+    body[data-screen="organization"] .auth-panel h3,
+    body[data-screen="organization"] .auth-panel p,
+    body[data-screen="organization"] .auth-panel label,
+    body[data-screen="organization"] .auth-panel .hint {
+      color: #1f2630;
+    }
+
+    body[data-screen="signin"] .auth-panel input,
+    body[data-screen="signin"] .auth-panel select,
+    body[data-screen="organization"] .auth-panel input,
+    body[data-screen="organization"] .auth-panel select {
+      background: #f8fbfb;
+      border-color: #dbe5e5;
+      color: #1f2630;
+    }
+
+    body[data-screen="signin"] .upgrade-card,
+    body[data-screen="organization"] .upgrade-card {
+      background: #edf2f2;
+      color: #1f2630;
+    }
+
+    body[data-screen="signin"] .auth-split {
+      grid-template-columns: 1fr;
+    }
+
+    body[data-screen="signin"] .org-auth-section {
+      display: none;
+    }
+
+    body[data-screen="organization"] .auth-split {
+      grid-template-columns: 0.8fr 1.2fr;
     }
 
     body[data-screen="home"] #home-nav-btn,
@@ -1915,6 +1995,12 @@
       cursor: pointer;
     }
 
+    .room-tools a.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+
     .room-label {
       color: var(--muted);
       font-size: 0.92rem;
@@ -2308,6 +2394,12 @@
         <button id="org-nav-btn" class="primary nav-btn" type="button">Get Started</button>
         <button id="workspace-nav-btn" class="secondary nav-btn hidden" type="button">Workspace</button>
         <button id="signout-nav-btn" class="danger nav-btn hidden" type="button">Sign Out</button>
+        <select id="language-select" class="nav-btn" aria-label="Language">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="ar">العربية</option>
+        </select>
         <div id="session-pill" class="status-pill">Signed out</div>
       </div>
     </section>
@@ -2897,7 +2989,7 @@
           </div>
 
           <div class="auth-split">
-            <section class="auth-showcase">
+            <section class="auth-showcase member-auth-section">
               <h2>Member access</h2>
               <p>Members sign in with email and password, then work inside organization rooms, direct chats, and private team spaces.</p>
               <div class="workspace-list">
@@ -2912,7 +3004,7 @@
               </div>
             </section>
 
-            <section class="auth-showcase">
+            <section class="auth-showcase org-auth-section">
               <h2>Organization setup</h2>
               <p>Create a company workspace or join an existing organization by its handle. This replaces the old friend-code style flow with a business structure.</p>
               <div class="field">
@@ -2922,6 +3014,34 @@
               <div class="field">
                 <label for="org-slug-input">Organization handle</label>
                 <input id="org-slug-input" type="text" placeholder="acme-studio">
+              </div>
+              <div class="field">
+                <label for="org-size-input">How many people are joining?</label>
+                <select id="org-size-input">
+                  <option value="1-5">1-5 people</option>
+                  <option value="6-25">6-25 people</option>
+                  <option value="26-150">26-150 people</option>
+                  <option value="150+">150+ people</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="org-purpose-input">What will this organization use wedoall for?</label>
+                <select id="org-purpose-input">
+                  <option value="team-chat">Team chat</option>
+                  <option value="client-work">Client work</option>
+                  <option value="school-club">School or club</option>
+                  <option value="support">Customer support</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="org-language-input">Main organization language</label>
+                <select id="org-language-input">
+                  <option value="en">English</option>
+                  <option value="es">Spanish</option>
+                  <option value="fr">French</option>
+                  <option value="ar">Arabic</option>
+                </select>
               </div>
               <div class="actions">
                 <button id="create-org-btn" class="primary" type="button">Create Organization</button>
@@ -3194,6 +3314,7 @@
     const pricingNavBtn = document.getElementById("pricing-nav-btn");
     const homeSigninBtn = document.getElementById("home-signin-btn");
     const homeOrgBtn = document.getElementById("home-org-btn");
+    const languageSelect = document.getElementById("language-select");
     const billingMonthlyBtn = document.getElementById("billing-monthly-btn");
     const billingYearlyBtn = document.getElementById("billing-yearly-btn");
     const freePrice = document.getElementById("free-price");
@@ -3238,6 +3359,9 @@
     const authOrganizationsList = document.getElementById("auth-organizations-list");
     const orgNameInput = document.getElementById("org-name-input");
     const orgSlugInput = document.getElementById("org-slug-input");
+    const orgSizeInput = document.getElementById("org-size-input");
+    const orgPurposeInput = document.getElementById("org-purpose-input");
+    const orgLanguageInput = document.getElementById("org-language-input");
     const orgInviteLink = document.getElementById("org-invite-link");
     const copyOrgInviteBtn = document.getElementById("copy-org-invite-btn");
     const createOrgBtn = document.getElementById("create-org-btn");
@@ -3407,6 +3531,312 @@
       return url.toString();
     }
 
+    const UI_COPY = {
+      en: {
+        signin: "Sign In",
+        home: "Home",
+        getStarted: "Get Started",
+        pricing: "Pricing",
+        features: "Features",
+        resources: "Resources",
+        workspace: "Workspace",
+        signout: "Sign Out",
+        signedOut: "Signed out",
+        hero: "All your teams, rooms, and company chats working together.",
+        heroBody: "wedoall gives organizations one clean place to message, organize departments, open private team rooms, and move into voice or video without the clutter.",
+        pricingTitle: "Simple pricing for teams that want to move fast.",
+        pricingBody: "Start with a lower first month, invite your team with one link, and upgrade whenever you need more rooms, more storage, and more workspace power.",
+        monthly: "Monthly",
+        yearly: "Yearly",
+        accountTitle: "Msging",
+        username: "Username",
+        email: "Email",
+        password: "Password",
+        signup: "Sign Up",
+        login: "Log In",
+        logout: "Log Out",
+        clear: "Clear Fields",
+        memberAccess: "Member access",
+        memberCopy: "Members sign in with email and password, then work inside organization rooms, direct chats, and private team spaces.",
+        orgSetup: "Organization setup",
+        orgPrompt: "Answer a few setup questions so wedoall can shape the workspace for your team.",
+        orgName: "Organization name",
+        orgHandle: "Organization handle",
+        orgSize: "How many people are joining?",
+        orgPurpose: "What will this organization use wedoall for?",
+        orgLanguage: "Main organization language",
+        createOrg: "Create Organization",
+        joinOrg: "Join Organization",
+        inviteLink: "Organization invite link",
+        copyInvite: "Copy Invite Link",
+        yourOrgs: "Your organizations",
+        businessAccess: "Business Access",
+        noAccount: "No account",
+        threads: "Threads",
+        search: "Search Msging",
+        reply: "Reply...",
+        send: "Send",
+        leaveChat: "Leave Chat",
+        peopleHere: "People Here",
+        settings: "Settings",
+        notifications: "Notifications",
+        enableNotifications: "Enable Notifications",
+        saveSettings: "Save Settings"
+      },
+      es: {
+        signin: "Iniciar sesión",
+        home: "Inicio",
+        getStarted: "Empezar",
+        pricing: "Precios",
+        features: "Funciones",
+        resources: "Recursos",
+        workspace: "Espacio",
+        signout: "Salir",
+        signedOut: "Sesión cerrada",
+        hero: "Todos tus equipos, salas y chats de empresa trabajando juntos.",
+        heroBody: "wedoall da a las organizaciones un lugar limpio para mensajes, departamentos, salas privadas y llamadas.",
+        pricingTitle: "Precios simples para equipos que quieren avanzar rápido.",
+        pricingBody: "Empieza, invita a tu equipo con un enlace y mejora cuando necesites más salas, almacenamiento y poder.",
+        monthly: "Mensual",
+        yearly: "Anual",
+        accountTitle: "Msging",
+        username: "Usuario",
+        email: "Correo",
+        password: "Contraseña",
+        signup: "Crear cuenta",
+        login: "Entrar",
+        logout: "Salir",
+        clear: "Limpiar",
+        memberAccess: "Acceso de miembro",
+        memberCopy: "Los miembros entran con correo y contraseña para trabajar en salas, chats directos y equipos privados.",
+        orgSetup: "Configurar organización",
+        orgPrompt: "Responde unas preguntas para preparar el espacio de tu equipo.",
+        orgName: "Nombre de organización",
+        orgHandle: "Identificador",
+        orgSize: "¿Cuántas personas entrarán?",
+        orgPurpose: "¿Para qué usarán wedoall?",
+        orgLanguage: "Idioma principal",
+        createOrg: "Crear organización",
+        joinOrg: "Unirse",
+        inviteLink: "Enlace de invitación",
+        copyInvite: "Copiar invitación",
+        yourOrgs: "Tus organizaciones",
+        businessAccess: "Acceso empresarial",
+        noAccount: "Sin cuenta",
+        threads: "Hilos",
+        search: "Buscar Msging",
+        reply: "Responder...",
+        send: "Enviar",
+        leaveChat: "Salir del chat",
+        peopleHere: "Personas aquí",
+        settings: "Ajustes",
+        notifications: "Notificaciones",
+        enableNotifications: "Activar notificaciones",
+        saveSettings: "Guardar ajustes"
+      },
+      fr: {
+        signin: "Connexion",
+        home: "Accueil",
+        getStarted: "Commencer",
+        pricing: "Tarifs",
+        features: "Fonctions",
+        resources: "Ressources",
+        workspace: "Espace",
+        signout: "Déconnexion",
+        signedOut: "Déconnecté",
+        hero: "Toutes vos équipes, salles et discussions d'entreprise au même endroit.",
+        heroBody: "wedoall offre aux organisations un espace clair pour les messages, départements, salons privés et appels.",
+        pricingTitle: "Des tarifs simples pour les équipes rapides.",
+        pricingBody: "Invitez votre équipe avec un lien et passez à un plan supérieur quand vous avez besoin de plus.",
+        monthly: "Mensuel",
+        yearly: "Annuel",
+        accountTitle: "Msging",
+        username: "Nom utilisateur",
+        email: "E-mail",
+        password: "Mot de passe",
+        signup: "Créer un compte",
+        login: "Connexion",
+        logout: "Déconnexion",
+        clear: "Effacer",
+        memberAccess: "Accès membre",
+        memberCopy: "Les membres se connectent avec e-mail et mot de passe pour travailler dans les salons et messages privés.",
+        orgSetup: "Configuration organisation",
+        orgPrompt: "Répondez à quelques questions pour préparer l'espace de votre équipe.",
+        orgName: "Nom de l'organisation",
+        orgHandle: "Identifiant",
+        orgSize: "Combien de personnes vont rejoindre ?",
+        orgPurpose: "Pourquoi utiliserez-vous wedoall ?",
+        orgLanguage: "Langue principale",
+        createOrg: "Créer l'organisation",
+        joinOrg: "Rejoindre",
+        inviteLink: "Lien d'invitation",
+        copyInvite: "Copier l'invitation",
+        yourOrgs: "Vos organisations",
+        businessAccess: "Accès entreprise",
+        noAccount: "Aucun compte",
+        threads: "Fils",
+        search: "Rechercher Msging",
+        reply: "Répondre...",
+        send: "Envoyer",
+        leaveChat: "Quitter",
+        peopleHere: "Personnes ici",
+        settings: "Réglages",
+        notifications: "Notifications",
+        enableNotifications: "Activer notifications",
+        saveSettings: "Enregistrer"
+      },
+      ar: {
+        signin: "تسجيل الدخول",
+        home: "الرئيسية",
+        getStarted: "ابدأ",
+        pricing: "الأسعار",
+        features: "الميزات",
+        resources: "الموارد",
+        workspace: "مساحة العمل",
+        signout: "تسجيل الخروج",
+        signedOut: "غير مسجل",
+        hero: "كل الفرق والغرف ومحادثات الشركة في مكان واحد.",
+        heroBody: "يوفر wedoall مكانا واضحا للرسائل والأقسام والغرف الخاصة والمكالمات.",
+        pricingTitle: "أسعار بسيطة للفرق السريعة.",
+        pricingBody: "ادع فريقك برابط واحد وقم بالترقية عندما تحتاج إلى المزيد.",
+        monthly: "شهري",
+        yearly: "سنوي",
+        accountTitle: "Msging",
+        username: "اسم المستخدم",
+        email: "البريد الإلكتروني",
+        password: "كلمة المرور",
+        signup: "إنشاء حساب",
+        login: "دخول",
+        logout: "خروج",
+        clear: "مسح",
+        memberAccess: "دخول الأعضاء",
+        memberCopy: "يدخل الأعضاء بالبريد وكلمة المرور للعمل داخل الغرف والمحادثات.",
+        orgSetup: "إعداد المنظمة",
+        orgPrompt: "أجب عن بعض الأسئلة لتجهيز مساحة عمل فريقك.",
+        orgName: "اسم المنظمة",
+        orgHandle: "معرف المنظمة",
+        orgSize: "كم شخصا سينضم؟",
+        orgPurpose: "لماذا ستستخدمون wedoall؟",
+        orgLanguage: "اللغة الرئيسية",
+        createOrg: "إنشاء منظمة",
+        joinOrg: "انضمام",
+        inviteLink: "رابط الدعوة",
+        copyInvite: "نسخ الدعوة",
+        yourOrgs: "منظماتك",
+        businessAccess: "دخول الأعمال",
+        noAccount: "لا يوجد حساب",
+        threads: "المحادثات",
+        search: "بحث Msging",
+        reply: "رد...",
+        send: "إرسال",
+        leaveChat: "مغادرة",
+        peopleHere: "الأشخاص هنا",
+        settings: "الإعدادات",
+        notifications: "الإشعارات",
+        enableNotifications: "تفعيل الإشعارات",
+        saveSettings: "حفظ"
+      }
+    };
+
+    function applyLanguage(language = "en") {
+      const copy = UI_COPY[language] || UI_COPY.en;
+      document.documentElement.lang = language;
+      document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+      localStorage.setItem("wedoall-language", language);
+
+      signinNavBtn.textContent = copy.signin;
+      homeSigninBtn.textContent = copy.signin.toUpperCase();
+      homeNavBtn.textContent = copy.home;
+      orgNavBtn.textContent = copy.getStarted;
+      homeOrgBtn.textContent = copy.getStarted.toUpperCase();
+      pricingNavBtn.textContent = copy.pricing;
+      featuresNavBtn.textContent = copy.features;
+      resourcesNavBtn.textContent = copy.resources;
+      workspaceNavBtn.textContent = copy.workspace;
+      signoutNavBtn.textContent = copy.signout;
+      sessionPill.textContent = currentUser ? sessionPill.textContent : copy.signedOut;
+      billingMonthlyBtn.textContent = copy.monthly;
+      billingYearlyBtn.textContent = copy.yearly;
+      signupBtn.textContent = copy.signup;
+      loginBtn.textContent = copy.login;
+      logoutBtn.textContent = copy.logout;
+      clearBtn.textContent = copy.clear;
+      createOrgBtn.textContent = copy.createOrg;
+      joinOrgBtn.textContent = copy.joinOrg;
+      copyOrgInviteBtn.textContent = copy.copyInvite;
+      leaveRoomBtn.textContent = copy.leaveChat;
+      sendBtn.textContent = copy.send;
+      notificationsBtn.textContent = copy.enableNotifications;
+      saveSettingsBtn.textContent = copy.saveSettings;
+      const heroTitle = document.querySelector(".marketing-hero h2");
+      const heroBody = document.querySelector(".marketing-hero p");
+      const pricingTitle = document.querySelector(".pricing-copy h3");
+      const pricingBody = document.querySelector(".pricing-copy p");
+      const accountTitle = document.querySelector(".workspace-sidebar-head h2");
+      const memberTitle = document.querySelector("#auth-showcase .member-auth-section h2");
+      const memberCopy = document.querySelector("#auth-showcase .member-auth-section p");
+      const orgTitle = document.querySelector("#auth-showcase .org-auth-section h2");
+      const orgPrompt = document.querySelector("#auth-showcase .org-auth-section p");
+      const businessTitle = document.querySelector("#auth-showcase .chat-topbar h2");
+      const yourOrgsTitle = document.querySelector("#auth-organizations-list")?.previousElementSibling;
+      const peopleHereTitle = document.querySelector(".member-panel h3");
+      const settingsTitle = Array.from(document.querySelectorAll("#profile-drawer h3")).find((heading) => heading.textContent.trim() === "Settings" || heading.dataset.i18n === "settings");
+      if (heroTitle) {
+        heroTitle.textContent = copy.hero;
+      }
+      if (heroBody) {
+        heroBody.textContent = copy.heroBody;
+      }
+      if (pricingTitle) {
+        pricingTitle.textContent = copy.pricingTitle;
+      }
+      if (pricingBody) {
+        pricingBody.textContent = copy.pricingBody;
+      }
+      if (accountTitle) {
+        accountTitle.textContent = copy.accountTitle;
+      }
+      if (memberTitle) {
+        memberTitle.textContent = copy.memberAccess;
+      }
+      if (memberCopy) {
+        memberCopy.textContent = copy.memberCopy;
+      }
+      if (orgTitle) {
+        orgTitle.textContent = copy.orgSetup;
+      }
+      if (orgPrompt) {
+        orgPrompt.textContent = copy.orgPrompt;
+      }
+      if (businessTitle) {
+        businessTitle.textContent = copy.businessAccess;
+      }
+      if (yourOrgsTitle) {
+        yourOrgsTitle.textContent = copy.yourOrgs;
+      }
+      if (peopleHereTitle) {
+        peopleHereTitle.textContent = copy.peopleHere;
+      }
+      if (settingsTitle) {
+        settingsTitle.dataset.i18n = "settings";
+        settingsTitle.textContent = copy.settings;
+      }
+
+      document.querySelector('label[for="username"]').textContent = copy.username;
+      document.querySelector('label[for="email"]').textContent = copy.email;
+      document.querySelector('label[for="password"]').textContent = copy.password;
+      document.querySelector('label[for="org-name-input"]').textContent = copy.orgName;
+      document.querySelector('label[for="org-slug-input"]').textContent = copy.orgHandle;
+      document.querySelector('label[for="org-size-input"]').textContent = copy.orgSize;
+      document.querySelector('label[for="org-purpose-input"]').textContent = copy.orgPurpose;
+      document.querySelector('label[for="org-language-input"]').textContent = copy.orgLanguage;
+      document.querySelector(".invite-panel strong").textContent = copy.inviteLink;
+      messageSearch.placeholder = copy.search;
+      messageInput.placeholder = copy.reply;
+      userLabel.textContent = currentUser ? userLabel.textContent : copy.noAccount;
+      workspaceUserLabel.textContent = currentUser ? workspaceUserLabel.textContent : copy.noAccount;
+    }
+
     function buildOrganizationInviteLink(orgId) {
       return `${getBasePageUrl()}?invite=org:${encodeURIComponent(orgId)}`;
     }
@@ -3446,10 +3876,54 @@
     }
 
     const PLAN_LIMITS = {
-      free: { maxMembers: 5, label: "Free" },
-      starter: { maxMembers: 25, label: "Starter" },
-      pro: { maxMembers: 150, label: "Pro" },
-      business: { maxMembers: Infinity, label: "Business" }
+      free: {
+        maxMembers: 5,
+        maxContacts: 3,
+        maxTeamRooms: 1,
+        maxTeamMembers: 3,
+        canUseVoice: false,
+        canUseVideo: false,
+        canSendImages: false,
+        canPinMessages: false,
+        canManageMembers: false,
+        label: "Free"
+      },
+      starter: {
+        maxMembers: 25,
+        maxContacts: 25,
+        maxTeamRooms: 5,
+        maxTeamMembers: 10,
+        canUseVoice: true,
+        canUseVideo: false,
+        canSendImages: true,
+        canPinMessages: false,
+        canManageMembers: true,
+        label: "Starter"
+      },
+      pro: {
+        maxMembers: 150,
+        maxContacts: 100,
+        maxTeamRooms: 25,
+        maxTeamMembers: 50,
+        canUseVoice: true,
+        canUseVideo: true,
+        canSendImages: true,
+        canPinMessages: true,
+        canManageMembers: true,
+        label: "Pro"
+      },
+      business: {
+        maxMembers: Infinity,
+        maxContacts: Infinity,
+        maxTeamRooms: Infinity,
+        maxTeamMembers: Infinity,
+        canUseVoice: true,
+        canUseVideo: true,
+        canSendImages: true,
+        canPinMessages: true,
+        canManageMembers: true,
+        label: "Business"
+      }
     };
 
     function getActivePlanId(profile = currentProfile) {
@@ -3462,6 +3936,47 @@
 
     function getPlanLimits(profile = currentProfile) {
       return PLAN_LIMITS[getActivePlanId(profile)] || PLAN_LIMITS.free;
+    }
+
+    function formatPlanLimit(value) {
+      return Number.isFinite(value) ? value : "unlimited";
+    }
+
+    function countOwnedTeamRooms() {
+      if (!currentUser) {
+        return 0;
+      }
+
+      return Array.from(roomsById.values()).filter((room) =>
+        room.type === "private-group" && room.createdByUid === currentUser.uid
+      ).length;
+    }
+
+    function getPlanFeatureSummary(profile = currentProfile) {
+      const planId = getActivePlanId(profile);
+      const limits = getPlanLimits(profile);
+      const features = [
+        `Plan: ${getPlanLabel(planId)}`,
+        `members ${formatPlanLimit(limits.maxMembers)}`,
+        `contacts ${formatPlanLimit(limits.maxContacts)}`,
+        `team rooms ${formatPlanLimit(limits.maxTeamRooms)}`,
+        `room size ${formatPlanLimit(limits.maxTeamMembers)}`
+      ];
+
+      if (limits.canUseVoice) {
+        features.push("voice");
+      }
+      if (limits.canUseVideo) {
+        features.push("video");
+      }
+      if (limits.canSendImages) {
+        features.push("images");
+      }
+      if (limits.canPinMessages) {
+        features.push("pins");
+      }
+
+      return features.join(" • ");
     }
 
     function hasRolePermission(permissionName) {
@@ -3484,7 +3999,7 @@
         return `${planLabel}${billing} is pending PayPal confirmation.`;
       }
 
-      return "Free plan active: up to 5 members with basic workspace tools.";
+      return `Free plan active: ${getPlanFeatureSummary(profile)}.`;
     }
 
     async function handlePayPalSubscriptionSubmit(event) {
@@ -4066,6 +4581,9 @@
           ownerName: currentProfile.username || getDisplayName(currentUser),
           planId: getActivePlanId(currentProfile),
           maxMembers: Number.isFinite(planLimits.maxMembers) ? planLimits.maxMembers : 999999,
+          teamSize: orgSizeInput.value,
+          purpose: orgPurposeInput.value,
+          language: orgLanguageInput.value,
           memberUids: [currentUser.uid],
           memberUsernames: [currentProfile.username || getDisplayName(currentUser)],
           createdAt: Date.now()
@@ -4081,6 +4599,9 @@
 
         orgNameInput.value = "";
         orgSlugInput.value = "";
+        orgSizeInput.value = "1-5";
+        orgPurposeInput.value = "team-chat";
+        orgLanguageInput.value = languageSelect.value || "en";
         setStatus(authStatus, `${name} was created successfully.`);
         openRoom(roomId, `${name} / General`);
         setScreen("workspace");
@@ -4388,7 +4909,10 @@
       if (!currentUser || !activeRoomData || activeRoomData.type !== "private-group") {
         return false;
       }
-      return isAdminUser() || hasRolePermission("manageMembers") || activeRoomData.createdByUid === currentUser.uid;
+      const limits = getPlanLimits(currentProfile);
+      return isAdminUser() ||
+        hasRolePermission("manageMembers") ||
+        (limits.canManageMembers && activeRoomData.createdByUid === currentUser.uid);
     }
 
     function renderPinnedMessages() {
@@ -4500,8 +5024,13 @@
         : activeRoomData?.type === "organization"
           ? "This organization room belongs to your company workspace."
           : "Private rooms stay visible only to the people inside them.";
-      voiceCallLink.href = getCallUrl(roomId, roomName, "voice");
-      videoCallLink.href = getCallUrl(roomId, roomName, "video");
+      const limits = getPlanLimits(currentProfile);
+      voiceCallLink.href = limits.canUseVoice ? getCallUrl(roomId, roomName, "voice") : "#";
+      videoCallLink.href = limits.canUseVideo ? getCallUrl(roomId, roomName, "video") : "#";
+      voiceCallLink.classList.toggle("disabled", !limits.canUseVoice);
+      videoCallLink.classList.toggle("disabled", !limits.canUseVideo);
+      voiceCallLink.title = limits.canUseVoice ? "Join voice call" : "Upgrade to Starter or higher for voice calls.";
+      videoCallLink.title = limits.canUseVideo ? "Join video call" : "Upgrade to Pro or Business for video calls.";
       leaveRoomBtn.classList.toggle(
         "hidden",
         !currentUser || !activeRoomData || activeRoomData.public || activeRoomData.type === "public"
@@ -4805,7 +5334,7 @@
       if (loggedIn && currentProfile) {
         profileCardName.textContent = currentProfile.username || getDisplayName(user);
         profileCardAvatar.src = getAvatarUrl(currentProfile) || createAvatar(currentProfile).src;
-        subscriptionStatus.textContent = getSubscriptionLabel(currentProfile);
+        subscriptionStatus.textContent = `${getSubscriptionLabel(currentProfile)} ${getPlanFeatureSummary(currentProfile)}.`;
       } else {
         subscriptionStatus.textContent = getSubscriptionLabel(null);
         setProfileDrawer(false);
@@ -5580,6 +6109,13 @@
         return;
       }
 
+      const limits = getPlanLimits(currentProfile);
+      const currentContacts = Array.isArray(currentProfile.friendUids) ? currentProfile.friendUids.length : 0;
+      if (currentContacts >= limits.maxContacts) {
+        setStatus(chatStatus, `${getPlanLabel(getActivePlanId(currentProfile))} allows ${formatPlanLimit(limits.maxContacts)} saved contacts. Upgrade for more.`, true);
+        return;
+      }
+
       const friendInput = friendCodeInput.value.trim();
       if (!friendInput) {
         setStatus(chatStatus, "Enter a username first.", true);
@@ -5686,6 +6222,13 @@
         return;
       }
 
+      const limits = getPlanLimits(currentProfile);
+      const memberCount = Array.isArray(activeRoomData?.memberIds) ? activeRoomData.memberIds.length : 0;
+      if (memberCount >= limits.maxTeamMembers) {
+        setStatus(chatStatus, `${getPlanLabel(getActivePlanId(currentProfile))} allows ${formatPlanLimit(limits.maxTeamMembers)} people per team room. Upgrade for larger rooms.`, true);
+        return;
+      }
+
       const friendInput = groupAddCodeInput.value.trim();
       if (!friendInput) {
         setStatus(chatStatus, "Enter a username to add.", true);
@@ -5774,7 +6317,8 @@
     }
 
     async function togglePinMessage(messageId, message) {
-      if (!activeRoomId || !isAdminUser()) {
+      if (!activeRoomId || (!isAdminUser() && !getPlanLimits(currentProfile).canPinMessages)) {
+        setStatus(chatStatus, "Upgrade to Pro or Business to pin messages.", true);
         return;
       }
 
@@ -5808,6 +6352,11 @@
     async function sendImageMessage() {
       if (!currentUser || !activeRoomId) {
         setStatus(chatStatus, "Open a chat first.", true);
+        return;
+      }
+
+      if (!getPlanLimits(currentProfile).canSendImages) {
+        setStatus(chatStatus, "Upgrade to Starter or higher to send image messages.", true);
         return;
       }
 
@@ -5870,6 +6419,13 @@
       }
 
       try {
+        const limits = getPlanLimits(currentProfile);
+        const ownedTeamRooms = countOwnedTeamRooms();
+        if (ownedTeamRooms >= limits.maxTeamRooms) {
+          setStatus(chatStatus, `${getPlanLabel(getActivePlanId(currentProfile))} allows ${formatPlanLimit(limits.maxTeamRooms)} team room(s). Upgrade for more rooms.`, true);
+          return;
+        }
+
         const invitedProfiles = [];
 
         for (const token of codes) {
@@ -5889,6 +6445,11 @@
         }
 
         const memberIds = Array.from(new Set([currentUser.uid, ...uniqueProfiles.map((profile) => profile.uid)]));
+        if (memberIds.length > limits.maxTeamMembers) {
+          setStatus(chatStatus, `${getPlanLabel(getActivePlanId(currentProfile))} allows ${formatPlanLimit(limits.maxTeamMembers)} people per team room. Remove some usernames or upgrade.`, true);
+          return;
+        }
+
         const memberNames = memberIds.map((uid) => {
           if (uid === currentUser.uid) {
             return currentProfile.username || getDisplayName(currentUser);
@@ -5902,6 +6463,8 @@
           name: groupName,
           memberIds,
           memberNames,
+          planId: getActivePlanId(currentProfile),
+          maxMembers: Number.isFinite(limits.maxTeamMembers) ? limits.maxTeamMembers : 999999,
           createdByUid: currentUser.uid,
           createdByName: currentProfile.username || getDisplayName(currentUser),
           createdAt: serverTimestamp(),
@@ -6077,6 +6640,10 @@
     });
     resourcesNavBtn.addEventListener("click", () => {
       document.getElementById("workspace-layout")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    languageSelect.addEventListener("change", () => {
+      applyLanguage(languageSelect.value);
+      orgLanguageInput.value = languageSelect.value;
     });
     document.querySelectorAll(".paypal-subscribe-form").forEach((form) => {
       form.addEventListener("submit", handlePayPalSubscriptionSubmit);
@@ -6281,6 +6848,9 @@
       friendCodeInput.value = "";
       orgNameInput.value = "";
       orgSlugInput.value = "";
+      orgSizeInput.value = "1-5";
+      orgPurposeInput.value = "team-chat";
+      orgLanguageInput.value = languageSelect.value || "en";
       groupNameInput.value = "";
       groupCodesInput.value = "";
       avatarUrlInput.value = "";
@@ -6394,6 +6964,9 @@
     applyCursorStyle(localStorage.getItem("wedoall-cursor-style") || "default");
     cursorStyle.value = localStorage.getItem("wedoall-cursor-style") || "default";
     soundLevel.value = "soft";
+    languageSelect.value = localStorage.getItem("wedoall-language") || "en";
+    orgLanguageInput.value = languageSelect.value;
+    applyLanguage(languageSelect.value);
     updatePricingDisplay("monthly");
     setScreen("home");
     handlePayPalReturnMessage();
