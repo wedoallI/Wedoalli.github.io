@@ -759,6 +759,32 @@
       gap: 18px;
     }
 
+    .auth-choice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .auth-choice-card {
+      padding: 14px;
+      border-radius: 16px;
+      background: #f7fbfb;
+      border: 1px solid #dbe5e5;
+    }
+
+    .auth-choice-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #1f2630;
+    }
+
+    .auth-choice-card p {
+      margin: 0 0 12px;
+      color: #65707d;
+      font-size: 0.92rem;
+    }
+
     .auth-showcase h2,
     .home-side h3 {
       margin-bottom: 8px;
@@ -2715,7 +2741,7 @@
       <aside class="panel auth-panel">
         <div class="workspace-sidebar-head">
           <div>
-            <h2>Msging</h2>
+            <h2>wedoall Access</h2>
             <p id="account-copy">Sign in to your workspace, or create your member account so you can join an organization.</p>
           </div>
           <div class="sidebar-actions">
@@ -2741,9 +2767,17 @@
             <input id="password" type="password" placeholder="Password" autocomplete="current-password">
           </div>
 
-          <div class="actions">
-            <button id="signup-btn" class="primary" type="button">Sign Up</button>
-            <button id="login-btn" class="secondary" type="button">Log In</button>
+          <div class="auth-choice-grid">
+            <div class="auth-choice-card">
+              <strong>Create account</strong>
+              <p>New here? Fill the fields above, then sign up.</p>
+              <button id="signup-btn" class="primary" type="button">Sign Up</button>
+            </div>
+            <div class="auth-choice-card">
+              <strong>Sign in</strong>
+              <p>Already have an account? Use email and password.</p>
+              <button id="login-btn" class="secondary" type="button">Log In</button>
+            </div>
           </div>
 
           <div class="actions">
@@ -2980,7 +3014,7 @@
         <div id="auth-showcase">
           <div class="chat-topbar">
             <div>
-              <h2>Business Access</h2>
+              <h2>Account and Business Setup</h2>
               <p id="chat-status">Choose sign in or organization setup to enter the workspace.</p>
             </div>
             <div class="chat-actions">
@@ -2990,7 +3024,7 @@
 
           <div class="auth-split">
             <section class="auth-showcase member-auth-section">
-              <h2>Member access</h2>
+              <h2>Account access</h2>
               <p>Members sign in with email and password, then work inside organization rooms, direct chats, and private team spaces.</p>
               <div class="workspace-list">
                 <div class="auth-mode-card">
@@ -3005,7 +3039,7 @@
             </section>
 
             <section class="auth-showcase org-auth-section">
-              <h2>Organization setup</h2>
+              <h2>Create Business</h2>
               <p>Create a company workspace or join an existing organization by its handle. This replaces the old friend-code style flow with a business structure.</p>
               <div class="field">
                 <label for="org-name-input">Organization name</label>
@@ -3071,7 +3105,7 @@
             </div>
             <div class="workspace-search">
               <span>⌕</span>
-              <input id="message-search" type="text" placeholder="Search Msging">
+              <input id="message-search" type="text" placeholder="Search wedoall">
             </div>
             <span id="workspace-user-label" class="status-pill">No account</span>
           </div>
@@ -3548,7 +3582,11 @@
         pricingBody: "Start with a lower first month, invite your team with one link, and upgrade whenever you need more rooms, more storage, and more workspace power.",
         monthly: "Monthly",
         yearly: "Yearly",
-        accountTitle: "Msging",
+        accountTitle: "wedoall Access",
+        createAccount: "Create account",
+        createAccountHelp: "New here? Fill the fields above, then sign up.",
+        signInCard: "Sign in",
+        signInHelp: "Already have an account? Use email and password.",
         username: "Username",
         email: "Email",
         password: "Password",
@@ -3556,9 +3594,9 @@
         login: "Log In",
         logout: "Log Out",
         clear: "Clear Fields",
-        memberAccess: "Member access",
+        memberAccess: "Account access",
         memberCopy: "Members sign in with email and password, then work inside organization rooms, direct chats, and private team spaces.",
-        orgSetup: "Organization setup",
+        orgSetup: "Create Business",
         orgPrompt: "Answer a few setup questions so wedoall can shape the workspace for your team.",
         orgName: "Organization name",
         orgHandle: "Organization handle",
@@ -3570,10 +3608,10 @@
         inviteLink: "Organization invite link",
         copyInvite: "Copy Invite Link",
         yourOrgs: "Your organizations",
-        businessAccess: "Business Access",
+        businessAccess: "Account and Business Setup",
         noAccount: "No account",
         threads: "Threads",
-        search: "Search Msging",
+        search: "Search wedoall",
         reply: "Reply...",
         send: "Send",
         leaveChat: "Leave Chat",
@@ -3599,7 +3637,11 @@
         pricingBody: "Empieza, invita a tu equipo con un enlace y mejora cuando necesites más salas, almacenamiento y poder.",
         monthly: "Mensual",
         yearly: "Anual",
-        accountTitle: "Msging",
+        accountTitle: "Acceso wedoall",
+        createAccount: "Crear cuenta",
+        createAccountHelp: "¿Nuevo aquí? Completa los campos y crea tu cuenta.",
+        signInCard: "Iniciar sesión",
+        signInHelp: "¿Ya tienes cuenta? Usa correo y contraseña.",
         username: "Usuario",
         email: "Correo",
         password: "Contraseña",
@@ -3607,9 +3649,9 @@
         login: "Entrar",
         logout: "Salir",
         clear: "Limpiar",
-        memberAccess: "Acceso de miembro",
+        memberAccess: "Acceso de cuenta",
         memberCopy: "Los miembros entran con correo y contraseña para trabajar en salas, chats directos y equipos privados.",
-        orgSetup: "Configurar organización",
+        orgSetup: "Crear negocio",
         orgPrompt: "Responde unas preguntas para preparar el espacio de tu equipo.",
         orgName: "Nombre de organización",
         orgHandle: "Identificador",
@@ -3621,10 +3663,10 @@
         inviteLink: "Enlace de invitación",
         copyInvite: "Copiar invitación",
         yourOrgs: "Tus organizaciones",
-        businessAccess: "Acceso empresarial",
+        businessAccess: "Cuenta y negocio",
         noAccount: "Sin cuenta",
         threads: "Hilos",
-        search: "Buscar Msging",
+        search: "Buscar wedoall",
         reply: "Responder...",
         send: "Enviar",
         leaveChat: "Salir del chat",
@@ -3650,7 +3692,11 @@
         pricingBody: "Invitez votre équipe avec un lien et passez à un plan supérieur quand vous avez besoin de plus.",
         monthly: "Mensuel",
         yearly: "Annuel",
-        accountTitle: "Msging",
+        accountTitle: "Accès wedoall",
+        createAccount: "Créer un compte",
+        createAccountHelp: "Nouveau ici ? Remplissez les champs puis créez le compte.",
+        signInCard: "Connexion",
+        signInHelp: "Vous avez déjà un compte ? Utilisez e-mail et mot de passe.",
         username: "Nom utilisateur",
         email: "E-mail",
         password: "Mot de passe",
@@ -3658,9 +3704,9 @@
         login: "Connexion",
         logout: "Déconnexion",
         clear: "Effacer",
-        memberAccess: "Accès membre",
+        memberAccess: "Accès au compte",
         memberCopy: "Les membres se connectent avec e-mail et mot de passe pour travailler dans les salons et messages privés.",
-        orgSetup: "Configuration organisation",
+        orgSetup: "Créer une entreprise",
         orgPrompt: "Répondez à quelques questions pour préparer l'espace de votre équipe.",
         orgName: "Nom de l'organisation",
         orgHandle: "Identifiant",
@@ -3672,10 +3718,10 @@
         inviteLink: "Lien d'invitation",
         copyInvite: "Copier l'invitation",
         yourOrgs: "Vos organisations",
-        businessAccess: "Accès entreprise",
+        businessAccess: "Compte et entreprise",
         noAccount: "Aucun compte",
         threads: "Fils",
-        search: "Rechercher Msging",
+        search: "Rechercher wedoall",
         reply: "Répondre...",
         send: "Envoyer",
         leaveChat: "Quitter",
@@ -3701,7 +3747,11 @@
         pricingBody: "ادع فريقك برابط واحد وقم بالترقية عندما تحتاج إلى المزيد.",
         monthly: "شهري",
         yearly: "سنوي",
-        accountTitle: "Msging",
+        accountTitle: "دخول wedoall",
+        createAccount: "إنشاء حساب",
+        createAccountHelp: "جديد هنا؟ املأ الحقول ثم أنشئ الحساب.",
+        signInCard: "تسجيل الدخول",
+        signInHelp: "لديك حساب؟ استخدم البريد وكلمة المرور.",
         username: "اسم المستخدم",
         email: "البريد الإلكتروني",
         password: "كلمة المرور",
@@ -3709,9 +3759,9 @@
         login: "دخول",
         logout: "خروج",
         clear: "مسح",
-        memberAccess: "دخول الأعضاء",
+        memberAccess: "دخول الحساب",
         memberCopy: "يدخل الأعضاء بالبريد وكلمة المرور للعمل داخل الغرف والمحادثات.",
-        orgSetup: "إعداد المنظمة",
+        orgSetup: "إنشاء عمل",
         orgPrompt: "أجب عن بعض الأسئلة لتجهيز مساحة عمل فريقك.",
         orgName: "اسم المنظمة",
         orgHandle: "معرف المنظمة",
@@ -3723,10 +3773,10 @@
         inviteLink: "رابط الدعوة",
         copyInvite: "نسخ الدعوة",
         yourOrgs: "منظماتك",
-        businessAccess: "دخول الأعمال",
+        businessAccess: "الحساب والعمل",
         noAccount: "لا يوجد حساب",
         threads: "المحادثات",
-        search: "بحث Msging",
+        search: "بحث wedoall",
         reply: "رد...",
         send: "إرسال",
         leaveChat: "مغادرة",
@@ -3778,6 +3828,10 @@
       const orgTitle = document.querySelector("#auth-showcase .org-auth-section h2");
       const orgPrompt = document.querySelector("#auth-showcase .org-auth-section p");
       const businessTitle = document.querySelector("#auth-showcase .chat-topbar h2");
+      const createAccountTitle = document.querySelector(".auth-choice-card:first-child strong");
+      const createAccountHelp = document.querySelector(".auth-choice-card:first-child p");
+      const signInCardTitle = document.querySelector(".auth-choice-card:nth-child(2) strong");
+      const signInCardHelp = document.querySelector(".auth-choice-card:nth-child(2) p");
       const yourOrgsTitle = document.querySelector("#auth-organizations-list")?.previousElementSibling;
       const peopleHereTitle = document.querySelector(".member-panel h3");
       const settingsTitle = Array.from(document.querySelectorAll("#profile-drawer h3")).find((heading) => heading.textContent.trim() === "Settings" || heading.dataset.i18n === "settings");
@@ -3810,6 +3864,18 @@
       }
       if (businessTitle) {
         businessTitle.textContent = copy.businessAccess;
+      }
+      if (createAccountTitle) {
+        createAccountTitle.textContent = copy.createAccount;
+      }
+      if (createAccountHelp) {
+        createAccountHelp.textContent = copy.createAccountHelp;
+      }
+      if (signInCardTitle) {
+        signInCardTitle.textContent = copy.signInCard;
+      }
+      if (signInCardHelp) {
+        signInCardHelp.textContent = copy.signInHelp;
       }
       if (yourOrgsTitle) {
         yourOrgsTitle.textContent = copy.yourOrgs;
