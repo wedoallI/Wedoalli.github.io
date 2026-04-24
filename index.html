@@ -761,7 +761,7 @@
 
     .auth-choice-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
       margin-top: 10px;
     }
@@ -2769,9 +2769,14 @@
 
           <div class="auth-choice-grid">
             <div class="auth-choice-card">
-              <strong>Create account</strong>
-              <p>New here? Fill the fields above, then sign up.</p>
-              <button id="signup-btn" class="primary" type="button">Sign Up</button>
+              <strong>Personal</strong>
+              <p>Just create your personal account and start chatting.</p>
+              <button id="signup-btn" class="primary" type="button">Personal Sign Up</button>
+            </div>
+            <div class="auth-choice-card">
+              <strong>Business</strong>
+              <p>Create your account, then set up a business workspace.</p>
+              <button id="business-signup-btn" class="primary" type="button">Business Sign Up</button>
             </div>
             <div class="auth-choice-card">
               <strong>Sign in</strong>
@@ -3467,6 +3472,7 @@
     const emojiPicker = document.getElementById("emoji-picker");
     const stickerPicker = document.getElementById("sticker-picker");
     const signupBtn = document.getElementById("signup-btn");
+    const businessSignupBtn = document.getElementById("business-signup-btn");
     const loginBtn = document.getElementById("login-btn");
     const logoutBtn = document.getElementById("logout-btn");
     const clearBtn = document.getElementById("clear-btn");
@@ -3583,8 +3589,12 @@
         monthly: "Monthly",
         yearly: "Yearly",
         accountTitle: "wedoall Access",
-        createAccount: "Create account",
-        createAccountHelp: "New here? Fill the fields above, then sign up.",
+        createAccount: "Personal",
+        createAccountHelp: "Just create your personal account and start chatting.",
+        personalSignup: "Personal Sign Up",
+        businessSignup: "Business Sign Up",
+        businessSignupTitle: "Business",
+        businessSignupHelp: "Create your account, then set up a business workspace.",
         signInCard: "Sign in",
         signInHelp: "Already have an account? Use email and password.",
         username: "Username",
@@ -3638,8 +3648,12 @@
         monthly: "Mensual",
         yearly: "Anual",
         accountTitle: "Acceso wedoall",
-        createAccount: "Crear cuenta",
-        createAccountHelp: "¿Nuevo aquí? Completa los campos y crea tu cuenta.",
+        createAccount: "Personal",
+        createAccountHelp: "Crea tu cuenta personal y empieza a chatear.",
+        personalSignup: "Registro personal",
+        businessSignup: "Registro negocio",
+        businessSignupTitle: "Negocio",
+        businessSignupHelp: "Crea tu cuenta y luego configura tu espacio de negocio.",
         signInCard: "Iniciar sesión",
         signInHelp: "¿Ya tienes cuenta? Usa correo y contraseña.",
         username: "Usuario",
@@ -3693,8 +3707,12 @@
         monthly: "Mensuel",
         yearly: "Annuel",
         accountTitle: "Accès wedoall",
-        createAccount: "Créer un compte",
-        createAccountHelp: "Nouveau ici ? Remplissez les champs puis créez le compte.",
+        createAccount: "Personnel",
+        createAccountHelp: "Créez votre compte personnel et commencez à discuter.",
+        personalSignup: "Inscription perso",
+        businessSignup: "Inscription entreprise",
+        businessSignupTitle: "Entreprise",
+        businessSignupHelp: "Créez votre compte puis configurez votre espace entreprise.",
         signInCard: "Connexion",
         signInHelp: "Vous avez déjà un compte ? Utilisez e-mail et mot de passe.",
         username: "Nom utilisateur",
@@ -3748,8 +3766,12 @@
         monthly: "شهري",
         yearly: "سنوي",
         accountTitle: "دخول wedoall",
-        createAccount: "إنشاء حساب",
-        createAccountHelp: "جديد هنا؟ املأ الحقول ثم أنشئ الحساب.",
+        createAccount: "شخصي",
+        createAccountHelp: "أنشئ حسابك الشخصي وابدأ المحادثة.",
+        personalSignup: "تسجيل شخصي",
+        businessSignup: "تسجيل عمل",
+        businessSignupTitle: "عمل",
+        businessSignupHelp: "أنشئ حسابك ثم جهز مساحة العمل.",
         signInCard: "تسجيل الدخول",
         signInHelp: "لديك حساب؟ استخدم البريد وكلمة المرور.",
         username: "اسم المستخدم",
@@ -3808,6 +3830,7 @@
       billingMonthlyBtn.textContent = copy.monthly;
       billingYearlyBtn.textContent = copy.yearly;
       signupBtn.textContent = copy.signup;
+      businessSignupBtn.textContent = copy.businessSignup;
       loginBtn.textContent = copy.login;
       logoutBtn.textContent = copy.logout;
       clearBtn.textContent = copy.clear;
@@ -3830,8 +3853,10 @@
       const businessTitle = document.querySelector("#auth-showcase .chat-topbar h2");
       const createAccountTitle = document.querySelector(".auth-choice-card:first-child strong");
       const createAccountHelp = document.querySelector(".auth-choice-card:first-child p");
-      const signInCardTitle = document.querySelector(".auth-choice-card:nth-child(2) strong");
-      const signInCardHelp = document.querySelector(".auth-choice-card:nth-child(2) p");
+      const businessSignupTitle = document.querySelector(".auth-choice-card:nth-child(2) strong");
+      const businessSignupHelp = document.querySelector(".auth-choice-card:nth-child(2) p");
+      const signInCardTitle = document.querySelector(".auth-choice-card:nth-child(3) strong");
+      const signInCardHelp = document.querySelector(".auth-choice-card:nth-child(3) p");
       const yourOrgsTitle = document.querySelector("#auth-organizations-list")?.previousElementSibling;
       const peopleHereTitle = document.querySelector(".member-panel h3");
       const settingsTitle = Array.from(document.querySelectorAll("#profile-drawer h3")).find((heading) => heading.textContent.trim() === "Settings" || heading.dataset.i18n === "settings");
@@ -3870,6 +3895,13 @@
       }
       if (createAccountHelp) {
         createAccountHelp.textContent = copy.createAccountHelp;
+      }
+      signupBtn.textContent = copy.personalSignup;
+      if (businessSignupTitle) {
+        businessSignupTitle.textContent = copy.businessSignupTitle;
+      }
+      if (businessSignupHelp) {
+        businessSignupHelp.textContent = copy.businessSignupHelp;
       }
       if (signInCardTitle) {
         signInCardTitle.textContent = copy.signInCard;
@@ -6558,7 +6590,7 @@
       }
     }
 
-    async function signUp() {
+    async function signUp(accountType = "personal") {
       const { username, email, password } = getFormValues();
 
       setAuthError(null);
@@ -6589,19 +6621,27 @@
 
       try {
         signupBtn.disabled = true;
+        businessSignupBtn.disabled = true;
         loginBtn.disabled = true;
         setStatus(authStatus, "Creating account...");
         const credential = await createUserWithEmailAndPassword(auth, email, password);
         await updateProfile(credential.user, { displayName: username });
         await ensureProfile(credential.user, username);
-        setStatus(authStatus, "Signed up successfully.");
+        await setDoc(doc(db, "profiles", credential.user.uid), {
+          accountType
+        }, { merge: true });
+        setStatus(authStatus, accountType === "business"
+          ? "Business account created. Finish your business setup."
+          : "Personal account created successfully.");
         setAuthError(null);
+        setScreen(accountType === "business" ? "organization" : "workspace");
       } catch (error) {
         setStatus(authStatus, error.message, true);
         setAuthError(error);
         console.error("Sign up failed:", error);
       } finally {
         signupBtn.disabled = false;
+        businessSignupBtn.disabled = false;
         loginBtn.disabled = false;
       }
     }
@@ -6619,6 +6659,7 @@
       try {
         loginBtn.disabled = true;
         signupBtn.disabled = true;
+        businessSignupBtn.disabled = true;
         setStatus(authStatus, "Logging in...");
         await signInWithEmailAndPassword(auth, email, password);
         setStatus(authStatus, "Logged in successfully.");
@@ -6630,6 +6671,7 @@
       } finally {
         loginBtn.disabled = false;
         signupBtn.disabled = false;
+        businessSignupBtn.disabled = false;
       }
     }
 
@@ -6688,7 +6730,8 @@
       }
     }
 
-    signupBtn.addEventListener("click", signUp);
+    signupBtn.addEventListener("click", () => signUp("personal"));
+    businessSignupBtn.addEventListener("click", () => signUp("business"));
     loginBtn.addEventListener("click", logIn);
     logoutBtn.addEventListener("click", logOut);
     signoutNavBtn.addEventListener("click", logOut);
