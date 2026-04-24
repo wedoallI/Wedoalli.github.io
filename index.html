@@ -872,7 +872,8 @@
     }
 
     body[data-screen="workspace"] {
-      background: linear-gradient(180deg, #3f123f 0%, #2e0f31 100%);
+      background: #f4f8f8;
+      color: #1f2630;
     }
 
     body[data-screen="workspace"]::before {
@@ -896,7 +897,7 @@
       border-radius: 28px;
       overflow: hidden;
       background: #fff;
-      box-shadow: 0 36px 90px rgba(17, 8, 23, 0.35);
+      box-shadow: 0 28px 80px rgba(31, 38, 48, 0.14);
     }
 
     body[data-screen="workspace"] .workspace-rail {
@@ -905,8 +906,9 @@
       align-items: center;
       gap: 16px;
       padding: 20px 10px;
-      background: linear-gradient(180deg, #47175f, #371045);
-      color: rgba(255, 255, 255, 0.94);
+      background: #f7fbfb;
+      color: #1f2630;
+      border-right: 1px solid #dbe5e5;
     }
 
     .rail-badge,
@@ -917,7 +919,7 @@
       display: grid;
       place-items: center;
       border-radius: 14px;
-      background: rgba(255, 255, 255, 0.12);
+      background: #e9f0f0;
       font-weight: 900;
       font-size: 1.15rem;
     }
@@ -935,7 +937,7 @@
       justify-items: center;
       font-size: 0.78rem;
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.88);
+      color: #39414c;
     }
 
     body[data-screen="workspace"] .auth-panel {
@@ -944,8 +946,9 @@
       border: 0;
       box-shadow: none;
       backdrop-filter: none;
-      background: linear-gradient(180deg, #5f2c6d, #4b1d58 58%, #43184f);
-      color: #fff;
+      background: #f7fbfb;
+      color: #1f2630;
+      border-right: 1px solid #dbe5e5;
       overflow-y: auto;
     }
 
@@ -957,26 +960,28 @@
     body[data-screen="workspace"] .auth-panel .hint,
     body[data-screen="workspace"] .auth-panel .small-status,
     body[data-screen="workspace"] .auth-panel .stack h3 {
-      color: rgba(255, 255, 255, 0.9);
+      color: #1f2630;
     }
 
     body[data-screen="workspace"] .auth-panel input,
     body[data-screen="workspace"] .auth-panel select,
     body[data-screen="workspace"] .auth-panel .invite-link,
     body[data-screen="workspace"] .auth-panel .code-box {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.12);
-      color: #fff;
+      background: #fff;
+      border-color: #dbe5e5;
+      color: #1f2630;
     }
 
     body[data-screen="workspace"] .auth-panel .secondary {
-      background: rgba(255, 255, 255, 0.14);
-      border-color: rgba(255, 255, 255, 0.1);
+      background: #e9f0f0;
+      border-color: #dbe5e5;
+      color: #1f2630;
     }
 
     body[data-screen="workspace"] .auth-panel .danger {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.1);
+      background: #fff0f3;
+      border-color: #f1c8d0;
+      color: #9b2439;
     }
 
     body[data-screen="workspace"] .profile-card,
@@ -986,8 +991,8 @@
     body[data-screen="workspace"] .invite-panel,
     body[data-screen="workspace"] .friend-row,
     body[data-screen="workspace"] .kick-row {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.1);
+      background: #fff;
+      border-color: #dbe5e5;
     }
 
     .workspace-sidebar-head {
@@ -2423,6 +2428,23 @@
           <div id="pricing-status" class="pricing-status">Choose monthly or yearly to show the matching PayPal subscription buttons.</div>
         </div>
         <div class="pricing-grid">
+          <article class="price-card free-tier" data-plan-card="free">
+            <div class="price-top">
+              <div>
+                <h4>Free</h4>
+                <div id="free-price" class="price-tag">$0</div>
+                <div id="free-sub" class="price-sub">forever</div>
+              </div>
+              <span class="price-badge">Lowest tier</span>
+            </div>
+            <p id="free-note" class="price-note">Try wedoall with a small workspace before upgrading.</p>
+            <ul class="price-list">
+              <li>Up to 5 members</li>
+              <li>Basic organization room</li>
+              <li>Limited direct chats</li>
+            </ul>
+          </article>
+
           <article class="price-card" data-plan-card="starter">
             <div class="price-top">
               <div>
@@ -2438,9 +2460,12 @@
               <li>Organization invite links</li>
               <li>Voice and video rooms</li>
             </ul>
-            <form class="paypal-subscribe-form" data-billing="monthly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <form class="paypal-subscribe-form" data-plan="starter" data-billing="monthly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
               <input type="hidden" name="hosted_button_id" value="L4YWKAQG8AN9G">
+              <input type="hidden" name="custom" value="">
+              <input type="hidden" name="return" value="">
+              <input type="hidden" name="cancel_return" value="">
               <input type="hidden" name="on0" value="Do you Agree to the Terms and Policies ">
               <label for="starter-paypal-terms">Do you agree to the Terms and Policies?</label>
               <select id="starter-paypal-terms" name="os0">
@@ -2449,9 +2474,12 @@
               <input type="hidden" name="currency_code" value="USD">
               <button class="paypal-subscribe-button" type="submit">Subscribe to Starter Monthly</button>
             </form>
-            <form class="paypal-subscribe-form" data-billing="yearly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <form class="paypal-subscribe-form" data-plan="starter" data-billing="yearly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
               <input type="hidden" name="hosted_button_id" value="VHXZ2LD4Q3SJE">
+              <input type="hidden" name="custom" value="">
+              <input type="hidden" name="return" value="">
+              <input type="hidden" name="cancel_return" value="">
               <input type="hidden" name="on0" value="Do you Agree to the Terms and Policies ">
               <label for="starter-yearly-paypal-terms">Do you agree to the Terms and Policies?</label>
               <select id="starter-yearly-paypal-terms" name="os0">
@@ -2477,9 +2505,12 @@
               <li>Priority workspace features</li>
               <li>Advanced room organization</li>
             </ul>
-            <form class="paypal-subscribe-form" data-billing="monthly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <form class="paypal-subscribe-form" data-plan="pro" data-billing="monthly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
               <input type="hidden" name="hosted_button_id" value="8XRSJHHRS5FNQ">
+              <input type="hidden" name="custom" value="">
+              <input type="hidden" name="return" value="">
+              <input type="hidden" name="cancel_return" value="">
               <input type="hidden" name="on0" value="Do you Agree to the Terms and Policies ">
               <label for="pro-paypal-terms">Do you agree to the Terms and Policies?</label>
               <select id="pro-paypal-terms" name="os0">
@@ -2488,9 +2519,12 @@
               <input type="hidden" name="currency_code" value="CAD">
               <button class="paypal-subscribe-button" type="submit">Subscribe to Pro Monthly</button>
             </form>
-            <form class="paypal-subscribe-form" data-billing="yearly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <form class="paypal-subscribe-form" data-plan="pro" data-billing="yearly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
               <input type="hidden" name="hosted_button_id" value="3Z6WZBDK8VT3U">
+              <input type="hidden" name="custom" value="">
+              <input type="hidden" name="return" value="">
+              <input type="hidden" name="cancel_return" value="">
               <input type="hidden" name="on0" value="Do you Agree to the Terms and Policies ">
               <label for="pro-yearly-paypal-terms">Do you agree to the Terms and Policies?</label>
               <select id="pro-yearly-paypal-terms" name="os0">
@@ -2516,9 +2550,12 @@
               <li>Premium workspace controls</li>
               <li>More powerful automation-ready layout</li>
             </ul>
-            <form class="paypal-subscribe-form" data-billing="monthly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <form class="paypal-subscribe-form" data-plan="business" data-billing="monthly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
               <input type="hidden" name="hosted_button_id" value="HZXUA8N8XMTMW">
+              <input type="hidden" name="custom" value="">
+              <input type="hidden" name="return" value="">
+              <input type="hidden" name="cancel_return" value="">
               <input type="hidden" name="on0" value="Do you Agree to the Terms and Policies ">
               <label for="business-paypal-terms">Do you agree to the Terms and Policies?</label>
               <select id="business-paypal-terms" name="os0">
@@ -2527,9 +2564,12 @@
               <input type="hidden" name="currency_code" value="CAD">
               <button class="paypal-subscribe-button" type="submit">Subscribe to Business Monthly</button>
             </form>
-            <form class="paypal-subscribe-form" data-billing="yearly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <form class="paypal-subscribe-form" data-plan="business" data-billing="yearly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
               <input type="hidden" name="hosted_button_id" value="SW3QXP6KXNJJA">
+              <input type="hidden" name="custom" value="">
+              <input type="hidden" name="return" value="">
+              <input type="hidden" name="cancel_return" value="">
               <input type="hidden" name="on0" value="Do you Agree to the Terms and Policies ">
               <label for="business-yearly-paypal-terms">Do you agree to the Terms and Policies?</label>
               <select id="business-yearly-paypal-terms" name="os0">
@@ -2647,6 +2687,11 @@
           </div>
 
           <div class="sidebar-section">
+            <h3>Your Plan</h3>
+            <p id="subscription-status" class="hint">Sign in to connect a PayPal subscription to this account.</p>
+          </div>
+
+          <div class="sidebar-section">
             <h3>Quick Links</h3>
             <div class="sidebar-list">
               <div class="list-chip">Threads</div>
@@ -2713,16 +2758,50 @@
                   <input id="admin-username" type="text" placeholder="New username">
                 </div>
                 <div class="field">
-                  <label for="admin-rank">Custom rank</label>
-                  <input id="admin-rank" type="text" placeholder="Owner, Mod, VIP">
+                  <label for="admin-rank">Chat role</label>
+                  <input id="admin-rank" type="text" placeholder="Manager, Support, VIP">
                 </div>
                 <div class="field">
-                  <label for="admin-rank-color">Rank color</label>
+                  <label for="admin-rank-color">Role color</label>
                   <input id="admin-rank-color" type="color" value="#7d3ac1">
+                </div>
+                <div class="field">
+                  <label for="admin-plan">Plan</label>
+                  <select id="admin-plan">
+                    <option value="free">Free</option>
+                    <option value="starter">Starter</option>
+                    <option value="pro">Pro</option>
+                    <option value="business">Business</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="admin-billing">Billing</label>
+                  <select id="admin-billing">
+                    <option value="none">None</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="admin-subscription-status">Subscription status</label>
+                  <select id="admin-subscription-status">
+                    <option value="none">Free / none</option>
+                    <option value="pending_payment">Pending PayPal</option>
+                    <option value="active">Active</option>
+                    <option value="canceled">Canceled</option>
+                  </select>
+                </div>
+                <div class="settings-card">
+                  <h4>Role permissions</h4>
+                  <label><input id="role-can-manage-rooms" type="checkbox"> Manage rooms</label>
+                  <label><input id="role-can-manage-members" type="checkbox"> Manage members</label>
+                  <label><input id="role-can-manage-roles" type="checkbox"> Manage roles</label>
+                  <label><input id="role-can-view-audit" type="checkbox"> View audit log</label>
                 </div>
                 <div class="admin-actions">
                   <button id="admin-save-user" class="primary" type="button">Save Username</button>
-                  <button id="admin-save-rank" class="secondary" type="button">Save Rank</button>
+                  <button id="admin-save-rank" class="secondary" type="button">Save Role</button>
+                  <button id="admin-save-plan" class="secondary" type="button">Save Plan</button>
                   <button id="admin-timeout-10" class="secondary" type="button">Timeout 10m</button>
                   <button id="admin-timeout-custom" class="secondary" type="button">Custom Timeout</button>
                   <button id="admin-ban-user" class="danger" type="button">Ban</button>
@@ -3048,6 +3127,19 @@
     const db = getFirestore(app);
 
     const PLAN_CONFIG = {
+      free: {
+        label: "Free",
+        monthly: {
+          displayPrice: 0,
+          sublabel: "forever",
+          note: "Try wedoall with a small workspace before upgrading."
+        },
+        yearly: {
+          displayPrice: 0,
+          sublabel: "forever",
+          note: "Free stays limited to 5 members and basic workspace tools."
+        }
+      },
       starter: {
         label: "Starter",
         monthly: {
@@ -3104,6 +3196,9 @@
     const homeOrgBtn = document.getElementById("home-org-btn");
     const billingMonthlyBtn = document.getElementById("billing-monthly-btn");
     const billingYearlyBtn = document.getElementById("billing-yearly-btn");
+    const freePrice = document.getElementById("free-price");
+    const freeSub = document.getElementById("free-sub");
+    const freeNote = document.getElementById("free-note");
     const starterPrice = document.getElementById("starter-price");
     const starterSub = document.getElementById("starter-sub");
     const starterNote = document.getElementById("starter-note");
@@ -3128,6 +3223,7 @@
     const profileCardSubtitle = document.getElementById("profile-card-subtitle");
     const profileCardArrow = document.getElementById("profile-card-arrow");
     const profileDrawer = document.getElementById("profile-drawer");
+    const subscriptionStatus = document.getElementById("subscription-status");
     const chatStatus = document.getElementById("chat-status");
     const sessionPill = document.getElementById("session-pill");
     const userLabel = document.getElementById("user-label");
@@ -3158,8 +3254,16 @@
     const adminUsername = document.getElementById("admin-username");
     const adminRank = document.getElementById("admin-rank");
     const adminRankColor = document.getElementById("admin-rank-color");
+    const adminPlan = document.getElementById("admin-plan");
+    const adminBilling = document.getElementById("admin-billing");
+    const adminSubscriptionStatus = document.getElementById("admin-subscription-status");
     const adminSaveUser = document.getElementById("admin-save-user");
     const adminSaveRank = document.getElementById("admin-save-rank");
+    const adminSavePlan = document.getElementById("admin-save-plan");
+    const roleCanManageRooms = document.getElementById("role-can-manage-rooms");
+    const roleCanManageMembers = document.getElementById("role-can-manage-members");
+    const roleCanManageRoles = document.getElementById("role-can-manage-roles");
+    const roleCanViewAudit = document.getElementById("role-can-view-audit");
     const adminTimeout10 = document.getElementById("admin-timeout-10");
     const adminTimeoutCustom = document.getElementById("admin-timeout-custom");
     const adminBanUser = document.getElementById("admin-ban-user");
@@ -3337,12 +3441,115 @@
       pricingStatus.style.color = isError ? "#b84c67" : "#6e6679";
     }
 
+    function getPlanLabel(planId = "free") {
+      return PLAN_CONFIG[planId]?.label || "Free";
+    }
+
+    const PLAN_LIMITS = {
+      free: { maxMembers: 5, label: "Free" },
+      starter: { maxMembers: 25, label: "Starter" },
+      pro: { maxMembers: 150, label: "Pro" },
+      business: { maxMembers: Infinity, label: "Business" }
+    };
+
+    function getActivePlanId(profile = currentProfile) {
+      if (isAdminUser() || profile?.owner || isOwnerName(profile?.username) || isOwnerName(profile?.email?.split("@")[0])) {
+        return "business";
+      }
+
+      return profile?.subscriptionStatus === "active" ? (profile.planId || "free") : "free";
+    }
+
+    function getPlanLimits(profile = currentProfile) {
+      return PLAN_LIMITS[getActivePlanId(profile)] || PLAN_LIMITS.free;
+    }
+
+    function hasRolePermission(permissionName) {
+      return isAdminUser() || Boolean(currentProfile?.rolePermissions?.[permissionName]);
+    }
+
+    function getSubscriptionLabel(profile = currentProfile) {
+      if (!profile) {
+        return "Sign in to connect a PayPal subscription to this account.";
+      }
+
+      const planLabel = getPlanLabel(profile.planId || "free");
+      const billing = profile.billingMode && profile.billingMode !== "none" ? ` ${profile.billingMode}` : "";
+
+      if (profile.subscriptionStatus === "active") {
+        return `${planLabel}${billing} is active.`;
+      }
+
+      if (profile.subscriptionStatus === "pending_payment") {
+        return `${planLabel}${billing} is pending PayPal confirmation.`;
+      }
+
+      return "Free plan active: up to 5 members with basic workspace tools.";
+    }
+
+    async function handlePayPalSubscriptionSubmit(event) {
+      const form = event.currentTarget;
+      const planId = form.dataset.plan || "starter";
+      const billingMode = form.dataset.billing || selectedBillingMode;
+      const hostedButtonId = form.querySelector('input[name="hosted_button_id"]')?.value || "";
+
+      event.preventDefault();
+
+      if (!currentUser) {
+        setPricingStatus("Sign in or create an account before subscribing, so PayPal connects to the right workspace.", true);
+        setStatus(authStatus, "Sign in first, then choose your plan again.", true);
+        setScreen("signin");
+        emailInput.focus();
+        return;
+      }
+
+      const baseUrl = getBasePageUrl();
+      form.querySelector('input[name="custom"]').value = [
+        currentUser.uid,
+        currentUser.email || "",
+        planId,
+        billingMode
+      ].join("|").slice(0, 240);
+      form.querySelector('input[name="return"]').value = `${baseUrl}?payment=paypal-return&plan=${encodeURIComponent(planId)}&billing=${encodeURIComponent(billingMode)}`;
+      form.querySelector('input[name="cancel_return"]').value = `${baseUrl}?payment=paypal-cancel&plan=${encodeURIComponent(planId)}&billing=${encodeURIComponent(billingMode)}`;
+
+      await setDoc(doc(db, "profiles", currentUser.uid), {
+        planId,
+        billingMode,
+        subscriptionStatus: "pending_payment",
+        pendingHostedButtonId: hostedButtonId,
+        pendingSubscriptionAt: Date.now()
+      }, { merge: true });
+
+      setPricingStatus(`Opening PayPal for ${getPlanLabel(planId)} ${billingMode}.`);
+      form.submit();
+    }
+
+    function handlePayPalReturnMessage() {
+      const params = new URLSearchParams(window.location.search);
+      const paymentState = params.get("payment");
+      const planId = params.get("plan");
+      const billingMode = params.get("billing");
+
+      if (paymentState === "paypal-return") {
+        setPricingStatus(
+          `PayPal returned you to wedoall. ${getPlanLabel(planId)} ${billingMode || ""} will show as active after PayPal confirmation is processed.`
+        );
+        setScreen("signin");
+      }
+
+      if (paymentState === "paypal-cancel") {
+        setPricingStatus("PayPal checkout was canceled. No plan was activated.", true);
+      }
+    }
+
     function updatePricingDisplay(mode = selectedBillingMode) {
       selectedBillingMode = mode === "yearly" ? "yearly" : "monthly";
       billingMonthlyBtn.classList.toggle("active", selectedBillingMode === "monthly");
       billingYearlyBtn.classList.toggle("active", selectedBillingMode === "yearly");
 
       const visiblePlans = [
+        ["free", freePrice, freeSub, freeNote],
         ["starter", starterPrice, starterSub, starterNote],
         ["pro", proPrice, proSub, proNote],
         ["business", businessPrice, businessSub, businessNote]
@@ -3412,6 +3619,27 @@
         isOwnerName(currentProfile?.username) ||
         isOwnerName(user?.displayName) ||
         isOwnerName(user?.email?.split("@")[0])
+      );
+    }
+
+    function getOwnedOrganizationMemberIds() {
+      if (!currentUser) {
+        return new Set();
+      }
+
+      const ids = new Set();
+      organizationsById.forEach((org) => {
+        if (org.ownerUid === currentUser.uid) {
+          (org.memberUids || []).forEach((uid) => ids.add(uid));
+        }
+      });
+      return ids;
+    }
+
+    function canUseOwnerPanel() {
+      return isAdminUser() || (
+        getActivePlanId(currentProfile) === "business" &&
+        getOwnedOrganizationMemberIds().size > 0
       );
     }
 
@@ -3829,12 +4057,15 @@
           return;
         }
 
+        const planLimits = getPlanLimits(currentProfile);
         const org = {
           id: slug,
           name,
           slug,
           ownerUid: currentUser.uid,
           ownerName: currentProfile.username || getDisplayName(currentUser),
+          planId: getActivePlanId(currentProfile),
+          maxMembers: Number.isFinite(planLimits.maxMembers) ? planLimits.maxMembers : 999999,
           memberUids: [currentUser.uid],
           memberUsernames: [currentProfile.username || getDisplayName(currentUser)],
           createdAt: Date.now()
@@ -3879,6 +4110,13 @@
         }
 
         const org = orgSnap.data();
+        const maxMembers = Number(org.maxMembers || 5);
+        const currentMembers = Array.isArray(org.memberUids) ? org.memberUids : [];
+        if (!currentMembers.includes(currentUser.uid) && currentMembers.length >= maxMembers) {
+          setStatus(authStatus, `${org.name || slug} is full for its current plan. Free workspaces allow up to 5 members.`, true);
+          return;
+        }
+
         await setDoc(orgRef, {
           memberUids: arrayUnion(currentUser.uid),
           memberUsernames: arrayUnion(currentProfile.username || getDisplayName(currentUser))
@@ -3956,6 +4194,14 @@
           updates.organizationIds = [];
         }
 
+        if (!existingProfile.planId) {
+          updates.planId = "free";
+        }
+
+        if (!existingProfile.subscriptionStatus) {
+          updates.subscriptionStatus = "none";
+        }
+
         Object.assign(updates, getOwnerProfilePatch({
           ...existingProfile,
           ...updates,
@@ -3990,6 +4236,9 @@
         username,
         friendUids: [],
         organizationIds: [],
+        planId: "free",
+        billingMode: "none",
+        subscriptionStatus: "none",
         ...getOwnerProfilePatch({ username, email: user.email }),
         createdAt: Date.now()
       };
@@ -4139,7 +4388,7 @@
       if (!currentUser || !activeRoomData || activeRoomData.type !== "private-group") {
         return false;
       }
-      return isAdminUser() || activeRoomData.createdByUid === currentUser.uid;
+      return isAdminUser() || hasRolePermission("manageMembers") || activeRoomData.createdByUid === currentUser.uid;
     }
 
     function renderPinnedMessages() {
@@ -4269,10 +4518,33 @@
       adminUsername.value = "";
       adminRank.value = "";
       adminRankColor.value = "#7d3ac1";
+      adminPlan.value = "free";
+      adminBilling.value = "none";
+      adminSubscriptionStatus.value = "none";
+      roleCanManageRooms.checked = false;
+      roleCanManageMembers.checked = false;
+      roleCanManageRoles.checked = false;
+      roleCanViewAudit.checked = false;
+    }
+
+    function fillAdminSelection(profile) {
+      const permissions = profile.rolePermissions || {};
+      adminSelectedName.textContent = profile.username || profile.email || "Unknown";
+      adminSelectedStatus.textContent = `${describeProfileStatus(profile)} • ${getPresenceText(profile)} • ${getSubscriptionLabel(profile)}`;
+      adminUsername.value = profile.username || "";
+      adminRank.value = profile.rank || "";
+      adminRankColor.value = getRankColor(profile);
+      adminPlan.value = profile.planId || "free";
+      adminBilling.value = profile.billingMode || "none";
+      adminSubscriptionStatus.value = profile.subscriptionStatus || "none";
+      roleCanManageRooms.checked = Boolean(permissions.manageRooms);
+      roleCanManageMembers.checked = Boolean(permissions.manageMembers);
+      roleCanManageRoles.checked = Boolean(permissions.manageRoles);
+      roleCanViewAudit.checked = Boolean(permissions.viewAudit);
     }
 
     function renderAdminUsers() {
-      if (!isAdminUser()) {
+      if (!canUseOwnerPanel()) {
         adminUsers.innerHTML = '<div class="empty-state">Owner tools show up after owner login.</div>';
         auditLogList.innerHTML = '<div class="empty-state">Owner actions will appear here.</div>';
         resetAdminSelection();
@@ -4280,7 +4552,11 @@
       }
 
       const term = adminSearch.value.trim().toLowerCase();
+      const manageableUids = getOwnedOrganizationMemberIds();
       const filtered = adminProfiles.filter((profile) => {
+        if (!isAdminUser() && !manageableUids.has(profile.uid)) {
+          return false;
+        }
         const haystack = `${profile.username || ""} ${profile.email || ""}`.toLowerCase();
         return haystack.includes(term);
       });
@@ -4301,11 +4577,7 @@
         button.innerHTML = `${profile.username || "Unknown"}<small>${profile.email || "No email"}${rankText} • ${describeProfileStatus(profile)} • ${presenceText}</small>`;
         button.addEventListener("click", () => {
           selectedAdminProfile = profile;
-          adminSelectedName.textContent = profile.username || profile.email || "Unknown";
-          adminSelectedStatus.textContent = `${describeProfileStatus(profile)} • ${presenceText}`;
-          adminUsername.value = profile.username || "";
-          adminRank.value = profile.rank || "";
-          adminRankColor.value = getRankColor(profile);
+          fillAdminSelection(profile);
           renderAdminUsers();
         });
         adminUsers.append(button);
@@ -4313,7 +4585,7 @@
     }
 
     function setAdminPanelState() {
-      const visible = isAdminUser();
+      const visible = canUseOwnerPanel();
       adminPanel.classList.toggle("visible", visible);
 
       if (!visible) {
@@ -4331,7 +4603,7 @@
     }
 
     async function logOwnerAction(action, details = {}) {
-      if (!isAdminUser()) {
+      if (!canUseOwnerPanel()) {
         return;
       }
 
@@ -4352,7 +4624,7 @@
     }
 
     function watchAuditLogs() {
-      if (!isAdminUser()) {
+      if (!canUseOwnerPanel()) {
         return;
       }
 
@@ -4387,7 +4659,7 @@
     }
 
     function watchAdminUsers() {
-      if (!isAdminUser()) {
+      if (!canUseOwnerPanel()) {
         return;
       }
 
@@ -4405,11 +4677,7 @@
           if (selectedAdminProfile) {
             selectedAdminProfile = adminProfiles.find((profile) => profile.uid === selectedAdminProfile.uid) || null;
             if (selectedAdminProfile) {
-              adminSelectedName.textContent = selectedAdminProfile.username || selectedAdminProfile.email || "Unknown";
-              adminSelectedStatus.textContent = `${describeProfileStatus(selectedAdminProfile)} • ${getPresenceText(selectedAdminProfile)}`;
-              adminUsername.value = selectedAdminProfile.username || "";
-              adminRank.value = selectedAdminProfile.rank || "";
-              adminRankColor.value = getRankColor(selectedAdminProfile);
+              fillAdminSelection(selectedAdminProfile);
             } else {
               resetAdminSelection();
             }
@@ -4448,8 +4716,8 @@
     }
 
     async function updateManagedUser(update) {
-      if (!isAdminUser()) {
-        setStatus(authStatus, "Owner login required.", true);
+      if (!canUseOwnerPanel()) {
+        setStatus(authStatus, "Owner or Business workspace owner access required.", true);
         return;
       }
 
@@ -4537,11 +4805,14 @@
       if (loggedIn && currentProfile) {
         profileCardName.textContent = currentProfile.username || getDisplayName(user);
         profileCardAvatar.src = getAvatarUrl(currentProfile) || createAvatar(currentProfile).src;
+        subscriptionStatus.textContent = getSubscriptionLabel(currentProfile);
       } else {
+        subscriptionStatus.textContent = getSubscriptionLabel(null);
         setProfileDrawer(false);
       }
-      userLabel.textContent = loggedIn ? "Workspace access ready" : "No account";
-      workspaceUserLabel.textContent = loggedIn ? getDisplayName(user) : "No account";
+      const planSuffix = loggedIn && currentProfile ? ` • ${getPlanLabel(getActivePlanId(currentProfile))}` : "";
+      userLabel.textContent = loggedIn ? `Workspace access ready${planSuffix}` : "No account";
+      workspaceUserLabel.textContent = loggedIn ? `${getDisplayName(user)}${planSuffix}` : "No account";
       renderOrganizations();
       renderFriendsList();
       setAdminPanelState();
@@ -5807,6 +6078,9 @@
     resourcesNavBtn.addEventListener("click", () => {
       document.getElementById("workspace-layout")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
+    document.querySelectorAll(".paypal-subscribe-form").forEach((form) => {
+      form.addEventListener("submit", handlePayPalSubscriptionSubmit);
+    });
     copyOrgInviteBtn.addEventListener("click", () => {
       const value = orgInviteLink.textContent.trim();
       if (!value.startsWith("http")) {
@@ -5841,7 +6115,21 @@
     adminSaveRank.addEventListener("click", async () => {
       await updateManagedUser({
         rank: adminRank.value.trim(),
-        rankColor: adminRankColor.value
+        rankColor: adminRankColor.value,
+        rolePermissions: {
+          manageRooms: roleCanManageRooms.checked,
+          manageMembers: roleCanManageMembers.checked,
+          manageRoles: roleCanManageRoles.checked,
+          viewAudit: roleCanViewAudit.checked
+        }
+      });
+    });
+    adminSavePlan.addEventListener("click", async () => {
+      await updateManagedUser({
+        planId: adminPlan.value,
+        billingMode: adminBilling.value,
+        subscriptionStatus: adminSubscriptionStatus.value,
+        planUpdatedAt: Date.now()
       });
     });
     adminTimeout10.addEventListener("click", async () => {
@@ -6108,6 +6396,7 @@
     soundLevel.value = "soft";
     updatePricingDisplay("monthly");
     setScreen("home");
+    handlePayPalReturnMessage();
     document.addEventListener("visibilitychange", () => {
       if (!currentUser) {
         return;
