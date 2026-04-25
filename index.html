@@ -2660,6 +2660,616 @@
       box-shadow: none;
     }
 
+    /* Workspace dashboard: original wedoall structure inspired by business chat apps. */
+    body[data-screen="workspace"] {
+      background:
+        radial-gradient(circle at top left, rgba(25, 182, 163, 0.13), transparent 28%),
+        radial-gradient(circle at right bottom, rgba(27, 75, 92, 0.14), transparent 32%),
+        linear-gradient(180deg, #eef5f4 0%, #f8fbfb 100%);
+      color: #17202b;
+    }
+
+    body[data-screen="workspace"] .app {
+      width: min(1540px, calc(100% - 20px));
+      margin: 10px auto;
+    }
+
+    body[data-screen="workspace"] .layout {
+      grid-template-columns: 78px minmax(276px, 330px) minmax(0, 1fr);
+      min-height: calc(100vh - 20px);
+      border: 1px solid rgba(189, 208, 208, 0.85);
+      border-radius: 30px;
+      background: #ffffff;
+      box-shadow: 0 30px 90px rgba(22, 42, 52, 0.16);
+    }
+
+    body[data-screen="workspace"] .workspace-rail {
+      padding: 18px 10px;
+      background: linear-gradient(180deg, #173540, #102832);
+      color: #e9fbf9;
+      border-right: 0;
+    }
+
+    body[data-screen="workspace"] .rail-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #19b6a3, #78e0ce);
+      color: #0d252d;
+      box-shadow: 0 14px 28px rgba(25, 182, 163, 0.28);
+      letter-spacing: -0.04em;
+    }
+
+    body[data-screen="workspace"] .rail-group {
+      gap: 12px;
+    }
+
+    body[data-screen="workspace"] .rail-item {
+      width: 100%;
+      gap: 6px;
+      color: rgba(233, 251, 249, 0.72);
+      transition: color 160ms ease, transform 160ms ease;
+    }
+
+    body[data-screen="workspace"] .rail-item:hover,
+    body[data-screen="workspace"] .rail-item.active {
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    body[data-screen="workspace"] .rail-icon,
+    body[data-screen="workspace"] .rail-plus {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.09);
+      color: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    body[data-screen="workspace"] .rail-item:hover .rail-icon,
+    body[data-screen="workspace"] .rail-item.active .rail-icon,
+    body[data-screen="workspace"] .rail-plus:hover {
+      background: rgba(25, 182, 163, 0.18);
+      border-color: rgba(120, 224, 206, 0.34);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    }
+
+    body[data-screen="workspace"] .auth-panel {
+      padding: 18px;
+      background: #f6faf9;
+      border-right: 1px solid #dce8e7;
+      color: #17202b;
+    }
+
+    body[data-screen="workspace"] .workspace-sidebar-head {
+      padding: 4px 2px 10px;
+      margin-bottom: 8px;
+    }
+
+    body[data-screen="workspace"] .workspace-sidebar-head h2 {
+      font-size: 1.38rem;
+      letter-spacing: -0.05em;
+      color: #132630;
+    }
+
+    body[data-screen="workspace"] .workspace-sidebar-head p {
+      margin: 4px 0 0;
+      color: #647580;
+      font-size: 0.88rem;
+      line-height: 1.35;
+    }
+
+    body[data-screen="workspace"] .sidebar-actions button {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      background: #fff;
+      color: #263b45;
+      border: 1px solid #d6e4e3;
+      box-shadow: 0 8px 18px rgba(22, 42, 52, 0.06);
+    }
+
+    body[data-screen="workspace"] .upgrade-card {
+      justify-content: flex-start;
+      margin: 8px 0 16px;
+      padding: 13px 14px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #102832, #1b4b5c);
+      color: #ffffff;
+      box-shadow: 0 14px 28px rgba(16, 40, 50, 0.16);
+    }
+
+    .workspace-nav-menu {
+      display: grid;
+      gap: 4px;
+      margin: 0 0 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #dce8e7;
+    }
+
+    .workspace-nav-heading {
+      margin: 14px 10px 5px;
+      color: #71818a;
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .workspace-nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      width: 100%;
+      min-height: 38px;
+      padding: 9px 11px;
+      border-radius: 12px;
+      background: transparent;
+      border: 1px solid transparent;
+      box-shadow: none;
+      color: #2b3b45;
+      font-size: 0.94rem;
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .workspace-nav-link span {
+      width: 22px;
+      color: #66818b;
+      text-align: center;
+      font-weight: 900;
+    }
+
+    .workspace-nav-link:hover,
+    .workspace-nav-link.active {
+      background: #e8f4f2;
+      border-color: #d0e4e1;
+      color: #0f3138;
+      transform: translateX(2px);
+    }
+
+    .workspace-nav-link.active span {
+      color: #148f80;
+    }
+
+    body[data-screen="workspace"] .profile-card,
+    body[data-screen="workspace"] .auth-mode-card,
+    body[data-screen="workspace"] .org-row,
+    body[data-screen="workspace"] .admin-settings,
+    body[data-screen="workspace"] .invite-panel,
+    body[data-screen="workspace"] .friend-row,
+    body[data-screen="workspace"] .kick-row,
+    body[data-screen="workspace"] .settings-card {
+      background: #ffffff;
+      border: 1px solid #dce8e7;
+      box-shadow: 0 10px 24px rgba(22, 42, 52, 0.04);
+    }
+
+    body[data-screen="workspace"] .profile-card {
+      margin-top: 0;
+      border-radius: 18px;
+    }
+
+    body[data-screen="workspace"] .profile-drawer.visible {
+      display: flex;
+      gap: 16px;
+      padding-top: 16px;
+      border-top-color: #dce8e7;
+    }
+
+    body[data-screen="workspace"] .sidebar-section {
+      border-top-color: #dce8e7;
+    }
+
+    body[data-screen="workspace"] .sidebar-list .list-chip {
+      background: #edf5f4;
+      border-color: #dce8e7;
+      color: #273944;
+      font-weight: 800;
+    }
+
+    body[data-screen="workspace"] .auth-panel input,
+    body[data-screen="workspace"] .auth-panel select,
+    body[data-screen="workspace"] .auth-panel .invite-link,
+    body[data-screen="workspace"] .auth-panel .code-box {
+      background: #ffffff;
+      border: 1px solid #cfdddd;
+      color: #18252e;
+    }
+
+    body[data-screen="workspace"] .auth-panel .primary {
+      background: linear-gradient(135deg, #148f80, #19b6a3);
+      color: #ffffff;
+      box-shadow: 0 12px 24px rgba(25, 182, 163, 0.22);
+    }
+
+    body[data-screen="workspace"] .auth-panel .secondary {
+      background: #edf5f4;
+      border-color: #d6e4e3;
+      color: #20333d;
+      box-shadow: none;
+    }
+
+    body[data-screen="workspace"] .chat-panel {
+      background: #ffffff;
+      color: #17202b;
+    }
+
+    body[data-screen="workspace"] .workspace-topbar {
+      min-height: 62px;
+      padding: 10px 18px;
+      background: #ffffff;
+      color: #17202b;
+      border-bottom: 1px solid #dce8e7;
+      box-shadow: 0 8px 24px rgba(22, 42, 52, 0.04);
+    }
+
+    body[data-screen="workspace"] .workspace-window-actions button,
+    body[data-screen="workspace"] .topbar-icon {
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: #f1f6f6;
+      color: #1f333d;
+      border: 1px solid #dce8e7;
+      box-shadow: none;
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+
+    body[data-screen="workspace"] .workspace-window-actions {
+      gap: 8px;
+    }
+
+    body[data-screen="workspace"] .workspace-search {
+      max-width: 720px;
+      padding: 11px 15px;
+      border-radius: 15px;
+      background: #f1f6f6;
+      color: #60717a;
+      border: 1px solid #dce8e7;
+      transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    body[data-screen="workspace"] .workspace-search:focus-within {
+      background: #ffffff;
+      border-color: rgba(25, 182, 163, 0.7);
+      box-shadow: 0 0 0 4px rgba(25, 182, 163, 0.13);
+    }
+
+    body[data-screen="workspace"] .workspace-search input {
+      color: #17202b;
+    }
+
+    body[data-screen="workspace"] .workspace-search input::placeholder {
+      color: #71818a;
+      opacity: 1;
+    }
+
+    body[data-screen="workspace"] .status-pill {
+      background: #f7fbfb;
+      border: 1px solid #dce8e7;
+      color: #233741;
+      box-shadow: none;
+      font-weight: 850;
+    }
+
+    body[data-screen="workspace"] .workspace-shell {
+      background: #ffffff;
+    }
+
+    body[data-screen="workspace"] .workspace-header {
+      padding: 22px 26px 16px;
+      background: #ffffff;
+      border-bottom: 1px solid #e3eded;
+    }
+
+    body[data-screen="workspace"] .workspace-header h2 {
+      color: #132630;
+      font-size: clamp(1.55rem, 2.5vw, 2.05rem);
+      letter-spacing: -0.045em;
+    }
+
+    body[data-screen="workspace"] .workspace-header p {
+      color: #647580;
+      margin-top: 4px;
+      font-weight: 700;
+    }
+
+    body[data-screen="workspace"] .room-label {
+      color: #60717a;
+    }
+
+    body[data-screen="workspace"] .rooms-bar {
+      gap: 8px;
+      padding: 12px 26px;
+      background: #ffffff;
+      border-bottom: 1px solid #e3eded;
+    }
+
+    body[data-screen="workspace"] .room-chip {
+      border-radius: 999px;
+      padding: 9px 13px;
+      background: #edf5f4;
+      border: 1px solid transparent;
+      color: #2a3d47;
+      box-shadow: none;
+      transition: background 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease;
+    }
+
+    body[data-screen="workspace"] .room-chip:hover,
+    body[data-screen="workspace"] .room-chip.active {
+      background: #dff3f0;
+      border-color: #bfe1dc;
+      color: #0f3138;
+      transform: translateY(-1px);
+    }
+
+    body[data-screen="workspace"] .workspace-body {
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+      background: #ffffff;
+    }
+
+    body[data-screen="workspace"] .conversation-pane {
+      border-right: 1px solid #e3eded;
+      background: #ffffff;
+    }
+
+    body[data-screen="workspace"] .workspace-room-tools {
+      padding: 12px 26px;
+      background: #fbfdfd;
+      border-bottom: 1px solid #e3eded;
+    }
+
+    body[data-screen="workspace"] .room-tools button,
+    body[data-screen="workspace"] .room-tools a {
+      background: #edf5f4;
+      color: #20333d;
+      border: 1px solid #d6e4e3;
+      box-shadow: none;
+      font-weight: 850;
+    }
+
+    body[data-screen="workspace"] .room-tools button:hover,
+    body[data-screen="workspace"] .room-tools a:hover,
+    body[data-screen="workspace"] .workspace-window-actions button:hover,
+    body[data-screen="workspace"] .topbar-icon:hover {
+      background: #dff3f0;
+      border-color: #bfe1dc;
+    }
+
+    body[data-screen="workspace"] .room-tools .danger,
+    body[data-screen="workspace"] .danger {
+      background: #fff0f2;
+      border-color: #f3c8cf;
+      color: #9b2439;
+    }
+
+    body[data-screen="workspace"] #messages {
+      padding: 22px 26px;
+      background:
+        linear-gradient(180deg, rgba(249, 252, 252, 0.96), rgba(255, 255, 255, 1)),
+        #ffffff;
+      gap: 16px;
+    }
+
+    body[data-screen="workspace"] .empty-state {
+      color: #6b7a83;
+      background: #f7fbfb;
+      border: 1px dashed #cadada;
+      border-radius: 18px;
+      padding: 18px 20px;
+    }
+
+    body[data-screen="workspace"] .msg {
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: transparent;
+      transition: background 160ms ease;
+    }
+
+    body[data-screen="workspace"] .msg:hover {
+      background: #f7fbfb;
+    }
+
+    body[data-screen="workspace"] .msg-head {
+      color: #60717a;
+      font-weight: 800;
+    }
+
+    body[data-screen="workspace"] .msg-text {
+      color: #1d2933;
+      font-size: 1.02rem;
+    }
+
+    body[data-screen="workspace"] .mention {
+      background: rgba(25, 182, 163, 0.14);
+      border-color: rgba(25, 182, 163, 0.32);
+      color: #0f6f64;
+    }
+
+    body[data-screen="workspace"] .typing-indicator,
+    body[data-screen="workspace"] .reply-bar {
+      margin: 0 26px 12px;
+      background: #f1f8f7;
+      border-color: #d6e8e6;
+      color: #536873;
+    }
+
+    body[data-screen="workspace"] .typing-indicator.active {
+      background: #e4f7f4;
+      border-color: #bfe6e1;
+      color: #0f6f64;
+    }
+
+    body[data-screen="workspace"] .composer {
+      margin: 0 26px 10px;
+      padding: 13px 14px;
+      border-radius: 20px 20px 0 0;
+      border: 1px solid #dce8e7;
+      border-bottom: 0;
+      background: #ffffff;
+      box-shadow: 0 -10px 26px rgba(22, 42, 52, 0.04);
+    }
+
+    body[data-screen="workspace"] .composer input {
+      color: #17202b;
+    }
+
+    body[data-screen="workspace"] .composer input::placeholder {
+      color: #778891;
+      opacity: 1;
+    }
+
+    body[data-screen="workspace"] .composer .primary,
+    body[data-screen="workspace"] #send-btn {
+      min-width: 116px;
+      background: linear-gradient(135deg, #148f80, #19b6a3);
+      color: #ffffff;
+      box-shadow: 0 12px 24px rgba(25, 182, 163, 0.22);
+    }
+
+    body[data-screen="workspace"] .composer-tools {
+      margin: 0 26px 22px;
+      padding: 11px 14px 14px;
+      border-radius: 0 0 20px 20px;
+      background: #ffffff;
+      border: 1px solid #dce8e7;
+      border-top: 0;
+    }
+
+    body[data-screen="workspace"] .composer-tools .field label {
+      color: #536873;
+      font-weight: 850;
+    }
+
+    body[data-screen="workspace"] .composer-tools input {
+      background: #f7fbfb;
+      border: 1px solid #dce8e7;
+      color: #17202b;
+    }
+
+    body[data-screen="workspace"] .token-picker .mini-btn,
+    body[data-screen="workspace"] .reaction-chip,
+    body[data-screen="workspace"] .mod-actions button {
+      background: #edf5f4;
+      color: #20333d;
+      border: 1px solid #d6e4e3;
+      box-shadow: none;
+    }
+
+    body[data-screen="workspace"] .insight-pane {
+      padding: 18px;
+      background: #f7fbfb;
+    }
+
+    body[data-screen="workspace"] .insight-card,
+    body[data-screen="workspace"] .member-panel,
+    body[data-screen="workspace"] .room-settings,
+    body[data-screen="workspace"] .pinned-panel {
+      background: #ffffff;
+      border: 1px solid #dce8e7;
+      border-radius: 22px;
+      color: #17202b;
+      box-shadow: 0 14px 34px rgba(22, 42, 52, 0.06);
+    }
+
+    body[data-screen="workspace"] .insight-card h3,
+    body[data-screen="workspace"] .insight-card p {
+      color: #17202b;
+    }
+
+    body[data-screen="workspace"] .insight-card p {
+      color: #647580;
+    }
+
+    body[data-screen="workspace"] .insight-badge {
+      background: linear-gradient(135deg, #19b6a3, #8be1d4 54%, #1b4b5c);
+    }
+
+    body[data-screen="workspace"][data-view-mode="phone"] .app {
+      width: min(430px, calc(100% - 12px));
+      margin: 8px auto;
+    }
+
+    body[data-screen="workspace"][data-view-mode="phone"] .layout {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      border-radius: 22px;
+    }
+
+    body[data-screen="workspace"][data-view-mode="phone"] .workspace-rail {
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      overflow-x: auto;
+    }
+
+    body[data-screen="workspace"][data-view-mode="phone"] .rail-group {
+      display: flex;
+      gap: 10px;
+      width: auto;
+    }
+
+    body[data-screen="workspace"][data-view-mode="phone"] .rail-item {
+      min-width: 58px;
+    }
+
+    body[data-screen="workspace"][data-view-mode="phone"] .rail-plus {
+      display: none;
+    }
+
+    body[data-screen="workspace"][data-view-mode="phone"] .auth-panel {
+      border-right: 0;
+      border-bottom: 1px solid #dce8e7;
+      max-height: 52vh;
+    }
+
+    body[data-screen="workspace"][data-view-mode="phone"] .workspace-topbar {
+      flex-wrap: wrap;
+    }
+
+    body[data-screen="workspace"][data-view-mode="phone"] .workspace-search {
+      order: 3;
+      flex: 1 1 100%;
+      max-width: none;
+    }
+
+    body[data-screen="workspace"][data-view-mode="phone"] .workspace-body {
+      grid-template-columns: 1fr;
+    }
+
+    body[data-screen="workspace"][data-view-mode="phone"] .conversation-pane {
+      border-right: 0;
+    }
+
+    body[data-screen="workspace"][data-view-mode="phone"] .insight-pane {
+      border-top: 1px solid #dce8e7;
+    }
+
+    body[data-screen="workspace"][data-view-mode="phone"] .workspace-header,
+    body[data-screen="workspace"][data-view-mode="phone"] .rooms-bar,
+    body[data-screen="workspace"][data-view-mode="phone"] .workspace-room-tools,
+    body[data-screen="workspace"][data-view-mode="phone"] #messages {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    body[data-screen="workspace"][data-view-mode="phone"] .composer,
+    body[data-screen="workspace"][data-view-mode="phone"] .composer-tools,
+    body[data-screen="workspace"][data-view-mode="phone"] .typing-indicator,
+    body[data-screen="workspace"][data-view-mode="phone"] .reply-bar {
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+
     .composer input:disabled {
       opacity: 0.7;
     }
@@ -2682,6 +3292,84 @@
     @media (max-width: 900px) {
       .layout {
         grid-template-columns: 1fr;
+      }
+
+      body[data-screen="workspace"] .app {
+        width: min(100% - 12px, 760px);
+        margin: 6px auto;
+      }
+
+      body[data-screen="workspace"] .layout,
+      body[data-screen="workspace"][data-view-mode="phone"] .layout {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        border-radius: 22px;
+      }
+
+      body[data-screen="workspace"] .workspace-rail {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        overflow-x: auto;
+      }
+
+      body[data-screen="workspace"] .rail-group {
+        display: flex;
+        gap: 10px;
+        width: auto;
+      }
+
+      body[data-screen="workspace"] .rail-item {
+        min-width: 58px;
+      }
+
+      body[data-screen="workspace"] .rail-plus {
+        display: none;
+      }
+
+      body[data-screen="workspace"] .auth-panel {
+        border-right: 0;
+        border-bottom: 1px solid #dce8e7;
+        max-height: 52vh;
+      }
+
+      body[data-screen="workspace"] .workspace-topbar {
+        flex-wrap: wrap;
+      }
+
+      body[data-screen="workspace"] .workspace-search {
+        order: 3;
+        flex: 1 1 100%;
+        max-width: none;
+      }
+
+      body[data-screen="workspace"] .workspace-body {
+        grid-template-columns: 1fr;
+      }
+
+      body[data-screen="workspace"] .conversation-pane {
+        border-right: 0;
+      }
+
+      body[data-screen="workspace"] .insight-pane {
+        border-top: 1px solid #dce8e7;
+      }
+
+      body[data-screen="workspace"] .workspace-header,
+      body[data-screen="workspace"] .rooms-bar,
+      body[data-screen="workspace"] .workspace-room-tools,
+      body[data-screen="workspace"] #messages {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      body[data-screen="workspace"] .composer,
+      body[data-screen="workspace"] .composer-tools,
+      body[data-screen="workspace"] .typing-indicator,
+      body[data-screen="workspace"] .reply-bar {
+        margin-left: 16px;
+        margin-right: 16px;
       }
 
       body[data-screen="signin"] .app,
@@ -3098,9 +3786,9 @@
 
     <section id="workspace-layout" class="layout hidden">
       <nav class="workspace-rail" aria-label="Workspace navigation">
-        <div class="rail-badge">M</div>
+        <div class="rail-badge">W</div>
         <div class="rail-group">
-          <div class="rail-item">
+          <div class="rail-item active">
             <div class="rail-icon">⌂</div>
             <span>Home</span>
           </div>
@@ -3117,6 +3805,10 @@
             <span>Files</span>
           </div>
           <div class="rail-item">
+            <div class="rail-icon">•••</div>
+            <span>More</span>
+          </div>
+          <div class="rail-item">
             <div class="rail-icon">⚙</div>
             <span>Admin</span>
           </div>
@@ -3128,8 +3820,8 @@
       <aside class="panel auth-panel">
         <div class="workspace-sidebar-head">
           <div>
-            <h2>wedoall Access</h2>
-            <p id="account-copy">Sign in to your workspace, or create your member account so you can join an organization.</p>
+            <h2>wedoall</h2>
+            <p id="account-copy">Business messaging workspace</p>
           </div>
           <div class="sidebar-actions">
             <button type="button" aria-label="Settings">⚙</button>
@@ -3137,6 +3829,22 @@
           </div>
         </div>
         <div class="upgrade-card">🚀 Upgrade Plan</div>
+
+        <div class="workspace-nav-menu" aria-label="Workspace sections">
+          <button class="workspace-nav-link active" type="button"><span>#</span> Threads</button>
+          <button class="workspace-nav-link" type="button"><span>◌</span> Huddles / Calls</button>
+          <button class="workspace-nav-link" type="button"><span>✎</span> Drafts &amp; sent</button>
+          <button class="workspace-nav-link" type="button"><span>◇</span> Directories</button>
+          <button class="workspace-nav-link" type="button"><span>☆</span> Starred</button>
+          <div class="workspace-nav-heading">Channels</div>
+          <button class="workspace-nav-link" type="button"><span>#</span> all-wedoall</button>
+          <button class="workspace-nav-link" type="button"><span>#</span> team-updates</button>
+          <button class="workspace-nav-link" type="button"><span>#</span> projects</button>
+          <div class="workspace-nav-heading">Direct messages</div>
+          <button class="workspace-nav-link" type="button"><span>●</span> Direct messages</button>
+          <div class="workspace-nav-heading">Apps</div>
+          <button class="workspace-nav-link" type="button"><span>✦</span> wedoall AI</button>
+        </div>
 
         <div id="auth-form-section">
           <div class="field">
@@ -3493,12 +4201,14 @@
         <div id="workspace-content" class="hidden">
           <div class="workspace-topbar">
             <div class="workspace-window-actions">
-              <span></span><span></span><span></span>
+              <button type="button" aria-label="Back">‹</button>
+              <button type="button" aria-label="Forward">›</button>
             </div>
             <div class="workspace-search">
               <span>⌕</span>
               <input id="message-search" type="text" placeholder="Search wedoall">
             </div>
+            <button class="topbar-icon" type="button" aria-label="Help and settings">?</button>
             <span id="workspace-user-label" class="status-pill">No account</span>
           </div>
 
@@ -3975,7 +4685,7 @@
         pricingBody: "Start with a lower first month, invite your team with one link, and upgrade whenever you need more rooms, more storage, and more workspace power.",
         monthly: "Monthly",
         yearly: "Yearly",
-        accountTitle: "wedoall Access",
+        accountTitle: "wedoall",
         createAccount: "Personal",
         createAccountHelp: "Just create your personal account and start chatting.",
         personalSignup: "Personal Sign Up",
@@ -4034,7 +4744,7 @@
         pricingBody: "Empieza, invita a tu equipo con un enlace y mejora cuando necesites más salas, almacenamiento y poder.",
         monthly: "Mensual",
         yearly: "Anual",
-        accountTitle: "Acceso wedoall",
+        accountTitle: "wedoall",
         createAccount: "Personal",
         createAccountHelp: "Crea tu cuenta personal y empieza a chatear.",
         personalSignup: "Registro personal",
@@ -4093,7 +4803,7 @@
         pricingBody: "Invitez votre équipe avec un lien et passez à un plan supérieur quand vous avez besoin de plus.",
         monthly: "Mensuel",
         yearly: "Annuel",
-        accountTitle: "Accès wedoall",
+        accountTitle: "wedoall",
         createAccount: "Personnel",
         createAccountHelp: "Créez votre compte personnel et commencez à discuter.",
         personalSignup: "Inscription perso",
@@ -4152,7 +4862,7 @@
         pricingBody: "ادع فريقك برابط واحد وقم بالترقية عندما تحتاج إلى المزيد.",
         monthly: "شهري",
         yearly: "سنوي",
-        accountTitle: "دخول wedoall",
+        accountTitle: "wedoall",
         createAccount: "شخصي",
         createAccountHelp: "أنشئ حسابك الشخصي وابدأ المحادثة.",
         personalSignup: "تسجيل شخصي",
