@@ -297,6 +297,32 @@
       color: #40384e;
     }
 
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 34px;
+    }
+
+    body[data-screen="home"] .feature-card {
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(95, 31, 105, 0.1);
+      box-shadow: 0 20px 44px rgba(68, 35, 84, 0.08);
+    }
+
+    body[data-screen="home"] .feature-card strong {
+      color: #1d1322;
+      font-size: 1.1rem;
+    }
+
+    body[data-screen="home"] .feature-card p {
+      margin: 10px 0 0;
+      color: #655d71;
+      line-height: 1.5;
+    }
+
     .marketing-preview {
       margin-top: 44px;
       padding: 26px;
@@ -1281,8 +1307,259 @@
       color: #263242;
     }
 
+    body[data-screen="signup"],
+    body[data-screen="signin"],
+    body[data-screen="organization"] {
+      background:
+        radial-gradient(circle at 14% 8%, rgba(25, 182, 163, 0.12), transparent 26%),
+        radial-gradient(circle at 86% 16%, rgba(27, 75, 92, 0.13), transparent 28%),
+        linear-gradient(180deg, #fbfafa 0%, #f2f7f7 100%);
+    }
+
+    body[data-screen="signup"] .app {
+      width: min(1220px, calc(100% - 36px));
+      margin: 24px auto 40px;
+    }
+
+    body[data-screen="signup"] .hero {
+      padding: 20px 22px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(219, 229, 229, 0.88);
+      box-shadow: 0 20px 60px rgba(31, 38, 48, 0.09);
+      backdrop-filter: blur(18px);
+    }
+
+    body[data-screen="signup"] .hero h1 {
+      color: #141923;
+      letter-spacing: -0.03em;
+    }
+
+    body[data-screen="signup"] .hero p,
+    body[data-screen="signup"] .marketing-links {
+      color: #415064;
+    }
+
+    body[data-screen="signup"] .nav-btn.secondary {
+      background: #fff;
+      color: #202a38;
+      border: 1px solid #d6e1e1;
+      box-shadow: 0 8px 22px rgba(31, 38, 48, 0.08);
+    }
+
+    body[data-screen="signup"] .nav-btn.primary {
+      background: #173540;
+      color: #fff;
+      box-shadow: 0 12px 28px rgba(23, 53, 64, 0.2);
+    }
+
+    .auth-page,
+    .org-setup-page {
+      padding: clamp(22px, 4vw, 42px);
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+    }
+
+    .auth-page-grid {
+      display: grid;
+      grid-template-columns: minmax(320px, 480px) minmax(320px, 1fr);
+      gap: 28px;
+      align-items: stretch;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .auth-card,
+    .auth-benefits-card,
+    .org-setup-page #auth-showcase {
+      border-radius: 32px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(214, 225, 225, 0.9);
+      box-shadow: 0 28px 80px rgba(31, 38, 48, 0.12);
+      backdrop-filter: blur(18px);
+    }
+
+    .auth-card {
+      padding: clamp(24px, 4vw, 36px);
+    }
+
+    .auth-benefits-card {
+      padding: clamp(24px, 4vw, 40px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background:
+        radial-gradient(circle at top right, rgba(25, 182, 163, 0.18), transparent 32%),
+        #ffffff;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: #148f80;
+      font-size: 0.78rem;
+      font-weight: 950;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .auth-card h2,
+    .auth-benefits-card h3,
+    .org-setup-page h2 {
+      margin: 0;
+      color: #151b25;
+      letter-spacing: -0.055em;
+      line-height: 1;
+    }
+
+    .auth-card h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .auth-benefits-card h3,
+    .org-setup-page .chat-topbar h2 {
+      font-size: clamp(2rem, 4vw, 3.1rem);
+    }
+
+    .auth-card p,
+    .auth-benefits-card p,
+    .auth-benefits-card span,
+    .org-setup-page p {
+      color: #536173;
+      line-height: 1.5;
+    }
+
+    .auth-card .field label,
+    .org-setup-page .field label {
+      color: #2d3948;
+      font-weight: 850;
+    }
+
+    .auth-card input,
+    .org-setup-page input,
+    .org-setup-page select {
+      width: 100%;
+      background: #fff;
+      border: 1px solid #cfdcdd;
+      color: #17202b;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    .auth-card input::placeholder,
+    .org-setup-page input::placeholder {
+      color: #7c8997;
+      opacity: 1;
+    }
+
+    .auth-card input:focus,
+    .org-setup-page input:focus,
+    .org-setup-page select:focus {
+      border-color: #19b6a3;
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(25, 182, 163, 0.14);
+      transform: none;
+    }
+
+    .auth-main-action {
+      width: 100%;
+      min-height: 54px;
+      margin-top: 8px;
+      background: linear-gradient(135deg, #148f80, #19b6a3);
+      color: #fff;
+      font-weight: 950;
+    }
+
+    .auth-switch-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 18px;
+      color: #536173;
+      font-weight: 800;
+    }
+
+    .link-button {
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      color: #0f6f64;
+      font-weight: 950;
+    }
+
+    .auth-utility {
+      display: none;
+    }
+
+    body[data-screen="signin"] .signup-only,
+    body[data-screen="signup"] .signin-only {
+      display: none !important;
+    }
+
+    body[data-screen="signup"] .auth-choice-card .primary {
+      background: linear-gradient(135deg, #148f80, #19b6a3);
+    }
+
+    .benefit-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .benefit-list div {
+      padding: 16px;
+      border-radius: 18px;
+      background: #f7fbfb;
+      border: 1px solid #dce8e7;
+    }
+
+    .benefit-list strong,
+    .benefit-list span {
+      display: block;
+    }
+
+    .benefit-list strong {
+      color: #132630;
+      margin-bottom: 5px;
+    }
+
+    .org-setup-page #auth-showcase {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: clamp(24px, 4vw, 40px);
+    }
+
+    .org-setup-page .auth-split {
+      grid-template-columns: minmax(280px, 0.8fr) minmax(320px, 1.2fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .org-setup-page .auth-showcase,
+    .org-setup-page .auth-mode-card,
+    .org-setup-page .invite-panel,
+    .org-setup-page .org-row {
+      background: #f8fbfb;
+      border: 1px solid #dbe5e5;
+      color: #1f2630;
+    }
+
+    .org-setup-page .auth-showcase {
+      padding: 24px;
+      border-radius: 26px;
+    }
+
+    .org-setup-page .auth-mode-card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(31, 38, 48, 0.05);
+    }
+
     body[data-screen="home"] #home-nav-btn,
     body[data-screen="home"] #workspace-nav-btn,
+    body[data-screen="home"] #language-select,
     body[data-screen="home"] .status-pill {
       display: none !important;
     }
@@ -3373,12 +3650,14 @@
       }
 
       body[data-screen="signin"] .app,
+      body[data-screen="signup"] .app,
       body[data-screen="organization"] .app {
         width: min(100% - 22px, 760px);
         margin: 12px auto 26px;
       }
 
       body[data-screen="signin"] .hero,
+      body[data-screen="signup"] .hero,
       body[data-screen="organization"] .hero {
         padding: 18px;
         border-radius: 22px;
@@ -3390,11 +3669,13 @@
       }
 
       body[data-screen="signin"] .hero,
+      body[data-screen="signup"] .hero,
       body[data-screen="organization"] .hero {
         gap: 16px;
       }
 
       body[data-screen="signin"] .marketing-links,
+      body[data-screen="signup"] .marketing-links,
       body[data-screen="organization"] .marketing-links {
         width: 100%;
         justify-content: flex-start;
@@ -3402,6 +3683,7 @@
       }
 
       body[data-screen="signin"] .nav-btn,
+      body[data-screen="signup"] .nav-btn,
       body[data-screen="organization"] .nav-btn {
         flex: 1 1 auto;
         justify-content: center;
@@ -3441,7 +3723,9 @@
 
       .home-page,
       .auth-split,
-      .feature-grid {
+      .feature-grid,
+      .auth-page-grid,
+      .org-setup-page .auth-split {
         grid-template-columns: 1fr;
       }
 
@@ -3492,7 +3776,7 @@
       <div class="hero-actions">
         <button id="home-nav-btn" class="secondary nav-btn" type="button">Home</button>
         <button id="signin-nav-btn" class="secondary nav-btn" type="button">Sign In</button>
-        <button id="org-nav-btn" class="primary nav-btn" type="button">Get Started</button>
+        <button id="org-nav-btn" class="primary nav-btn" type="button">Sign Up</button>
         <button id="workspace-nav-btn" class="secondary nav-btn hidden" type="button">Workspace</button>
         <button id="signout-nav-btn" class="danger nav-btn hidden" type="button">Sign Out</button>
         <select id="language-select" class="nav-btn" aria-label="Language">
@@ -3510,16 +3794,31 @@
         <h2>All your teams, rooms, and company chats working together.</h2>
         <p>wedoall gives organizations one clean place to message, organize departments, open private team rooms, and move into voice or video without the clutter.</p>
         <div class="cta-row">
-          <button id="home-org-btn" class="primary" type="button">GET STARTED</button>
+          <button id="home-org-btn" class="primary" type="button">SIGN UP</button>
           <button id="home-signin-btn" class="secondary" type="button">SIGN IN</button>
         </div>
         <div class="brand-strip">
-          <span class="brand-chip">OPENAI</span>
-          <span class="brand-chip">STRIPE</span>
-          <span class="brand-chip">IBM</span>
-          <span class="brand-chip">NOTION</span>
-          <span class="brand-chip">TARGET</span>
+          <span class="brand-chip">Personal chat</span>
+          <span class="brand-chip">Business teams</span>
+          <span class="brand-chip">Channels</span>
+          <span class="brand-chip">Admin tools</span>
+          <span class="brand-chip">Secure invites</span>
         </div>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <strong>Personal and business dashboards</strong>
+          <p>Personal users get clean DMs and saved messages. Business users get organizations, channels, roles, and billing.</p>
+        </article>
+        <article class="feature-card">
+          <strong>Team messaging that stays organized</strong>
+          <p>Use channels, direct messages, private team rooms, threaded replies, reactions, and searchable history.</p>
+        </article>
+        <article class="feature-card">
+          <strong>Workspace controls for companies</strong>
+          <p>Invite members, manage roles and permissions, review activity, configure organization settings, and upgrade plans.</p>
+        </article>
       </div>
 
       <div class="marketing-preview">
@@ -3613,7 +3912,7 @@
       <div id="pricing-section" class="pricing-section">
         <div class="pricing-copy">
           <h3>Simple pricing for teams that want to move fast.</h3>
-          <p>Start with a lower first month, invite your team with one link, and upgrade whenever you need more rooms, more storage, and more workspace power.</p>
+          <p>Choose a plan for personal messaging, small teams, growing businesses, or enterprise workspaces.</p>
           <div class="billing-toggle" role="tablist" aria-label="Billing cycle">
             <button id="billing-monthly-btn" class="active" type="button">Monthly</button>
             <button id="billing-yearly-btn" type="button">Yearly</button>
@@ -3628,30 +3927,36 @@
                 <div id="free-price" class="price-tag">$0</div>
                 <div id="free-sub" class="price-sub">forever</div>
               </div>
-              <span class="price-badge">Lowest tier</span>
+              <span class="price-badge">Personal</span>
             </div>
-            <p id="free-note" class="price-note">Try wedoall with a small workspace before upgrading.</p>
+            <p id="free-note" class="price-note">A simple personal chat workspace to start using wedoall.</p>
             <ul class="price-list">
-              <li>Up to 5 members</li>
-              <li>Basic organization room</li>
-              <li>Limited direct chats</li>
+              <li>Personal chat workspace</li>
+              <li>Direct messages</li>
+              <li>Basic file sharing</li>
+              <li>Limited message history</li>
+              <li>Basic profile</li>
+              <li>1 workspace</li>
             </ul>
           </article>
 
           <article class="price-card" data-plan-card="starter">
             <div class="price-top">
               <div>
-                <h4>Starter</h4>
+                <h4>Personal Pro</h4>
                 <div id="starter-price" class="price-tag">$3</div>
-                <div id="starter-sub" class="price-sub">first month, then $5/month</div>
+                <div id="starter-sub" class="price-sub">per month</div>
               </div>
-              <span class="price-badge">Best for small teams</span>
+              <span class="price-badge">Power users</span>
             </div>
-            <p id="starter-note" class="price-note">Create one organization, unlimited direct messages, and core rooms.</p>
+            <p id="starter-note" class="price-note">For people who want a stronger personal messaging workspace.</p>
             <ul class="price-list">
-              <li>Up to 25 members</li>
-              <li>Organization invite links</li>
-              <li>Voice and video rooms</li>
+              <li>Unlimited personal messages</li>
+              <li>More file storage</li>
+              <li>Priority search</li>
+              <li>Custom profile</li>
+              <li>Saved messages</li>
+              <li>Better notifications</li>
             </ul>
             <form class="paypal-subscribe-form" data-plan="starter" data-billing="monthly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
@@ -3665,7 +3970,7 @@
                 <option value="I agree">I agree</option>
               </select>
               <input type="hidden" name="currency_code" value="USD">
-              <button class="paypal-subscribe-button" type="submit">Subscribe to Starter Monthly</button>
+              <button class="paypal-subscribe-button" type="submit">Subscribe to Personal Pro Monthly</button>
             </form>
             <form class="paypal-subscribe-form" data-plan="starter" data-billing="yearly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
@@ -3679,24 +3984,27 @@
                 <option value="I agree">I agree</option>
               </select>
               <input type="hidden" name="currency_code" value="CAD">
-              <button class="paypal-subscribe-button" type="submit">Subscribe to Starter Yearly - $25 CAD</button>
+              <button class="paypal-subscribe-button" type="submit">Subscribe to Personal Pro Yearly - $25 CAD</button>
             </form>
           </article>
 
           <article class="price-card featured" data-plan-card="pro">
             <div class="price-top">
               <div>
-                <h4>Pro</h4>
+                <h4>Team Starter</h4>
                 <div id="pro-price" class="price-tag">$7</div>
-                <div id="pro-sub" class="price-sub">first month, then $10/month</div>
+                <div id="pro-sub" class="price-sub">per month</div>
               </div>
-              <span class="price-badge">Most popular</span>
+              <span class="price-badge">Small teams</span>
             </div>
-            <p id="pro-note" class="price-note">For growing teams that need stronger collaboration and workspace control.</p>
+            <p id="pro-note" class="price-note">For small businesses that need a shared organization workspace.</p>
             <ul class="price-list">
-              <li>Up to 150 members</li>
-              <li>Priority workspace features</li>
-              <li>Advanced room organization</li>
+              <li>Create an organization</li>
+              <li>Invite team members</li>
+              <li>Channels</li>
+              <li>Direct messages</li>
+              <li>File sharing</li>
+              <li>Basic admin controls</li>
             </ul>
             <form class="paypal-subscribe-form" data-plan="pro" data-billing="monthly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
@@ -3710,7 +4018,7 @@
                 <option value="I agree">I agree</option>
               </select>
               <input type="hidden" name="currency_code" value="CAD">
-              <button class="paypal-subscribe-button" type="submit">Subscribe to Pro Monthly</button>
+              <button class="paypal-subscribe-button" type="submit">Subscribe to Team Starter Monthly</button>
             </form>
             <form class="paypal-subscribe-form" data-plan="pro" data-billing="yearly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
@@ -3724,24 +4032,27 @@
                 <option value="I agree">I agree</option>
               </select>
               <input type="hidden" name="currency_code" value="CAD">
-              <button class="paypal-subscribe-button" type="submit">Subscribe to Pro Yearly - $50 CAD</button>
+              <button class="paypal-subscribe-button" type="submit">Subscribe to Team Starter Yearly - $50 CAD</button>
             </form>
           </article>
 
           <article class="price-card" data-plan-card="business">
             <div class="price-top">
               <div>
-                <h4>Business</h4>
+                <h4>Business Pro</h4>
                 <div id="business-price" class="price-tag">$15</div>
-                <div id="business-sub" class="price-sub">first month, then $20/month</div>
+                <div id="business-sub" class="price-sub">per month</div>
               </div>
-              <span class="price-badge">Large teams</span>
+              <span class="price-badge">Growing companies</span>
             </div>
-            <p id="business-note" class="price-note">For busy companies that want more scale, structure, and higher room limits.</p>
+            <p id="business-note" class="price-note">Advanced controls for companies that need roles, history, and support.</p>
             <ul class="price-list">
-              <li>Unlimited members</li>
-              <li>Premium workspace controls</li>
-              <li>More powerful automation-ready layout</li>
+              <li>Everything in Team Starter</li>
+              <li>More storage</li>
+              <li>Advanced admin controls</li>
+              <li>Team roles and permissions</li>
+              <li>Organization branding</li>
+              <li>Activity history and priority support</li>
             </ul>
             <form class="paypal-subscribe-form" data-plan="business" data-billing="monthly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
@@ -3755,7 +4066,7 @@
                 <option value="I agree">I agree</option>
               </select>
               <input type="hidden" name="currency_code" value="CAD">
-              <button class="paypal-subscribe-button" type="submit">Subscribe to Business Monthly</button>
+              <button class="paypal-subscribe-button" type="submit">Subscribe to Business Pro Monthly</button>
             </form>
             <form class="paypal-subscribe-form" data-plan="business" data-billing="yearly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_s-xclick">
@@ -3769,8 +4080,28 @@
                 <option value="I agree">I agree</option>
               </select>
               <input type="hidden" name="currency_code" value="CAD">
-              <button class="paypal-subscribe-button" type="submit">Subscribe to Business Yearly - $100 CAD</button>
+              <button class="paypal-subscribe-button" type="submit">Subscribe to Business Pro Yearly - $100 CAD</button>
             </form>
+          </article>
+          <article class="price-card enterprise-tier" data-plan-card="enterprise">
+            <div class="price-top">
+              <div>
+                <h4>Enterprise</h4>
+                <div class="price-tag">Custom</div>
+                <div class="price-sub">contact sales</div>
+              </div>
+              <span class="price-badge">Scale</span>
+            </div>
+            <p class="price-note">For larger organizations that need multiple workspaces and dedicated support.</p>
+            <ul class="price-list">
+              <li>Everything in Business Pro</li>
+              <li>Multiple workspaces</li>
+              <li>Advanced security</li>
+              <li>Audit logs</li>
+              <li>SSO-ready structure</li>
+              <li>Custom limits and dedicated support</li>
+            </ul>
+            <button class="paypal-subscribe-button" type="button" onclick="location.href='mailto:admin@gmail.com?subject=wedoall%20Enterprise%20Plan'">Contact sales</button>
           </article>
           <article class="donate-card" aria-label="Donate with PayPal">
             <h4>Support wedoall</h4>
@@ -3780,6 +4111,173 @@
               <button class="paypal-donate-button" type="submit">Donate with PayPal</button>
             </form>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="auth-page" class="panel page-panel auth-page hidden">
+      <div class="auth-page-grid">
+        <div id="auth-form-section" class="auth-card">
+          <p class="eyebrow">Account access</p>
+          <h2 id="auth-view-title">Sign in to wedoall</h2>
+          <p id="auth-view-copy">Use your email and password to open your workspace.</p>
+
+          <div class="field signup-only">
+            <label for="username">Username</label>
+            <input id="username" type="text" placeholder="Pick a username" autocomplete="nickname" maxlength="24">
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+          </div>
+
+          <div class="field signup-only">
+            <label for="confirm-password">Confirm password</label>
+            <input id="confirm-password" type="password" placeholder="Confirm your password" autocomplete="new-password">
+          </div>
+
+          <div class="auth-choice-grid signup-only">
+            <div class="auth-choice-card">
+              <strong>Personal use</strong>
+              <p>Create a personal chat workspace for DMs, saved messages, files, and private rooms.</p>
+              <button id="signup-btn" class="primary" type="button">Create Personal Account</button>
+            </div>
+            <div class="auth-choice-card">
+              <strong>Business use</strong>
+              <p>Create your account first, then set up an organization workspace for your team.</p>
+              <button id="business-signup-btn" class="primary" type="button">Create Business Account</button>
+            </div>
+          </div>
+
+          <button id="login-btn" class="primary signin-only auth-main-action" type="button">Sign In</button>
+
+          <div class="auth-switch-row signin-only">
+            <span>Don’t have an account?</span>
+            <button id="auth-goto-signup" class="link-button" type="button">Sign up</button>
+          </div>
+          <div class="auth-switch-row signup-only">
+            <span>Already have an account?</span>
+            <button id="auth-goto-signin" class="link-button" type="button">Sign in</button>
+          </div>
+
+          <button id="logout-btn" class="danger auth-utility" type="button">Log Out</button>
+          <button id="clear-btn" class="secondary auth-utility" type="button">Clear Fields</button>
+          <p id="auth-status" class="small-status"></p>
+          <div id="auth-error" class="error-box"></div>
+        </div>
+
+        <aside class="auth-benefits-card">
+          <span class="price-badge">wedoall workspace</span>
+          <h3>One clean place for personal chats and business teams.</h3>
+          <div class="benefit-list">
+            <div><strong>Personal dashboard</strong><span>Direct messages, saved chats, files, and notifications.</span></div>
+            <div><strong>Business dashboard</strong><span>Organizations, channels, roles, admin controls, and billing.</span></div>
+            <div><strong>Secure flow</strong><span>The workspace only opens after sign-in or after sign-up is complete.</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="org-setup-page" class="panel page-panel org-setup-page hidden">
+      <div id="auth-showcase">
+        <div class="chat-topbar">
+          <div>
+            <p class="eyebrow">Business setup</p>
+            <h2>Create your organization</h2>
+            <p id="chat-status">Answer a few questions so wedoall can shape the workspace for your team.</p>
+          </div>
+          <div class="chat-actions">
+            <span id="user-label" class="status-pill">No account</span>
+          </div>
+        </div>
+
+        <div class="auth-split">
+          <section class="auth-showcase member-auth-section">
+            <h2>What happens next</h2>
+            <p>Your business workspace opens after the organization is created. You can invite team members, create channels, set roles, and manage billing from the dashboard.</p>
+            <div class="workspace-list">
+              <div class="auth-mode-card">
+                <strong>1. Create organization</strong>
+                <span>Add your company name, size, business type, and branding.</span>
+              </div>
+              <div class="auth-mode-card">
+                <strong>2. Invite teammates</strong>
+                <span>Share an organization invite link and start channels or direct messages.</span>
+              </div>
+              <div class="auth-mode-card">
+                <strong>3. Open workspace</strong>
+                <span>Your dashboard appears only after account access is ready.</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="auth-showcase org-auth-section">
+            <h2>Organization details</h2>
+            <p>Create a company workspace or join an existing organization by its handle.</p>
+            <div class="field">
+              <label for="org-name-input">Organization name</label>
+              <input id="org-name-input" type="text" placeholder="Acme Studio">
+            </div>
+            <div class="field">
+              <label for="org-slug-input">Organization handle</label>
+              <input id="org-slug-input" type="text" placeholder="acme-studio">
+            </div>
+            <div class="field">
+              <label for="org-size-input">Team size</label>
+              <select id="org-size-input">
+                <option value="1-5">1-5 people</option>
+                <option value="6-25">6-25 people</option>
+                <option value="26-150">26-150 people</option>
+                <option value="150+">150+ people</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="org-purpose-input">Industry or business type</label>
+              <select id="org-purpose-input">
+                <option value="team-chat">Team chat</option>
+                <option value="client-work">Client work</option>
+                <option value="school-club">School or club</option>
+                <option value="support">Customer support</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="org-logo-input">Optional logo upload</label>
+              <input id="org-logo-input" type="file" accept="image/*">
+            </div>
+            <div class="field">
+              <label for="org-language-input">Main organization language</label>
+              <select id="org-language-input">
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+                <option value="ar">Arabic</option>
+              </select>
+            </div>
+            <div class="actions">
+              <button id="create-org-btn" class="primary" type="button">Create Organization</button>
+              <button id="join-org-btn" class="secondary" type="button">Join Organization</button>
+            </div>
+            <div class="invite-panel">
+              <strong>Organization invite link</strong>
+              <div id="org-invite-link" class="invite-link">Create or join an organization to get a share link.</div>
+              <div class="actions">
+                <button id="copy-org-invite-btn" class="secondary" type="button">Copy Invite Link</button>
+              </div>
+            </div>
+            <div>
+              <h3>Your organizations</h3>
+              <div id="auth-organizations-list" class="org-list">
+                <div class="empty-state">Sign in to create or join an organization.</div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </section>
@@ -3844,52 +4342,6 @@
           <button class="workspace-nav-link" type="button"><span>●</span> Direct messages</button>
           <div class="workspace-nav-heading">Apps</div>
           <button class="workspace-nav-link" type="button"><span>✦</span> wedoall AI</button>
-        </div>
-
-        <div id="auth-form-section">
-          <div class="field">
-            <label for="username">Username</label>
-            <input id="username" type="text" placeholder="Pick a username" autocomplete="nickname" maxlength="24">
-          </div>
-
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
-          </div>
-
-          <div class="field">
-            <label for="password">Password</label>
-            <input id="password" type="password" placeholder="Password" autocomplete="current-password">
-          </div>
-
-          <div class="auth-choice-grid">
-            <div class="auth-choice-card">
-              <strong>Personal</strong>
-              <p>Just create your personal account and start chatting.</p>
-              <button id="signup-btn" class="primary" type="button">Personal Sign Up</button>
-            </div>
-            <div class="auth-choice-card">
-              <strong>Business</strong>
-              <p>Create your account, then set up a business workspace.</p>
-              <button id="business-signup-btn" class="primary" type="button">Business Sign Up</button>
-            </div>
-            <div class="auth-choice-card">
-              <strong>Sign in</strong>
-              <p>Already have an account? Use email and password.</p>
-              <button id="login-btn" class="secondary" type="button">Log In</button>
-            </div>
-          </div>
-
-          <div class="actions">
-            <button id="logout-btn" class="danger" type="button">Log Out</button>
-            <button id="clear-btn" class="secondary" type="button">Clear Fields</button>
-          </div>
-
-          <p id="auth-status" class="small-status"></p>
-          <div id="auth-error" class="error-box"></div>
-          <p class="hint">
-            Business owners can manage workspaces, roles, rooms, and plan features after signing in.
-          </p>
         </div>
 
         <button id="profile-toggle-card" class="profile-card hidden" type="button">
@@ -4111,94 +4563,7 @@
       </aside>
 
       <main class="panel chat-panel">
-        <div id="auth-showcase">
-          <div class="chat-topbar">
-            <div>
-              <h2>Account and Business Setup</h2>
-              <p id="chat-status">Choose sign in or organization setup to enter the workspace.</p>
-            </div>
-            <div class="chat-actions">
-              <span id="user-label" class="status-pill">No account</span>
-            </div>
-          </div>
-
-          <div class="auth-split">
-            <section class="auth-showcase member-auth-section">
-              <h2>Account access</h2>
-              <p>Members sign in with email and password, then work inside organization rooms, direct chats, and private team spaces.</p>
-              <div class="workspace-list">
-                <div class="auth-mode-card">
-                  <strong>Sign in</strong>
-                  <span>Existing teammates use the account form on the left.</span>
-                </div>
-                <div class="auth-mode-card">
-                  <strong>Sign up</strong>
-                  <span>New teammates create an account first, then join an organization.</span>
-                </div>
-              </div>
-            </section>
-
-            <section class="auth-showcase org-auth-section">
-              <h2>Create Business</h2>
-              <p>Create a company workspace or join an existing organization by its handle. This replaces the old friend-code style flow with a business structure.</p>
-              <div class="field">
-                <label for="org-name-input">Organization name</label>
-                <input id="org-name-input" type="text" placeholder="Acme Studio">
-              </div>
-              <div class="field">
-                <label for="org-slug-input">Organization handle</label>
-                <input id="org-slug-input" type="text" placeholder="acme-studio">
-              </div>
-              <div class="field">
-                <label for="org-size-input">How many people are joining?</label>
-                <select id="org-size-input">
-                  <option value="1-5">1-5 people</option>
-                  <option value="6-25">6-25 people</option>
-                  <option value="26-150">26-150 people</option>
-                  <option value="150+">150+ people</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="org-purpose-input">What will this organization use wedoall for?</label>
-                <select id="org-purpose-input">
-                  <option value="team-chat">Team chat</option>
-                  <option value="client-work">Client work</option>
-                  <option value="school-club">School or club</option>
-                  <option value="support">Customer support</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="org-language-input">Main organization language</label>
-                <select id="org-language-input">
-                  <option value="en">English</option>
-                  <option value="es">Spanish</option>
-                  <option value="fr">French</option>
-                  <option value="ar">Arabic</option>
-                </select>
-              </div>
-              <div class="actions">
-                <button id="create-org-btn" class="primary" type="button">Create Organization</button>
-                <button id="join-org-btn" class="secondary" type="button">Join Organization</button>
-              </div>
-              <div class="invite-panel">
-                <strong>Organization invite link</strong>
-                <div id="org-invite-link" class="invite-link">Create or join an organization to get a share link.</div>
-                <div class="actions">
-                  <button id="copy-org-invite-btn" class="secondary" type="button">Copy Invite Link</button>
-                </div>
-              </div>
-              <div>
-                <h3>Your organizations</h3>
-                <div id="auth-organizations-list" class="org-list">
-                  <div class="empty-state">Sign in to create or join an organization.</div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-
-        <div id="workspace-content" class="hidden">
+        <div id="workspace-content">
           <div class="workspace-topbar">
             <div class="workspace-window-actions">
               <button type="button" aria-label="Back">‹</button>
@@ -4466,10 +4831,17 @@
     const businessSub = document.getElementById("business-sub");
     const businessNote = document.getElementById("business-note");
     const homePage = document.getElementById("home-page");
+    const authPage = document.getElementById("auth-page");
+    const orgSetupPage = document.getElementById("org-setup-page");
     const workspaceLayout = document.getElementById("workspace-layout");
     const authShowcase = document.getElementById("auth-showcase");
     const workspaceContent = document.getElementById("workspace-content");
     const authFormSection = document.getElementById("auth-form-section");
+    const authViewTitle = document.getElementById("auth-view-title");
+    const authViewCopy = document.getElementById("auth-view-copy");
+    const confirmPasswordInput = document.getElementById("confirm-password");
+    const authGotoSignup = document.getElementById("auth-goto-signup");
+    const authGotoSignin = document.getElementById("auth-goto-signin");
     const accountCopy = document.getElementById("account-copy");
     const pricingStatus = document.getElementById("pricing-status");
     const authStatus = document.getElementById("auth-status");
@@ -4498,6 +4870,7 @@
     const orgSizeInput = document.getElementById("org-size-input");
     const orgPurposeInput = document.getElementById("org-purpose-input");
     const orgLanguageInput = document.getElementById("org-language-input");
+    const orgLogoInput = document.getElementById("org-logo-input");
     const orgInviteLink = document.getElementById("org-invite-link");
     const copyOrgInviteBtn = document.getElementById("copy-org-invite-btn");
     const createOrgBtn = document.getElementById("create-org-btn");
@@ -4600,6 +4973,7 @@
     let lastRoomMessages = [];
     let typingTimer = null;
     let profileDrawerOpen = false;
+    let pendingBusinessSignup = false;
     let activeScreen = "home";
     let selectedBillingMode = "monthly";
 
@@ -4629,26 +5003,36 @@
     }
 
     function setScreen(screen = "home") {
+      const loggedIn = Boolean(currentUser);
+      if (screen === "workspace" && !loggedIn) {
+        screen = "signin";
+      }
       activeScreen = screen;
       document.body.setAttribute("data-screen", screen);
-      const loggedIn = Boolean(currentUser);
-      const showWorkspace = loggedIn || screen !== "home";
+      const showHome = screen === "home";
+      const showAuth = screen === "signin" || screen === "signup";
+      const showOrganization = screen === "organization";
+      const showWorkspace = screen === "workspace" && loggedIn;
 
-      homePage.classList.toggle("hidden", showWorkspace);
+      homePage.classList.toggle("hidden", !showHome);
+      authPage.classList.toggle("hidden", !showAuth);
+      orgSetupPage.classList.toggle("hidden", !showOrganization);
       workspaceLayout.classList.toggle("hidden", !showWorkspace);
-      authShowcase.classList.toggle("hidden", loggedIn);
-      workspaceContent.classList.toggle("hidden", !loggedIn);
+      workspaceContent.classList.toggle("hidden", !showWorkspace);
 
       signinNavBtn.classList.toggle("hidden", loggedIn);
       orgNavBtn.classList.toggle("hidden", loggedIn);
       workspaceNavBtn.classList.toggle("hidden", !loggedIn);
       signoutNavBtn.classList.toggle("hidden", !loggedIn);
 
-      if (!loggedIn) {
-        accountCopy.textContent = screen === "organization"
-          ? "Create or join an organization workspace here. If you do not have an account yet, sign up with your username, email, and password first."
-          : "Sign in to your workspace, or create your member account so you can join an organization.";
-      } else {
+      if (showAuth) {
+        authViewTitle.textContent = screen === "signup" ? "Create your wedoall account" : "Sign in to wedoall";
+        authViewCopy.textContent = screen === "signup"
+          ? "Choose personal or business use. Business accounts create an organization after this step."
+          : "Use your email and password to open your workspace.";
+      }
+
+      if (loggedIn) {
         accountCopy.textContent = "Manage your account, profile, organizations, and saved contacts from here.";
       }
     }
@@ -4672,7 +5056,7 @@
       en: {
         signin: "Sign In",
         home: "Home",
-        getStarted: "Get Started",
+        getStarted: "Sign Up",
         pricing: "Pricing",
         features: "Features",
         resources: "Resources",
@@ -4682,16 +5066,16 @@
         hero: "All your teams, rooms, and company chats working together.",
         heroBody: "wedoall gives organizations one clean place to message, organize departments, open private team rooms, and move into voice or video without the clutter.",
         pricingTitle: "Simple pricing for teams that want to move fast.",
-        pricingBody: "Start with a lower first month, invite your team with one link, and upgrade whenever you need more rooms, more storage, and more workspace power.",
+        pricingBody: "Choose a plan for personal messaging, small teams, growing businesses, or enterprise workspaces.",
         monthly: "Monthly",
         yearly: "Yearly",
         accountTitle: "wedoall",
-        createAccount: "Personal",
-        createAccountHelp: "Just create your personal account and start chatting.",
-        personalSignup: "Personal Sign Up",
-        businessSignup: "Business Sign Up",
-        businessSignupTitle: "Business",
-        businessSignupHelp: "Create your account, then set up a business workspace.",
+        createAccount: "Personal use",
+        createAccountHelp: "Create a personal chat workspace for DMs, saved messages, files, and private rooms.",
+        personalSignup: "Create Personal Account",
+        businessSignup: "Create Business Account",
+        businessSignupTitle: "Business use",
+        businessSignupHelp: "Create your account first, then set up an organization workspace for your team.",
         signInCard: "Sign in",
         signInHelp: "Already have an account? Use email and password.",
         username: "Username",
@@ -4715,7 +5099,7 @@
         inviteLink: "Organization invite link",
         copyInvite: "Copy Invite Link",
         yourOrgs: "Your organizations",
-        businessAccess: "Account and Business Setup",
+        businessAccess: "Create your organization",
         noAccount: "No account",
         threads: "Threads",
         search: "Search wedoall",
@@ -4731,7 +5115,7 @@
       es: {
         signin: "Iniciar sesión",
         home: "Inicio",
-        getStarted: "Empezar",
+        getStarted: "Crear cuenta",
         pricing: "Precios",
         features: "Funciones",
         resources: "Recursos",
@@ -4745,11 +5129,11 @@
         monthly: "Mensual",
         yearly: "Anual",
         accountTitle: "wedoall",
-        createAccount: "Personal",
+        createAccount: "Uso personal",
         createAccountHelp: "Crea tu cuenta personal y empieza a chatear.",
-        personalSignup: "Registro personal",
-        businessSignup: "Registro negocio",
-        businessSignupTitle: "Negocio",
+        personalSignup: "Crear cuenta personal",
+        businessSignup: "Crear cuenta negocio",
+        businessSignupTitle: "Uso de negocio",
         businessSignupHelp: "Crea tu cuenta y luego configura tu espacio de negocio.",
         signInCard: "Iniciar sesión",
         signInHelp: "¿Ya tienes cuenta? Usa correo y contraseña.",
@@ -4774,7 +5158,7 @@
         inviteLink: "Enlace de invitación",
         copyInvite: "Copiar invitación",
         yourOrgs: "Tus organizaciones",
-        businessAccess: "Cuenta y negocio",
+        businessAccess: "Crear tu organización",
         noAccount: "Sin cuenta",
         threads: "Hilos",
         search: "Buscar wedoall",
@@ -4790,7 +5174,7 @@
       fr: {
         signin: "Connexion",
         home: "Accueil",
-        getStarted: "Commencer",
+        getStarted: "Créer un compte",
         pricing: "Tarifs",
         features: "Fonctions",
         resources: "Ressources",
@@ -4804,11 +5188,11 @@
         monthly: "Mensuel",
         yearly: "Annuel",
         accountTitle: "wedoall",
-        createAccount: "Personnel",
+        createAccount: "Usage personnel",
         createAccountHelp: "Créez votre compte personnel et commencez à discuter.",
-        personalSignup: "Inscription perso",
-        businessSignup: "Inscription entreprise",
-        businessSignupTitle: "Entreprise",
+        personalSignup: "Créer un compte personnel",
+        businessSignup: "Créer un compte entreprise",
+        businessSignupTitle: "Usage entreprise",
         businessSignupHelp: "Créez votre compte puis configurez votre espace entreprise.",
         signInCard: "Connexion",
         signInHelp: "Vous avez déjà un compte ? Utilisez e-mail et mot de passe.",
@@ -4833,7 +5217,7 @@
         inviteLink: "Lien d'invitation",
         copyInvite: "Copier l'invitation",
         yourOrgs: "Vos organisations",
-        businessAccess: "Compte et entreprise",
+        businessAccess: "Créer votre organisation",
         noAccount: "Aucun compte",
         threads: "Fils",
         search: "Rechercher wedoall",
@@ -4849,7 +5233,7 @@
       ar: {
         signin: "تسجيل الدخول",
         home: "الرئيسية",
-        getStarted: "ابدأ",
+        getStarted: "إنشاء حساب",
         pricing: "الأسعار",
         features: "الميزات",
         resources: "الموارد",
@@ -4863,11 +5247,11 @@
         monthly: "شهري",
         yearly: "سنوي",
         accountTitle: "wedoall",
-        createAccount: "شخصي",
+        createAccount: "استخدام شخصي",
         createAccountHelp: "أنشئ حسابك الشخصي وابدأ المحادثة.",
-        personalSignup: "تسجيل شخصي",
-        businessSignup: "تسجيل عمل",
-        businessSignupTitle: "عمل",
+        personalSignup: "إنشاء حساب شخصي",
+        businessSignup: "إنشاء حساب عمل",
+        businessSignupTitle: "استخدام عمل",
         businessSignupHelp: "أنشئ حسابك ثم جهز مساحة العمل.",
         signInCard: "تسجيل الدخول",
         signInHelp: "لديك حساب؟ استخدم البريد وكلمة المرور.",
@@ -4892,7 +5276,7 @@
         inviteLink: "رابط الدعوة",
         copyInvite: "نسخ الدعوة",
         yourOrgs: "منظماتك",
-        businessAccess: "الحساب والعمل",
+        businessAccess: "إنشاء منظمتك",
         noAccount: "لا يوجد حساب",
         threads: "المحادثات",
         search: "بحث wedoall",
@@ -5779,6 +6163,7 @@
           teamSize: orgSizeInput.value,
           purpose: orgPurposeInput.value,
           language: orgLanguageInput.value,
+          logoFileName: orgLogoInput?.files?.[0]?.name || "",
           memberUids: [currentUser.uid],
           memberUsernames: [currentProfile.username || getDisplayName(currentUser)],
           createdAt: Date.now()
@@ -5797,6 +6182,9 @@
         orgSizeInput.value = "1-5";
         orgPurposeInput.value = "team-chat";
         orgLanguageInput.value = languageSelect.value || "en";
+        if (orgLogoInput) {
+          orgLogoInput.value = "";
+        }
         setStatus(authStatus, `${name} was created successfully.`);
         openRoom(roomId, `${name} / General`);
         setScreen("workspace");
@@ -7710,6 +8098,12 @@
         return;
       }
 
+      if (confirmPasswordInput && password !== confirmPasswordInput.value) {
+        setStatus(authStatus, "Passwords do not match.", true);
+        setAuthError({ code: "password-mismatch", message: "Confirm password must match your password." });
+        return;
+      }
+
       if (password.length < 6) {
         setStatus(authStatus, "Password must be at least 6 characters.", true);
         setAuthError({ code: "weak-password", message: "Firebase Email/Password sign up requires 6 or more characters." });
@@ -7717,6 +8111,7 @@
       }
 
       try {
+        pendingBusinessSignup = accountType === "business";
         signupBtn.disabled = true;
         businessSignupBtn.disabled = true;
         loginBtn.disabled = true;
@@ -7733,6 +8128,7 @@
         setAuthError(null);
         setScreen(accountType === "business" ? "organization" : "workspace");
       } catch (error) {
+        pendingBusinessSignup = false;
         setStatus(authStatus, error.message, true);
         setAuthError(error);
         console.error("Sign up failed:", error);
@@ -7834,10 +8230,12 @@
     signoutNavBtn.addEventListener("click", logOut);
     homeNavBtn.addEventListener("click", () => setScreen("home"));
     signinNavBtn.addEventListener("click", () => setScreen("signin"));
-    orgNavBtn.addEventListener("click", () => setScreen("organization"));
+    orgNavBtn.addEventListener("click", () => setScreen("signup"));
     workspaceNavBtn.addEventListener("click", () => setScreen("workspace"));
     homeSigninBtn.addEventListener("click", () => setScreen("signin"));
-    homeOrgBtn.addEventListener("click", () => setScreen("organization"));
+    homeOrgBtn.addEventListener("click", () => setScreen("signup"));
+    authGotoSignup.addEventListener("click", () => setScreen("signup"));
+    authGotoSignin.addEventListener("click", () => setScreen("signin"));
     billingMonthlyBtn.addEventListener("click", () => updatePricingDisplay("monthly"));
     billingYearlyBtn.addEventListener("click", () => updatePricingDisplay("yearly"));
     pricingNavBtn.addEventListener("click", scrollToPricing);
@@ -7845,7 +8243,7 @@
       document.querySelector(".marketing-preview")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
     resourcesNavBtn.addEventListener("click", () => {
-      document.getElementById("workspace-layout")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.querySelector(".feature-grid")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
     languageSelect.addEventListener("change", () => {
       applyLanguage(languageSelect.value);
@@ -8051,12 +8449,16 @@
       usernameInput.value = "";
       emailInput.value = "";
       passwordInput.value = "";
+      confirmPasswordInput.value = "";
       friendCodeInput.value = "";
       orgNameInput.value = "";
       orgSlugInput.value = "";
       orgSizeInput.value = "1-5";
       orgPurposeInput.value = "team-chat";
       orgLanguageInput.value = languageSelect.value || "en";
+      if (orgLogoInput) {
+        orgLogoInput.value = "";
+      }
       groupNameInput.value = "";
       groupCodesInput.value = "";
       avatarUrlInput.value = "";
@@ -8120,7 +8522,7 @@
         setSignedInState(null);
         setStatus(authStatus, "Not logged in.");
         renderOrganizations();
-        setScreen(activeScreen === "organization" ? "organization" : "home");
+        setScreen(["signin", "signup", "organization"].includes(activeScreen) ? activeScreen : "home");
         return;
       }
 
@@ -8148,7 +8550,12 @@
           setPresence(true);
           setSignedInState(user);
           setStatus(authStatus, `Logged in as ${getDisplayName(user)}`);
-          setScreen("workspace");
+          const needsBusinessSetup = pendingBusinessSignup || (
+            currentProfile?.accountType === "business" &&
+            !getOrganizationIds().length
+          );
+          setScreen(needsBusinessSetup ? "organization" : "workspace");
+          pendingBusinessSignup = false;
           acceptInviteFromUrl();
         })
         .catch((error) => {
