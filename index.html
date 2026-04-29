@@ -3457,6 +3457,13 @@
       box-shadow: 0 14px 34px rgba(22, 42, 52, 0.06);
     }
 
+    body[data-screen="workspace"] button.insight-card {
+      width: 100%;
+      display: block;
+      text-align: left;
+      cursor: pointer;
+    }
+
     body[data-screen="workspace"] .insight-card h3,
     body[data-screen="workspace"] .insight-card p {
       color: #17202b;
@@ -3468,6 +3475,84 @@
 
     body[data-screen="workspace"] .insight-badge {
       background: linear-gradient(135deg, #19b6a3, #8be1d4 54%, #1b4b5c);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(11, 20, 24, 0.42);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-card {
+      position: relative;
+      width: min(620px, 100%);
+      max-height: min(82vh, 760px);
+      overflow-y: auto;
+      padding: 28px;
+      border-radius: 28px;
+      background: #fff;
+      color: #17202b;
+      border: 1px solid #dce8e7;
+      box-shadow: 0 30px 90px rgba(11, 20, 24, 0.28);
+    }
+
+    .modal-card h2 {
+      margin: 0 34px 16px 0;
+      color: #132630;
+      letter-spacing: -0.04em;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      border-radius: 14px;
+      background: #f1f6f6;
+      color: #17202b;
+      border: 1px solid #dce8e7;
+      box-shadow: none;
+    }
+
+    .modal-content {
+      display: grid;
+      gap: 12px;
+    }
+
+    .modal-action,
+    .profile-menu-action {
+      width: 100%;
+      justify-content: flex-start;
+      text-align: left;
+      padding: 13px 14px;
+      border-radius: 14px;
+      background: #f7fbfb;
+      color: #20333d;
+      border: 1px solid #dce8e7;
+      box-shadow: none;
+      font-weight: 850;
+    }
+
+    .modal-action:hover,
+    .profile-menu-action:hover {
+      background: #e8f4f2;
+      border-color: #bfe1dc;
+    }
+
+    .modal-note {
+      padding: 14px;
+      border-radius: 16px;
+      background: #f7fbfb;
+      border: 1px solid #dce8e7;
+      color: #536873;
+      line-height: 1.45;
     }
 
     body[data-screen="workspace"][data-view-mode="phone"] .app {
@@ -4286,33 +4371,33 @@
       <nav class="workspace-rail" aria-label="Workspace navigation">
         <div class="rail-badge">W</div>
         <div class="rail-group">
-          <div class="rail-item active">
+          <div class="rail-item active" role="button" tabindex="0" data-view="home">
             <div class="rail-icon">⌂</div>
             <span>Home</span>
           </div>
-          <div class="rail-item">
+          <div class="rail-item" role="button" tabindex="0" data-view="dms">
             <div class="rail-icon">◌</div>
             <span>DMs</span>
           </div>
-          <div class="rail-item">
+          <div class="rail-item" role="button" tabindex="0" data-view="activity">
             <div class="rail-icon">⟳</div>
             <span>Activity</span>
           </div>
-          <div class="rail-item">
+          <div class="rail-item" role="button" tabindex="0" data-view="files">
             <div class="rail-icon">▣</div>
             <span>Files</span>
           </div>
-          <div class="rail-item">
+          <div class="rail-item" role="button" tabindex="0" data-view="more">
             <div class="rail-icon">•••</div>
             <span>More</span>
           </div>
-          <div class="rail-item">
+          <div class="rail-item" role="button" tabindex="0" data-view="admin">
             <div class="rail-icon">⚙</div>
             <span>Admin</span>
           </div>
         </div>
         <div style="margin-top:auto;">
-          <div class="rail-plus">＋</div>
+          <button id="create-menu-btn" class="rail-plus" type="button" aria-label="Create menu">＋</button>
         </div>
       </nav>
       <aside class="panel auth-panel">
@@ -4326,22 +4411,22 @@
             <button type="button" aria-label="Compose">✎</button>
           </div>
         </div>
-        <div class="upgrade-card">🚀 Upgrade Plan</div>
+        <button id="upgrade-plan-btn" class="upgrade-card" type="button">🚀 Upgrade Plan</button>
 
         <div class="workspace-nav-menu" aria-label="Workspace sections">
-          <button class="workspace-nav-link active" type="button"><span>#</span> Threads</button>
-          <button class="workspace-nav-link" type="button"><span>◌</span> Huddles / Calls</button>
-          <button class="workspace-nav-link" type="button"><span>✎</span> Drafts &amp; sent</button>
-          <button class="workspace-nav-link" type="button"><span>◇</span> Directories</button>
-          <button class="workspace-nav-link" type="button"><span>☆</span> Starred</button>
+          <button class="workspace-nav-link active" type="button" data-view="threads"><span>#</span> Threads</button>
+          <button class="workspace-nav-link" type="button" data-view="calls"><span>◌</span> Huddles / Calls</button>
+          <button class="workspace-nav-link" type="button" data-view="drafts"><span>✎</span> Drafts &amp; sent</button>
+          <button class="workspace-nav-link" type="button" data-view="directories"><span>◇</span> Directories</button>
+          <button class="workspace-nav-link" type="button" data-view="starred"><span>☆</span> Starred</button>
           <div class="workspace-nav-heading">Channels</div>
-          <button class="workspace-nav-link" type="button"><span>#</span> all-wedoall</button>
-          <button class="workspace-nav-link" type="button"><span>#</span> team-updates</button>
-          <button class="workspace-nav-link" type="button"><span>#</span> projects</button>
+          <button class="workspace-nav-link" type="button" data-view="channel" data-channel="all-wedoall"><span>#</span> all-wedoall</button>
+          <button class="workspace-nav-link" type="button" data-view="channel" data-channel="team-updates"><span>#</span> team-updates</button>
+          <button class="workspace-nav-link" type="button" data-view="channel" data-channel="projects"><span>#</span> projects</button>
           <div class="workspace-nav-heading">Direct messages</div>
-          <button class="workspace-nav-link" type="button"><span>●</span> Direct messages</button>
+          <button class="workspace-nav-link" type="button" data-view="dms"><span>●</span> Direct messages</button>
           <div class="workspace-nav-heading">Apps</div>
-          <button class="workspace-nav-link" type="button"><span>✦</span> wedoall AI</button>
+          <button class="workspace-nav-link" type="button" data-view="ai"><span>✦</span> wedoall AI</button>
         </div>
 
         <button id="profile-toggle-card" class="profile-card hidden" type="button">
@@ -4566,15 +4651,15 @@
         <div id="workspace-content">
           <div class="workspace-topbar">
             <div class="workspace-window-actions">
-              <button type="button" aria-label="Back">‹</button>
-              <button type="button" aria-label="Forward">›</button>
+              <button id="workspace-back-btn" type="button" aria-label="Back">‹</button>
+              <button id="workspace-forward-btn" type="button" aria-label="Forward">›</button>
             </div>
             <div class="workspace-search">
               <span>⌕</span>
               <input id="message-search" type="text" placeholder="Search wedoall">
             </div>
-            <button class="topbar-icon" type="button" aria-label="Help and settings">?</button>
-            <span id="workspace-user-label" class="status-pill">No account</span>
+            <button id="help-btn" class="topbar-icon" type="button" aria-label="Help and settings">?</button>
+            <button id="workspace-user-label" class="status-pill" type="button">No account</button>
           </div>
 
           <div class="workspace-shell">
@@ -4683,7 +4768,7 @@
                   </div>
                 </div>
 
-                <div class="insight-card">
+                <button id="ai-assistant-card" class="insight-card" type="button">
                   <div class="preview-panel-title">
                     <span>wedoall AI</span>
                     <span>Workspace bot</span>
@@ -4691,13 +4776,22 @@
                   <div class="insight-badge"></div>
                   <h3>Good afternoon, team.</h3>
                   <p>Need a summary, follow-up draft, project update, or a quick decision room?</p>
-                </div>
+                </button>
               </aside>
             </div>
           </div>
         </div>
       </main>
     </section>
+  </div>
+
+  <div id="app-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <button id="modal-close-btn" class="modal-close" type="button" aria-label="Close">×</button>
+      <p id="modal-kicker" class="eyebrow">wedoall</p>
+      <h2 id="modal-title">Panel</h2>
+      <div id="modal-content" class="modal-content"></div>
+    </div>
   </div>
 
   <script type="module">
@@ -4858,6 +4952,17 @@
     const userLabel = document.getElementById("user-label");
     const workspaceChatStatus = document.getElementById("workspace-chat-status");
     const workspaceUserLabel = document.getElementById("workspace-user-label");
+    const workspaceBackBtn = document.getElementById("workspace-back-btn");
+    const workspaceForwardBtn = document.getElementById("workspace-forward-btn");
+    const helpBtn = document.getElementById("help-btn");
+    const createMenuBtn = document.getElementById("create-menu-btn");
+    const upgradePlanBtn = document.getElementById("upgrade-plan-btn");
+    const aiAssistantCard = document.getElementById("ai-assistant-card");
+    const appModal = document.getElementById("app-modal");
+    const modalCloseBtn = document.getElementById("modal-close-btn");
+    const modalKicker = document.getElementById("modal-kicker");
+    const modalTitle = document.getElementById("modal-title");
+    const modalContent = document.getElementById("modal-content");
     const friendCodeBox = document.getElementById("friend-code");
     const friendCodeInput = document.getElementById("friend-code-input");
     const addFriendBtn = document.getElementById("add-friend-btn");
@@ -4975,6 +5080,10 @@
     let profileDrawerOpen = false;
     let pendingBusinessSignup = false;
     let activeScreen = "home";
+    let currentWorkspaceView = "threads";
+    let currentWorkspaceChannel = "all-wedoall";
+    let workspaceHistory = ["threads"];
+    let workspaceHistoryIndex = 0;
     let selectedBillingMode = "monthly";
 
     function getAvatarUrl(profile) {
@@ -6928,7 +7037,497 @@
       renderOrganizations();
       renderFriendsList();
       setAdminPanelState();
-      setScreen(loggedIn ? "workspace" : activeScreen);
+      if (loggedIn && activeScreen !== "organization") {
+        setScreen("workspace");
+      } else {
+        setScreen(activeScreen);
+      }
+    }
+
+    function openModal(title, html, kicker = "wedoall") {
+      modalKicker.textContent = kicker;
+      modalTitle.textContent = title;
+      modalContent.innerHTML = html;
+      appModal.classList.remove("hidden");
+    }
+
+    function closeModal() {
+      appModal.classList.add("hidden");
+      modalContent.innerHTML = "";
+    }
+
+    function modalButton(label, action, extraClass = "") {
+      return `<button class="modal-action ${extraClass}" type="button" data-modal-action="${action}">${label}</button>`;
+    }
+
+    function setActiveNavigation(view, channel = "") {
+      document.querySelectorAll(".rail-item").forEach((item) => {
+        item.classList.toggle("active", item.dataset.view === view);
+      });
+
+      document.querySelectorAll(".workspace-nav-link").forEach((item) => {
+        const isChannelMatch = item.dataset.view === "channel" && view === "channel" && item.dataset.channel === channel;
+        const isViewMatch = item.dataset.view === view && view !== "channel";
+        item.classList.toggle("active", isChannelMatch || isViewMatch);
+      });
+    }
+
+    function pushWorkspaceHistory(view, channel = "") {
+      const key = `${view}:${channel}`;
+      const currentKey = workspaceHistory[workspaceHistoryIndex];
+      if (currentKey === key) {
+        return;
+      }
+      workspaceHistory = workspaceHistory.slice(0, workspaceHistoryIndex + 1);
+      workspaceHistory.push(key);
+      workspaceHistoryIndex = workspaceHistory.length - 1;
+    }
+
+    function getLocalRoomKey(roomId = activeRoomId || currentWorkspaceChannel || "workspace") {
+      return `wedoall-local-room-${roomId}`;
+    }
+
+    function loadLocalMessages(roomId = activeRoomId || currentWorkspaceChannel || "workspace") {
+      try {
+        return JSON.parse(localStorage.getItem(getLocalRoomKey(roomId)) || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function saveLocalMessage(data, roomId = activeRoomId || currentWorkspaceChannel || "workspace") {
+      const items = loadLocalMessages(roomId);
+      const entry = {
+        id: `local_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+        data
+      };
+      items.push(entry);
+      localStorage.setItem(getLocalRoomKey(roomId), JSON.stringify(items.slice(-200)));
+      return entry;
+    }
+
+    function renderLocalRoom(roomId = activeRoomId || currentWorkspaceChannel || "workspace") {
+      const entries = loadLocalMessages(roomId);
+      lastRoomMessages = entries;
+      if (!entries.length) {
+        showEmptyState();
+        return;
+      }
+      renderMessagesFromEntries(entries);
+    }
+
+    function appendMessageImmediately(data) {
+      const entry = {
+        id: `temp_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+        data
+      };
+      lastRoomMessages = [...lastRoomMessages, entry];
+      renderMessagesFromEntries(lastRoomMessages);
+      return entry.id;
+    }
+
+    function removeImmediateMessage(id) {
+      lastRoomMessages = lastRoomMessages.filter((entry) => entry.id !== id);
+    }
+
+    function setLocalRoom(roomId, roomName, type = "local") {
+      activeRoomId = roomId;
+      activeRoomName = roomName;
+      activeRoomData = {
+        id: roomId,
+        name: roomName,
+        type,
+        memberIds: currentUser ? [currentUser.uid] : [],
+        memberNames: currentUser ? [getDisplayName(currentUser)] : []
+      };
+      roomMembers.clear();
+      if (currentUser) {
+        roomMembers.add(currentUser.uid);
+      }
+      clearReply();
+      updateRoomMeta(roomId, roomName);
+      setSignedInState(currentUser);
+      renderLocalRoom(roomId);
+      setStatus(chatStatus, `${roomName} opened in local mode.`);
+    }
+
+    function renderWorkspacePlaceholder(title, description, actions = []) {
+      roomLabel.textContent = title;
+      workspaceChatStatus.textContent = description;
+      monitorBanner.textContent = "This is a working workspace view. Some advanced data appears as placeholders until connected.";
+      messagesDiv.innerHTML = `
+        <div class="empty-state">
+          <strong>${escapeHtml(title)}</strong>
+          <p>${escapeHtml(description)}</p>
+        </div>
+      `;
+      if (actions.length) {
+        const panel = document.createElement("div");
+        panel.className = "workspace-placeholder-actions";
+        actions.forEach(({ label, view, channel, onClick }) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "secondary";
+          button.textContent = label;
+          button.addEventListener("click", () => {
+            if (onClick) {
+              onClick();
+            } else {
+              navigateWorkspaceView(view, { channel });
+            }
+          });
+          panel.append(button);
+        });
+        messagesDiv.append(panel);
+      }
+    }
+
+    async function openWorkspaceChannel(channel) {
+      currentWorkspaceChannel = channel;
+      const roomId = `channel_${channel}`;
+      const roomName = `# ${channel}`;
+      try {
+        if (!roomsById.has(roomId)) {
+          await setDoc(doc(db, "chatRooms", roomId), {
+            type: "public",
+            public: true,
+            name: channel,
+            memberIds: currentUser ? [currentUser.uid] : [],
+            memberNames: currentUser ? [getDisplayName(currentUser)] : [],
+            updatedAt: serverTimestamp(),
+            createdAt: serverTimestamp()
+          }, { merge: true });
+        }
+        openRoom(roomId, roomName);
+        currentWorkspaceView = "channel";
+        setActiveNavigation("channel", channel);
+        setStatus(chatStatus, `${roomName} opened.`);
+      } catch (error) {
+        console.warn("Falling back to local channel:", error);
+        setLocalRoom(roomId, roomName, "public");
+        currentWorkspaceView = "channel";
+        setActiveNavigation("channel", channel);
+      }
+    }
+
+    function navigateWorkspaceView(view, options = {}, pushHistory = true) {
+      if (!currentUser) {
+        setStatus(authStatus, "Sign in first to open the workspace.", true);
+        setScreen("signin");
+        return;
+      }
+
+      const channel = options.channel || "";
+      currentWorkspaceView = view;
+      if (channel) {
+        currentWorkspaceChannel = channel;
+      }
+      setActiveNavigation(view, channel);
+      if (pushHistory) {
+        pushWorkspaceHistory(view, channel);
+      }
+
+      if (view === "home") {
+        renderWorkspacePlaceholder("Workspace home", "Quick overview of your rooms, contacts, notifications, plan, and recent activity.", [
+          { label: "Open Threads", view: "threads" },
+          { label: "Open DMs", view: "dms" },
+          { label: "View Billing", view: "billing" }
+        ]);
+        renderMemberList();
+        return;
+      }
+
+      if (view === "threads") {
+        if (activeRoomId) {
+          updateRoomMeta(activeRoomId, activeRoomName);
+          renderMessagesFromEntries(lastRoomMessages);
+        } else {
+          renderWorkspacePlaceholder("Threads", "Choose a room, channel, or direct message to start messaging.", [
+            { label: "Open # all-wedoall", view: "channel", channel: "all-wedoall" },
+            { label: "Start direct message", view: "dms" }
+          ]);
+        }
+        return;
+      }
+
+      if (view === "channel") {
+        openWorkspaceChannel(channel || "all-wedoall");
+        return;
+      }
+
+      if (view === "dms") {
+        const friends = getFriendProfiles();
+        renderWorkspacePlaceholder("Direct messages", friends.length ? "Choose a saved contact from the sidebar or start a new DM." : "No saved contacts yet. Use the create menu or profile tools to start a direct message.", [
+          { label: "New direct message", onClick: () => openCreateMenu("dm") },
+          { label: "Open contacts", onClick: () => setProfileDrawer(true) }
+        ]);
+        return;
+      }
+
+      if (view === "activity") {
+        renderWorkspacePlaceholder("Activity", "Notifications, mentions, reactions, and workspace updates will appear here.", [
+          { label: "Enable Notifications", onClick: () => notificationsBtn.click() },
+          { label: "Open unread threads", view: "threads" }
+        ]);
+        return;
+      }
+
+      if (view === "files") {
+        renderWorkspacePlaceholder("Files", "Upload a file link or image URL from the composer. Full file storage can connect to Firebase Storage later.", [
+          { label: "Attach image URL", onClick: () => imageUrlInput.focus() },
+          { label: "Upload file", onClick: () => openCreateMenu("upload") }
+        ]);
+        return;
+      }
+
+      if (view === "calls") {
+        renderWorkspacePlaceholder("Huddles / Calls", "Start a lightweight voice or video session for the current room.", [
+          { label: "Start voice call", onClick: () => openCallModal("voice") },
+          { label: "Start video call", onClick: () => openCallModal("video") }
+        ]);
+        return;
+      }
+
+      if (view === "drafts") {
+        renderWorkspacePlaceholder("Drafts & sent", "Drafts saved in this browser and recently sent local messages can appear here.", [
+          { label: "Write a draft", onClick: () => messageInput.focus() },
+          { label: "Open current thread", view: "threads" }
+        ]);
+        return;
+      }
+
+      if (view === "directories") {
+        renderWorkspacePlaceholder("Directories", "Members and saved contacts are listed in your profile tools and People Here panel.", [
+          { label: "Open profile tools", onClick: () => setProfileDrawer(true) },
+          { label: "Show People Here", onClick: () => renderMemberList() }
+        ]);
+        return;
+      }
+
+      if (view === "starred") {
+        renderWorkspacePlaceholder("Starred messages", "Pinned and starred messages will appear here. Owners can pin messages from a room.", [
+          { label: "Open current room", view: "threads" }
+        ]);
+        return;
+      }
+
+      if (view === "admin") {
+        if (!canUseOwnerPanel()) {
+          renderWorkspacePlaceholder("Admin unavailable", "Admin tools are available only for owner or business organization accounts.", [
+            { label: "Open organization settings", view: "settings" },
+            { label: "View plans", view: "billing" }
+          ]);
+          setStatus(chatStatus, "Admin requires a business owner account.", true);
+          return;
+        }
+        setProfileDrawer(true);
+        renderWorkspacePlaceholder("Admin panel", "Owner tools are open in the sidebar. Manage people, plans, roles, moderation, and audit logs there.", [
+          { label: "Search people", onClick: () => adminSearch.focus() },
+          { label: "View audit log", onClick: () => auditLogList.scrollIntoView({ behavior: "smooth", block: "center" }) }
+        ]);
+        return;
+      }
+
+      if (view === "billing") {
+        renderWorkspacePlaceholder("Billing and plans", "Manage plans from the pricing section. PayPal subscriptions stay connected to your signed-in account.", [
+          { label: "Open pricing", onClick: () => {
+            setScreen("home");
+            window.setTimeout(scrollToPricing, 50);
+          } },
+          { label: "Current plan settings", onClick: () => setProfileDrawer(true) }
+        ]);
+        return;
+      }
+
+      if (view === "ai") {
+        openBotAssistant();
+        renderWorkspacePlaceholder("wedoall AI", "Use the assistant panel for summaries, updates, task lists, and reply help.", [
+          { label: "Open assistant", onClick: openBotAssistant }
+        ]);
+        return;
+      }
+
+      if (view === "more" || view === "settings") {
+        openMoreMenu();
+        renderWorkspacePlaceholder("More options", "Use the menu to open profile tools, billing, settings, or create actions.", [
+          { label: "Open menu", onClick: openMoreMenu }
+        ]);
+      }
+    }
+
+    function goWorkspaceHistory(direction) {
+      const nextIndex = workspaceHistoryIndex + direction;
+      if (nextIndex < 0 || nextIndex >= workspaceHistory.length) {
+        setStatus(chatStatus, direction < 0 ? "No previous workspace view." : "No next workspace view.", true);
+        return;
+      }
+      workspaceHistoryIndex = nextIndex;
+      const [view, channel = ""] = workspaceHistory[workspaceHistoryIndex].split(":");
+      navigateWorkspaceView(view, { channel }, false);
+    }
+
+    function openHelpModal() {
+      openModal("Help and support", `
+        <div class="modal-note">Need help? Use the quick actions below. This is a local support panel so every help button does something now.</div>
+        ${modalButton("How do I create a channel?", "help-channel")}
+        ${modalButton("How do I invite someone?", "help-invite")}
+        ${modalButton("How do plans work?", "help-plans")}
+        ${modalButton("Contact support", "help-support")}
+      `, "Support");
+    }
+
+    function openProfileMenu() {
+      const businessLine = currentProfile?.accountType === "business" || getOrganizationIds().length
+        ? modalButton("Organization settings", "profile-org")
+        : `<button class="profile-menu-action" type="button" disabled title="Business organization required">Organization settings - business only</button>`;
+      openModal("Profile menu", `
+        <div class="modal-note"><strong>${escapeHtml(getDisplayName(currentUser))}</strong><br>${escapeHtml(currentUser?.email || "")}</div>
+        ${modalButton("Profile", "profile-open")}
+        ${modalButton("Account settings", "profile-settings")}
+        ${businessLine}
+        ${modalButton("Billing / plan", "profile-billing")}
+        ${modalButton("Sign out", "profile-signout", "danger")}
+      `, "Account");
+    }
+
+    function openCreateMenu(focus = "") {
+      openModal("Create", `
+        ${modalButton("New channel", "create-channel")}
+        ${modalButton("New direct message", "create-dm")}
+        ${modalButton("Upload file", "create-upload")}
+        ${modalButton("Create organization invite", "create-invite")}
+        <div class="modal-note">${focus ? `Suggested action: ${escapeHtml(focus)}.` : "Choose an action to continue."}</div>
+      `, "Create menu");
+    }
+
+    function openMoreMenu() {
+      openModal("More options", `
+        ${modalButton("Profile tools", "profile-open")}
+        ${modalButton("Notifications", "more-activity")}
+        ${modalButton("Files", "more-files")}
+        ${modalButton("Billing and plans", "profile-billing")}
+        ${modalButton("Create menu", "more-create")}
+      `, "More");
+    }
+
+    function openCallModal(type = "voice") {
+      const roomName = activeRoomName || currentWorkspaceChannel || "workspace";
+      openModal(`${type === "video" ? "Video" : "Voice"} call started`, `
+        <div class="modal-note">A ${type} call panel is ready for <strong>${escapeHtml(roomName)}</strong>. Full calling can be connected later; this panel confirms the action works now.</div>
+        ${modalButton("Copy call note", "call-copy")}
+        ${modalButton("Close call panel", "modal-close")}
+      `, "Calls");
+      setStatus(chatStatus, `${type === "video" ? "Video" : "Voice"} call started for ${roomName}.`);
+    }
+
+    function openBotAssistant() {
+      openModal("wedoall AI assistant", `
+        <div class="modal-note">Pick a quick action. The assistant adds a helpful draft to your reply box so you can edit and send it.</div>
+        ${modalButton("Summarize channel", "ai-summary")}
+        ${modalButton("Draft update", "ai-update")}
+        ${modalButton("Create task list", "ai-tasks")}
+        ${modalButton("Help me reply", "ai-reply")}
+      `, "Workspace bot");
+    }
+
+    function handleModalAction(action) {
+      if (!action) {
+        return;
+      }
+      if (action === "modal-close") {
+        closeModal();
+        return;
+      }
+      if (action === "profile-open" || action === "profile-settings") {
+        closeModal();
+        setProfileDrawer(true);
+        setStatus(chatStatus, "Profile tools opened in the sidebar.");
+        return;
+      }
+      if (action === "profile-org") {
+        closeModal();
+        navigateWorkspaceView("admin");
+        return;
+      }
+      if (action === "profile-billing" || action === "help-plans") {
+        closeModal();
+        navigateWorkspaceView("billing");
+        return;
+      }
+      if (action === "profile-signout") {
+        closeModal();
+        logOut();
+        return;
+      }
+      if (action === "create-channel") {
+        closeModal();
+        const name = window.prompt("New channel name", "new-channel");
+        if (name) {
+          navigateWorkspaceView("channel", { channel: slugifyRoomName(name) || "new-channel" });
+        }
+        return;
+      }
+      if (action === "create-dm") {
+        closeModal();
+        setProfileDrawer(true);
+        friendCodeInput.focus();
+        setStatus(chatStatus, "Enter a username to start a direct message.");
+        return;
+      }
+      if (action === "create-upload") {
+        closeModal();
+        imageUrlInput.focus();
+        setStatus(chatStatus, "Paste an image URL, then click Send Image.");
+        return;
+      }
+      if (action === "create-invite") {
+        closeModal();
+        copyOrgInviteBtn.click();
+        return;
+      }
+      if (action === "more-activity") {
+        closeModal();
+        navigateWorkspaceView("activity");
+        return;
+      }
+      if (action === "more-files") {
+        closeModal();
+        navigateWorkspaceView("files");
+        return;
+      }
+      if (action === "more-create") {
+        closeModal();
+        openCreateMenu();
+        return;
+      }
+      if (action.startsWith("ai-")) {
+        const prompts = {
+          "ai-summary": "Summary draft: Here are the key points from this channel...",
+          "ai-update": "Team update: Today we completed..., next we will...",
+          "ai-tasks": "Task list:\n- Owner:\n- Next step:\n- Due date:",
+          "ai-reply": "Reply draft: Thanks for the update. I think the next best step is..."
+        };
+        messageInput.value = prompts[action] || "";
+        closeModal();
+        messageInput.focus();
+        setStatus(chatStatus, "AI draft added to the reply box.");
+        return;
+      }
+      if (action === "call-copy") {
+        copyText(`Call started in ${activeRoomName || currentWorkspaceChannel || "wedoall"}`, "Call note copied.");
+        return;
+      }
+      if (action.startsWith("help-")) {
+        const helpText = {
+          "help-channel": "Create a channel from the plus menu, then choose New channel.",
+          "help-invite": "Create or join an organization, then copy the organization invite link.",
+          "help-support": "Support email draft opened."
+        };
+        if (action === "help-support") {
+          window.location.href = "mailto:admin@gmail.com?subject=wedoall%20support";
+        }
+        setStatus(chatStatus, helpText[action] || "Help topic opened.");
+      }
     }
 
     function formatTime(value) {
@@ -7003,7 +7602,20 @@
       memberList.innerHTML = "";
 
       if (!activeRoomId) {
-        memberList.innerHTML = '<div class="empty-state">Open a room to see who is around.</div>';
+        if (currentProfile) {
+          const row = document.createElement("div");
+          row.className = "member-row";
+          const info = document.createElement("div");
+          info.className = "member-name";
+          info.append(createAvatar(currentProfile), document.createTextNode(currentProfile.username || currentProfile.email || "You"));
+          const meta = document.createElement("div");
+          meta.className = "member-meta";
+          meta.textContent = "Online in this workspace";
+          row.append(info, meta);
+          memberList.append(row);
+        } else {
+          memberList.innerHTML = '<div class="empty-state">Sign in to see who is around.</div>';
+        }
         return;
       }
 
@@ -7494,6 +8106,8 @@
     }
 
     function openRoom(roomId, roomName) {
+      currentWorkspaceView = "threads";
+      setActiveNavigation("threads");
       activeRoomId = roomId;
       activeRoomName = roomName;
       activeRoomData = roomsById.get(roomId) || null;
@@ -7518,7 +8132,9 @@
           renderMessages(snapshot);
         },
         (error) => {
-          setStatus(chatStatus, error.message, true);
+          console.warn("Message listener failed, using local fallback:", error);
+          renderLocalRoom(roomId);
+          setStatus(chatStatus, "Firebase messages could not load, so local messages are shown for this room.", true);
         }
       );
 
@@ -7933,9 +8549,13 @@
     }
 
     async function sendImageMessage() {
-      if (!currentUser || !activeRoomId) {
-        setStatus(chatStatus, "Open a chat first.", true);
+      if (!currentUser) {
+        setStatus(chatStatus, "Sign in first.", true);
         return;
+      }
+
+      if (!activeRoomId) {
+        setLocalRoom(`local_${currentWorkspaceView || "threads"}`, currentWorkspaceView === "files" ? "Files" : "Local workspace", "local");
       }
 
       if (!getPlanLimits(currentProfile).canSendImages) {
@@ -7956,16 +8576,21 @@
         return;
       }
 
+      const messageData = {
+        text: messageInput.value.trim(),
+        imageUrl,
+        user: getDisplayName(currentUser),
+        userEmail: currentUser.email,
+        senderUid: currentUser.uid,
+        rank: currentProfile?.rank || "",
+        rankColor: currentProfile?.rankColor || "",
+        time: Date.now()
+      };
+      const tempId = appendMessageImmediately(messageData);
+
       try {
         await addDoc(collection(db, "chatRooms", activeRoomId, "messages"), {
-          text: messageInput.value.trim(),
-          imageUrl,
-          user: getDisplayName(currentUser),
-          userEmail: currentUser.email,
-          senderUid: currentUser.uid,
-          rank: currentProfile?.rank || "",
-          rankColor: currentProfile?.rankColor || "",
-          time: Date.now(),
+          ...messageData,
           createdAt: serverTimestamp()
         });
         await setDoc(doc(db, "chatRooms", activeRoomId), {
@@ -7975,7 +8600,12 @@
         messageInput.value = "";
         setStatus(chatStatus, "Image sent.");
       } catch (error) {
-        setStatus(chatStatus, error.message, true);
+        saveLocalMessage(messageData, activeRoomId);
+        removeImmediateMessage(tempId);
+        renderLocalRoom(activeRoomId);
+        imageUrlInput.value = "";
+        messageInput.value = "";
+        setStatus(chatStatus, "Firebase was not available, so the image message was saved locally in this browser.", true);
       }
     }
 
@@ -8199,16 +8829,25 @@
         return;
       }
 
+      if (!activeRoomId) {
+        setLocalRoom(`local_${currentWorkspaceView || "threads"}`, currentWorkspaceView === "dms" ? "Direct messages" : "Local workspace", "local");
+      }
+
+      const messageData = {
+        text,
+        user: getDisplayName(currentUser),
+        userEmail: currentUser.email,
+        senderUid: currentUser.uid,
+        rank: currentProfile?.rank || "",
+        rankColor: currentProfile?.rankColor || "",
+        replyTo: activeReply,
+        time: Date.now()
+      };
+      const tempId = appendMessageImmediately(messageData);
+
       try {
         await addDoc(collection(db, "chatRooms", activeRoomId, "messages"), {
-          text,
-          user: getDisplayName(currentUser),
-          userEmail: currentUser.email,
-          senderUid: currentUser.uid,
-          rank: currentProfile?.rank || "",
-          rankColor: currentProfile?.rankColor || "",
-          replyTo: activeReply,
-          time: Date.now(),
+          ...messageData,
           createdAt: serverTimestamp()
         });
         await setDoc(doc(db, "chatRooms", activeRoomId), {
@@ -8219,7 +8858,13 @@
         setTypingState(false);
         setStatus(chatStatus, "Message sent.");
       } catch (error) {
-        setStatus(chatStatus, error.message, true);
+        saveLocalMessage(messageData, activeRoomId);
+        removeImmediateMessage(tempId);
+        renderLocalRoom(activeRoomId);
+        messageInput.value = "";
+        clearReply();
+        setTypingState(false);
+        setStatus(chatStatus, "Firebase was not available, so the message was saved locally in this browser.", true);
       }
     }
 
@@ -8396,6 +9041,9 @@
         const spacer = messageInput.value && !messageInput.value.endsWith(" ") ? " " : "";
         messageInput.value += `${spacer}${token} `;
         messageInput.focus();
+        if (picker === stickerPicker) {
+          sendMessage();
+        }
       });
     });
     messageSearch.addEventListener("input", () => {
@@ -8403,10 +9051,25 @@
       const filtered = term
         ? lastRoomMessages.filter(({ data }) =>
             String(data.text || "").toLowerCase().includes(term) ||
-            String(data.user || "").toLowerCase().includes(term)
+            String(data.user || "").toLowerCase().includes(term) ||
+            String(activeRoomName || "").toLowerCase().includes(term) ||
+            Array.from(profilesByUid.values()).some((profile) =>
+              `${profile.username || ""} ${profile.email || ""}`.toLowerCase().includes(term)
+            )
           )
         : lastRoomMessages;
-      renderMessagesFromEntries(filtered);
+      if (!term) {
+        renderMessagesFromEntries(filtered);
+        return;
+      }
+      if (filtered.length) {
+        renderMessagesFromEntries(filtered);
+      } else {
+        renderWorkspacePlaceholder("Search results", `No messages matched "${term}". Try searching a teammate, channel, file, or room name.`, [
+          { label: "Open directory", view: "directories" },
+          { label: "Open files", view: "files" }
+        ]);
+      }
     });
     notificationsBtn.addEventListener("click", async () => {
       if (!("Notification" in window)) {
@@ -8476,6 +9139,65 @@
     });
     sendBtn.addEventListener("click", sendMessage);
     sendImageBtn.addEventListener("click", sendImageMessage);
+    document.querySelectorAll(".rail-item[data-view]").forEach((item) => {
+      item.addEventListener("click", () => navigateWorkspaceView(item.dataset.view));
+      item.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          navigateWorkspaceView(item.dataset.view);
+        }
+      });
+    });
+    document.querySelectorAll(".workspace-nav-link[data-view]").forEach((item) => {
+      item.addEventListener("click", () => {
+        navigateWorkspaceView(item.dataset.view, { channel: item.dataset.channel || "" });
+      });
+    });
+    upgradePlanBtn.addEventListener("click", () => navigateWorkspaceView("billing"));
+    document.querySelectorAll(".sidebar-actions button").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (button.getAttribute("aria-label") === "Settings") {
+          setProfileDrawer(true);
+          navigateWorkspaceView("settings");
+        } else {
+          openCreateMenu();
+        }
+      });
+    });
+    createMenuBtn.addEventListener("click", () => openCreateMenu());
+    workspaceBackBtn.addEventListener("click", () => goWorkspaceHistory(-1));
+    workspaceForwardBtn.addEventListener("click", () => goWorkspaceHistory(1));
+    helpBtn.addEventListener("click", openHelpModal);
+    workspaceUserLabel.addEventListener("click", openProfileMenu);
+    aiAssistantCard.addEventListener("click", () => navigateWorkspaceView("ai"));
+    modalCloseBtn.addEventListener("click", closeModal);
+    appModal.addEventListener("click", (event) => {
+      if (event.target === appModal) {
+        closeModal();
+      }
+    });
+    modalContent.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-modal-action]");
+      if (button) {
+        handleModalAction(button.dataset.modalAction);
+      }
+    });
+    voiceCallLink.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (voiceCallLink.classList.contains("disabled")) {
+        setStatus(chatStatus, voiceCallLink.title || "Voice calls are not available on this plan.", true);
+        return;
+      }
+      openCallModal("voice");
+    });
+    videoCallLink.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (videoCallLink.classList.contains("disabled")) {
+        setStatus(chatStatus, videoCallLink.title || "Video calls are not available on this plan.", true);
+        return;
+      }
+      openCallModal("video");
+    });
     messageInput.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
         sendMessage();
